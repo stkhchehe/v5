@@ -1,72 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UnblockZone</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>unblockzone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vapor:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-transform: lowercase;
+    }
+
+    body, html {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #2f2f2f;
+      color: white;
+      font-family: 'Vapor', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      animation: bodyAnim 1s ease-in-out;
+    }
+
+    @keyframes bodyAnim {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, #4e9fff, #4c80e4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      opacity: 0.6;
+      animation: bubbleAnimation 10s infinite ease-in-out;
+      mix-blend-mode: screen;
+    }
+
+    .bubble-small {
+      width: 50px;
+      height: 50px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 2s;
+    }
+
+    .bubble-medium {
+      width: 100px;
+      height: 100px;
+      top: 40%;
+      left: 60%;
+      animation-delay: 4s;
+    }
+
+    .bubble-large {
+      width: 150px;
+      height: 150px;
+      top: 30%;
+      left: 80%;
+      animation-delay: 6s;
+    }
+
+    @keyframes bubbleAnimation {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateY(-60px) scale(1.05);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+      }
+    }
+
+    .sidebar {
+      position: fixed;
+      width: 4.5vw;
+      background: linear-gradient(45deg, #1e1e1e, #2a2a2a);
+      height: 100vh;
+      transition: width 0.3s ease-in-out, background-color 0.5s ease-in-out;
+      overflow: hidden;
+      z-index: 999;
+      top: 0;
+      left: 0;
+    }
+
+    .sidebar:hover {
+      width: 13vw;
+      background: linear-gradient(45deg, #111, #222);
+    }
+
+    .sidebar ul {
+      display: flex;
+      flex-direction: column;
+      list-style-type: none;
+      gap: 1rem;
+      padding-top: 2rem;
+    }
+
+    .sidebar li {
+      color: white;
+      display: flex;
+      align-items: center;
+      transition: background 0.2s ease, transform 0.2s ease;
+      border-radius: 2vh;
+      overflow: hidden;
+      font-weight: bold;
+    }
+
+    .sidebar li:hover {
+      background: gray;
+      transform: scale(1.05);
+      transition: all 0.3s ease;
+    }
+
+    .sidebar li .container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar li .icon {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .sidebar li .text {
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+      font-size: 1.3rem;
+    }
+
+    .sidebar:hover li .text {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .sidebar .highlighted {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .welcome {
+      display: flex;
+      width: 100%;
+      animation: fadeIn 1.5s ease-in-out;
+      margin-left: 12vw;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .welcomeone,
+    .welcometwo {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      width: 50vw;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .welcomeone .text-container {
+      position: relative;
+      opacity: 0;
+      transform: translateX(-50px);
+      animation: fadeSlideIn 1.2s forwards ease-in-out;
+    }
+
+    .welcomeone h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+
+    .welcomeone h1:hover {
+      transform: scale(1.03);
+    }
+
+    .splash-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      opacity: 0;
+      animation: fadeSlideIn 1.4s forwards ease-in-out;
+      animation-delay: 0.3s;
+      transform: translateX(-30px);
+    }
+
+    .splash-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+      transition: opacity 1s ease;
+    }
+
+    .welcometwo button {
+      padding: 1.8rem 3.5rem;
+      font-size: 1.6rem;
+      font-family: 'Vapor', sans-serif;
+      font-weight: 700;
+      border: none;
+      border-radius: 100rem;
+      background: linear-gradient(45deg, #ff00b3, #00bfff);
+      color: white;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.3s ease-in-out;
+      animation: buttonBounce 1s ease-in-out infinite;
+    }
+
+    @keyframes buttonBounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .welcometwo button:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: linear-gradient(45deg, #ff00b3, #00bfff);
+      transition: all 0.4s ease;
+      transform: translate(-50%, -50%) rotate(45deg);
+      border-radius: 50%;
+      opacity: 0;
+      z-index: 0;
+    }
+
+    .welcometwo button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
+      filter: brightness(1.2);
+    }
+
+    .welcometwo button:hover:before {
+      opacity: 1;
+      width: 0;
+      height: 0;
+    }
+
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
 </head>
-<body class="body">
-    <div class="body-notsupported">
-        <h1>This screen size is not supported!</h1>
+<body>
+  <div id="particles-js"></div>
+
+  <div class="bubble bubble-small"></div>
+  <div class="bubble bubble-medium"></div>
+  <div class="bubble bubble-large"></div>
+
+  <div class="sidebar">
+    <ul>
+      <li class="highlighted">
+        <div class="container">
+          <div class="icon"><i class="fa-solid fa-house"></i></div>
+          <div class="text">home</div>
+        </div>
+      </li>
+      <li>
+        <div class="container">
+          <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
+          <div class="text">games</div>
+        </div>
+      </li>
+      <li>
+        <div class="container">
+          <div class="icon"><i class="fa-solid fa-tv"></i></div>
+          <div class="text">movies</div>
+        </div>
+      </li>
+      <li>
+        <div class="container">
+          <div class="icon"><i class="fa-solid fa-tablet"></i></div>
+          <div class="text">apps</div>
+        </div>
+      </li>
+      <li>
+        <div class="container">
+          <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+          <div class="text">tabs</div>
+        </div>
+      </li>
+      <li>
+        <div class="container">
+          <div class="icon"><i class="fa-solid fa-gear"></i></div>
+          <div class="text">settings</div>
+        </div>
+      </li>
+      <!-- Added Partners Page -->
+      <li>
+        <div class="container">
+          <div class="icon"><i class="fa-solid fa-handshake"></i></div>
+          <div class="text">partners</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="welcome">
+    <div class="welcomeone">
+      <div class="text-container">
+        <h1>unblockzone v5</h1>
+        <div class="splash-wrapper">
+          <div class="splash-text" id="splash-text">welcome to unblockzone</div>
+        </div>
       </div>
-    <div class="sidebar">
-        <ul>
-            <li class="highlighted">
-                <div class="container">
-                    <div class="icon"><i class="fa-solid fa-house"></i></div>
-                    <div class="text">Home</div>
-                </div>
-            </li>
-            <li>
-                <div class="container">
-                    <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
-                    <div class="text">Games</div>
-                </div>
-            </li>
-            <li>
-                <div class="container">
-                    <div class="icon"><i class="fa-solid fa-tv"></i></div>
-                    <div class="text">Movies</div>
-                </div>
-            </li>
-            <li>
-                <div class="container">
-                    <div class="icon"><i class="fa-solid fa-tablet"></i></div>
-                    <div class="text">Apps</div>
-                </div>
-            </li>
-            <li>
-                <div class="container">
-                    <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    <div class="text">Tabs</div>
-                </div>
-            </li>
-            <li>
-                <div class="container">
-                    <div class="icon"><i class="fa-brands fa-discord"></i></div>
-                    <div class="text">Discord</div>
-                </div>
-            </li>
-        </ul>
     </div>
-    <div class="welcome">
-        <div class="welcomeone">
-            <div class="text-container">
-                <h1>Unblockzone</h1>
-                <div class="typewriter-container">
-                    <span id="typewritereffect"></span>
-                </div>
-            </div>
-        </div>
-        <div class="welcometwo">
-            <button onclick="window.location.href = 'tabs/index.html'">
-                Get Started!
-            </button>
-        </div>
+    <div class="welcometwo">
+      <button onclick="window.location.href = 'tabs/index.html'">get started!</button>
     </div>
+  </div>
+
+  <script>
+    const splashTexts = [
+      "better, faster, stronger",
+      "made for school legends",
+      "you found the secret zone",
+      "built to bypass boredom",
+      "stay stealthy, stay winning",
+      "ready to escape reality",
+      "gaming unlocked",
+      "surf the web your way",
+      "hide in plain sight",
+      "the future is unblocked",
+      "powered by chill",
+      "classroom approved (kinda)",
+      "access granted",
+      "no restrictions, just fun",
+      "hidden in html",
+      "now in version 5",
+      "play like nobody's watching",
+      "designed for rebels",
+      "cooler than coolmath",
+      "one click away from freedom"
+    ];
+
+    let current = 0;
+    const splash = document.getElementById("splash-text");
+
+    setInterval(() => {
+      splash.style.opacity = 0;
+      setTimeout(() => {
+        current = (current + 1) % splashTexts.length;
+        splash.innerText = splashTexts[current];
+        splash.style.opacity = 1;
+      }, 1000);
+    }, 10000);
+  </script>
 </body>
 </html>
-<script src="scripts.js"></script>
