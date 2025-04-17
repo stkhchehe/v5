@@ -3,284 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>unblockzone</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Combined Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
-            z-index: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scrollbar-width: thin;
+            scrollbar-color: #333333 #111111;
         }
 
-        html, body {
+        body {
+            background-color: #000000;
+            color: #e8eaed;
+            height: 100vh;
             width: 100vw;
-            height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
             display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
         }
+
+        .container {
+            display: flex;
+            flex-grow: 1;
+            height: calc(100vh - 40px);
+            width: 100vw;
+            overflow: hidden;
+        }
+
         .sidebar {
-            position: absolute;
-            width: 3.5vw;
-            background: rgb(19, 19, 55);
+            position: fixed;
+            width: 4.5vw;
+            background: linear-gradient(45deg, #1e1e1e, #2a2a2a);
             height: 100vh;
-            transition: width 0.2s ease-in-out;
+            transition: width 0.3s ease-in-out, background-color 0.5s ease-in-out;
             overflow: hidden;
             z-index: 999;
+            top: 0;
+            left: 0;
         }
+
         .sidebar:hover {
-            width: 10vw;
+            width: 13vw;
+            background: linear-gradient(45deg, #111, #222);
         }
-        .sidebar li:hover {
-            background: gray;
-        }
+
         .sidebar ul {
-            transform: translateY(10%);
             display: flex;
-            width: 100%;
             flex-direction: column;
-            padding: 0;
             list-style-type: none;
             gap: 1rem;
+            padding-top: 2rem;
         }
+
         .sidebar li {
-            color: white;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: row;
-            gap: 0rem;
-            transition: transform 0.5s ease-in-out, gap 0.5s ease-in-out, background 0.2s ease;
-            border-radius: 2vh;
+            display: block;
         }
-        .sidebar li .icon {
+
+        .sidebar a {
+            color: white;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: background 0.2s ease, transform 0.2s ease;
+            border-radius: 2vh;
+            overflow: hidden;
+            font-weight: bold;
+        }
+
+        .sidebar a:hover {
+            background: #444;
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .icon {
             width: 2rem;
             height: 2rem;
-        }
-        .sidebar li .text {
-            width: 4rem;
-            height: 2rem;
-        }
-        .sidebar li .container {
-            width: fit-content;
-            display: flex;
-            flex-direction: row;
-        }
-        .sidebar li .text, .icon {
             display: flex;
             justify-content: center;
             align-items: center;
-            align-content: center;
-            padding: 10px;
         }
-        .sidebar .highlighted {
-            background: rgba(255, 255, 255, 0.329);
+
+        .sidebar .text {
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            font-size: 1.3rem;
         }
-        .tabs-container {
-            position: absolute;
-            right: 0;
-            top: 0;
-            background: black;
-            width: 96.5vw;
-            height: 15vh;
+
+        .sidebar:hover .text {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .sidebar .highlighted a {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .main-content {
+            margin-left: 4.5vw;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
+            height: 100%;
+            width: calc(100vw - 4.5vw);
+            background-color: #000000;
+            overflow: hidden;
+            position: relative;
+            transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
         }
-        .tabs-container .urlbar {
-            width: 100%;
+
+        .sidebar:hover + .main-content {
+            margin-left: 13vw;
+            width: calc(100vw - 13vw);
+        }
+
+        .tabs-top-bar {
+            display: flex;
+            height: 40px;
+            background-color: #000000;
+            align-items: center;
+            padding: 0 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-shrink: 0;
+            transition: 0.3s;
+        }
+
+        .browser-header {
+            background-color: #000000;
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            height: 52px;
+            transition: 1s;
+        }
+
+        .url-bar-container {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            font-family: poppins;
+        }
+
+        .browser-actions {
+            display: flex;
+            margin-right: 8px;
+            transition: 0.5s;
+        }
+
+        .action-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            display: flex;
-            align-self: flex-end;
-            height: 40%;
-            padding: 5px;
-            bottom: 0;
-            position: absolute;
-            background: rgb(19, 23, 53);
+            color: #aaa;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 14px;
+            margin-right: 4px;
         }
-        .tabs-bar {
-            width: 100%;
-            height: 7.5vh;
+
+        .url-bar-wrapper {
+            flex-grow: 1;
             display: flex;
             align-items: center;
-            background: rgb(19, 23, 53);
-            flex-direction: row;
+            height: 36px;
+            background-color: #000000;
+            border-radius: 4px;
+            padding: 0 10px;
+            margin: 0 10px;
+            transition: 0.5s;
         }
-        .tabs-bar .add-tabs button {
+
+        .url-bar {
+            flex-grow: 1;
+            height: 100%;
+            background: transparent;
             border: none;
-            background: none;
-            margin-left: 15px;
-            color: white;
-        }
-        .tabs-container #urlbar-input {
-            width: 100%;
-            border-radius: 2vh;
-            border: none;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-            text-align: center;
-            height: 90%;
-            font-size: 1rem;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: black;
             outline: none;
+            color: #666666;
+            font-size: 14px;
+            padding: 0 10px;
+            font-family: 'Poppins', sans-serif;
         }
-        .tabs-container .urlbar button {
-            padding: 15px;
-            color: white;
-            background: none;
-            border: none;
-            margin-left: 10px;
-            margin-right: 10px;
+
+        .content-area {
+            flex-grow: 1;
+            overflow: hidden;
+            position: relative;
+            height: calc(100% - 52px);
+            width: 100%;
         }
-        .tabs-container .urlbar button:hover {
-            background: rgba(255, 255, 255, 0.329);
-            border-radius: 2vh;
-        }
-        .site-window {
-            position: absolute;
-            width: 96.7vw;
-            height: 85vh;
-            bottom: 0;
-            right: 0;
-            z-index: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-            outline: none;
-        }
-        .site-window iframe {
+
+        iframe {
             width: 100%;
             height: 100%;
+            border-left: 3px solid #333333;
+            border-top: 3px solid #333333;
+            border-right: 3px solid #333333;
+            border-bottom: 0.5px solid #333333;
+            border-top-left-radius: 20px;
+            display: block;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
         }
-        .tabs {
-            display: flex;
-            flex-direction: row;  
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 48px;
+            }
+
+            .sidebar:hover {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 48px;
+                width: calc(100vw - 48px);
+            }
+
+            .sidebar:hover + .main-content {
+                margin-left: 200px;
+                width: calc(100vw - 200px);
+            }
+
+            .text {
+                font-size: 1rem;
+            }
         }
-        .tab {
-            position: relative;
-            padding-right: 20px;
-            display: flex;
-            align-items: center;
-            border: white solid 2px;
-            background: #000934;
-            color: white;
-            border-radius: 6px;
-            padding: 6px 10px;
-            padding: 10px;
-            width: 10rem;
-            margin-left: 10px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .tab .close-btn {
-            position: absolute;
-            right: 10px;
-            top: 2px;
-            z-index: 10;
-            cursor: pointer;
-            color: rgb(255, 255, 255);
-            font-weight: bold;
-            font-size: 14px;
-            transform: translateY(75%);
+
+        @media (max-width: 480px) {
+            .sidebar {
+                width: 40px;
+            }
+
+            .sidebar:hover {
+                width: 180px;
+            }
+
+            .main-content {
+                margin-left: 40px;
+                width: calc(100vw - 40px);
+            }
+
+            .sidebar:hover + .main-content {
+                margin-left: 180px;
+                width: calc(100vw - 180px);
+            }
         }
     </style>
 </head>
-<body class="body">
-    <div class="sidebar">
-        <ul>
-            <!-- Add sidebar items here -->
-        </ul>
-    </div>
-    <div class="tabs-container">
-        <div class="tabs-bar">
-            <div class="tabs"></div>
-            <div class="add-tabs">
-                <button><i class="fa fa-plus"></i></button>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li class="highlighted">
+                    <a href="index.html">
+                        <div class="nav-container">
+                            <div class="icon"><i class="fa-solid fa-house"></i></div>
+                            <div class="text">home</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="games/index.html">
+                        <div class="nav-container">
+                            <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
+                            <div class="text">games</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="movies/index.html">
+                        <div class="nav-container">
+                            <div class="icon"><i class="fa-solid fa-tv"></i></div>
+                            <div class="text">movies</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="apps/index.html">
+                        <div class="nav-container">
+                            <div class="icon"><i class="fa-solid fa-tablet"></i></div>
+                            <div class="text">apps</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="tabs/index.html">
+                        <div class="nav-container">
+                            <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                            <div class="text">tabs</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings/index.html">
+                        <div class="nav-container">
+                            <div class="icon"><i class="fa-solid fa-gear"></i></div>
+                            <div class="text">settings</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="partners/index.html">
+                        <div class="nav-container">
+                            <div class="icon"><i class="fa-solid fa-handshake"></i></div>
+                            <div class="text">partners</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="browser-header">
+                <div class="url-bar-container">
+                    <div class="browser-actions">
+                        <div class="action-btn" id="back-btn">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </div>
+                        <div class="action-btn" id="forward-btn">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                        <div class="action-btn" id="reload-btn">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </div>
+                    </div>
+                    <div class="url-bar-wrapper">
+                        <i class="fa-solid fa-magnifying-glass url-bar-icon"></i>
+                        <input type="text" class="url-bar" id="url-bar" placeholder="Enter search or web address">
+                    </div>
+                </div>
+            </div>
+            <div class="content-area">
+                <iframe src="/landin" id="main-frame"></iframe>
             </div>
         </div>
-        <div class="urlbar">
-            <input id="urlbar-input" type="text" placeholder="Enter URL...">
-            <button onclick="createTab(document.getElementById('urlbar-input').value)"><i class="fa fa-arrow-right"></i></button>
-        </div>
     </div>
-    <div class="site-window"></div>
 
     <script>
-        const tabsContainer = document.querySelector(".tabs");
-        const addTabButton = document.querySelector(".add-tabs button");
-        const siteWindow = document.querySelector(".site-window");
+        const urlBar = document.getElementById('url-bar');
+        const backBtn = document.getElementById('back-btn');
+        const forwardBtn = document.getElementById('forward-btn');
+        const reloadBtn = document.getElementById('reload-btn');
+        const mainFrame = document.getElementById('main-frame');
 
-        let tabId = 0;
-
-        function createTab(url = "https://www.google.com/webhp?igu=1") {
-            tabId++;
-
-            const tab = document.createElement("div");
-            tab.classList.add("tab");
-            tab.dataset.tabId = tabId;
-
-            const spinner = document.createElement("span");
-            spinner.textContent = "Loading...";
-            tab.appendChild(spinner);
-
-            tab.addEventListener("click", () => switchTab(tabId));
-
-            const iframe = document.createElement("iframe");
-            iframe.src = url;
-            iframe.classList.add("site-frame");
-            iframe.dataset.tabId = tabId;
-            iframe.style.display = "none";
-
-            iframe.addEventListener("load", () => {
-                tab.innerHTML = "";
-
-                const icon = document.createElement("img");
-                icon.src = `https://www.google.com/s2/favicons?sz=64&domain=${new URL(url).hostname}`;
-                icon.style.width = "16px";
-                icon.style.height = "16px";
-                icon.style.marginRight = "8px";
-
-                const label = document.createElement("span");
-                label.textContent = iframe.contentDocument?.title || new URL(url).hostname;
-
-                const closeBtn = document.createElement("i");
-                closeBtn.classList.add("fa-solid", "fa-xmark", "close-btn");
-                closeBtn.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    tab.remove();
-                    iframe.remove();
-
-                    const remainingTabs = document.querySelectorAll(".tab");
-                    if (remainingTabs.length > 0) {
-                        const lastTabId = remainingTabs[remainingTabs.length - 1].dataset.tabId;
-                        switchTab(lastTabId);
-                    }
-                });
-
-                tab.appendChild(icon);
-                tab.appendChild(label);
-                tab.appendChild(closeBtn);
-            });
-
-            tabsContainer.appendChild(tab);
-            siteWindow.appendChild(iframe);
-
-            switchTab(tabId);
+        function navigateToUrl(url) {
+            if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('/')) {
+                url = 'https://' + url;
+            }
+            mainFrame.src = url;
         }
 
-        function switchTab(id) {
-            document.querySelectorAll(".site-frame").forEach(f => {
-                f.style.display = f.dataset.tabId === String(id) ? "block" : "none";
-            });
+        urlBar.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                navigateToUrl(urlBar.value);
+            }
+        });
 
-            document.querySelectorAll(".tab").forEach(t => {
-                t.classList.toggle("active-tab", t.dataset.tabId === String(id));
-            });
-        }
+        backBtn.addEventListener('click', () => {
+            mainFrame.contentWindow.history.back();
+        });
 
-        addTabButton.addEventListener("click", () => createTab());
+        forwardBtn.addEventListener('click', () => {
+            mainFrame.contentWindow.history.forward();
+        });
 
-        createTab();
+        reloadBtn.addEventListener('click', () => {
+            mainFrame.contentWindow.location.reload();
+        });
     </script>
 </body>
 </html>
