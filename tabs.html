@@ -1,398 +1,358 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Combined Design</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-            scrollbar-width: thin;
-            scrollbar-color: #333333 #111111;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>unblockzone</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      scrollbar-width: thin;
+      scrollbar-color: #333333 #111111;
+    }
 
-        body {
-            background-color: #000000;
-            color: #e8eaed;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+      background: linear-gradient(135deg, #1a1a1a, #111);
+      color: #e8eaed;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
 
-        .container {
-            display: flex;
-            flex-grow: 1;
-            height: calc(100vh - 40px);
-            width: 100vw;
-            overflow: hidden;
-        }
+    .container {
+      display: flex;
+      flex-grow: 1;
+      height: calc(100vh - 40px);
+      width: 100vw;
+      overflow: hidden;
+    }
 
-        .sidebar {
-            position: fixed;
-            width: 4.5vw;
-            background: linear-gradient(45deg, #1e1e1e, #2a2a2a);
-            height: 100vh;
-            transition: width 0.3s ease-in-out, background-color 0.5s ease-in-out;
-            overflow: hidden;
-            z-index: 999;
-            top: 0;
-            left: 0;
-        }
+    .sidebar {
+      position: fixed;
+      width: 4.5vw;
+      background: linear-gradient(45deg, #1e1e1e, #2a2a2a);
+      height: 100vh;
+      transition: width 0.3s ease-in-out;
+      overflow: hidden;
+      z-index: 999;
+      top: 0;
+      left: 0;
+    }
 
-        .sidebar:hover {
-            width: 13vw;
-            background: linear-gradient(45deg, #111, #222);
-        }
+    .sidebar:hover {
+      width: 13vw;
+    }
 
-        .sidebar ul {
-            display: flex;
-            flex-direction: column;
-            list-style-type: none;
-            gap: 1rem;
-            padding-top: 2rem;
-        }
+    .sidebar ul {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-top: 2rem;
+      list-style-type: none;
+    }
 
-        .sidebar li {
-            display: block;
-        }
+    .sidebar a {
+      color: white;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 0.5rem 0.8rem;
+      border-radius: 2vh;
+      transition: background 0.2s, transform 0.2s;
+    }
 
-        .sidebar a {
-            color: white;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            transition: background 0.2s ease, transform 0.2s ease;
-            border-radius: 2vh;
-            overflow: hidden;
-            font-weight: bold;
-        }
+    .sidebar a:hover {
+      background: #444;
+      transform: scale(1.05);
+    }
 
-        .sidebar a:hover {
-            background: #444;
-            transform: scale(1.05);
-            transition: all 0.3s ease;
-        }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
-        .sidebar .nav-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.5rem 0.8rem;
-            transition: all 0.3s ease;
-        }
+    .icon {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .sidebar .icon {
-            width: 2rem;
-            height: 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .text {
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+      font-size: 1.3rem;
+    }
 
-        .sidebar .text {
-            white-space: nowrap;
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: all 0.3s ease;
-            font-size: 1.3rem;
-        }
+    .sidebar:hover .text {
+      opacity: 1;
+      transform: translateX(0);
+    }
 
-        .sidebar:hover .text {
-            opacity: 1;
-            transform: translateX(0);
-        }
+    .highlighted a {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
-        .sidebar .highlighted a {
-            background: rgba(255, 255, 255, 0.2);
-        }
+    .main-content {
+      margin-left: 4.5vw;
+      flex-grow: 1;
+      height: 100%;
+      width: calc(100vw - 4.5vw);
+      transition: margin-left 0.3s ease, width 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .main-content {
-            margin-left: 4.5vw;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: calc(100vw - 4.5vw);
-            background-color: #000000;
-            overflow: hidden;
-            position: relative;
-            transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
-        }
+    .sidebar:hover ~ .main-content {
+      margin-left: 13vw;
+      width: calc(100vw - 13vw);
+    }
 
-        .sidebar:hover + .main-content {
-            margin-left: 13vw;
-            width: calc(100vw - 13vw);
-        }
+    .tabs-top-bar {
+      height: 40px;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      overflow-x: auto;
+    }
 
-        .tabs-top-bar {
-            display: flex;
-            height: 40px;
-            background-color: #000000;
-            align-items: center;
-            padding: 0 8px;
-            overflow-x: auto;
-            overflow-y: hidden;
-            flex-shrink: 0;
-            transition: 0.3s;
-        }
+    .browser-header {
+      height: 52px;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+    }
 
-        .browser-header {
-            background-color: #000000;
-            display: flex;
-            align-items: center;
-            padding: 8px 16px;
-            height: 52px;
-            transition: 1s;
-        }
+    .url-bar-container {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+    }
 
-        .url-bar-container {
-            display: flex;
-            align-items: center;
-            flex-grow: 1;
-            font-family: poppins;
-        }
+    .browser-actions {
+      display: flex;
+      margin-right: 8px;
+    }
 
-        .browser-actions {
-            display: flex;
-            margin-right: 8px;
-            transition: 0.5s;
-        }
+    .action-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-size: 14px;
+      margin-right: 4px;
+    }
 
-        .action-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            font-size: 14px;
-            margin-right: 4px;
-        }
+    .url-bar-wrapper {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      background-color: #000;
+      border-radius: 4px;
+      padding: 0 10px;
+      height: 36px;
+    }
 
-        .url-bar-wrapper {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            height: 36px;
-            background-color: #000000;
-            border-radius: 4px;
-            padding: 0 10px;
-            margin: 0 10px;
-            transition: 0.5s;
-        }
+    .url-bar-wrapper i {
+      margin-left: -10px;  /* Further moved the icon to the left */
+    }
 
-        .url-bar {
-            flex-grow: 1;
-            height: 100%;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #666666;
-            font-size: 14px;
-            padding: 0 10px;
-            font-family: 'Poppins', sans-serif;
-        }
+    .url-bar {
+      flex-grow: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #666;
+      font-size: 14px;
+      padding-left: 12px;  /* Move the text to the right */
+    }
 
-        .content-area {
-            flex-grow: 1;
-            overflow: hidden;
-            position: relative;
-            height: calc(100% - 52px);
-            width: 100%;
-        }
+    .content-area {
+      flex-grow: 1;
+      height: calc(100% - 52px);
+      position: relative;
+    }
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border-left: 3px solid #333333;
-            border-top: 3px solid #333333;
-            border-right: 3px solid #333333;
-            border-bottom: 0.5px solid #333333;
-            border-top-left-radius: 20px;
-            display: block;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
 
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 48px;
-            }
+    .home-screen {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1b1b1b, #000);
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
 
-            .sidebar:hover {
-                width: 200px;
-            }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, #4e9fff, #4c80e4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      opacity: 0.6;
+      animation: bubbleAnimation 10s infinite ease-in-out;
+      mix-blend-mode: screen;
+    }
 
-            .main-content {
-                margin-left: 48px;
-                width: calc(100vw - 48px);
-            }
+    .bubble-small {
+      width: 50px;
+      height: 50px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 2s;
+    }
 
-            .sidebar:hover + .main-content {
-                margin-left: 200px;
-                width: calc(100vw - 200px);
-            }
+    .bubble-medium {
+      width: 100px;
+      height: 100px;
+      top: 40%;
+      left: 60%;
+      animation-delay: 4s;
+    }
 
-            .text {
-                font-size: 1rem;
-            }
-        }
+    .bubble-large {
+      width: 150px;
+      height: 150px;
+      top: 30%;
+      left: 80%;
+      animation-delay: 6s;
+    }
 
-        @media (max-width: 480px) {
-            .sidebar {
-                width: 40px;
-            }
+    @keyframes bubbleAnimation {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateY(-60px) scale(1.05);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+      }
+    }
 
-            .sidebar:hover {
-                width: 180px;
-            }
-
-            .main-content {
-                margin-left: 40px;
-                width: calc(100vw - 40px);
-            }
-
-            .sidebar:hover + .main-content {
-                margin-left: 180px;
-                width: calc(100vw - 180px);
-            }
-        }
-    </style>
+    .unblockzone-text {
+      font-size: 3rem;
+      font-weight: bold;
+      text-transform: lowercase;
+      color: white;
+      text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <ul>
-                <li class="highlighted">
-                    <a href="index.html">
-                        <div class="nav-container">
-                            <div class="icon"><i class="fa-solid fa-house"></i></div>
-                            <div class="text">home</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="games/index.html">
-                        <div class="nav-container">
-                            <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
-                            <div class="text">games</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="movies/index.html">
-                        <div class="nav-container">
-                            <div class="icon"><i class="fa-solid fa-tv"></i></div>
-                            <div class="text">movies</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="apps/index.html">
-                        <div class="nav-container">
-                            <div class="icon"><i class="fa-solid fa-tablet"></i></div>
-                            <div class="text">apps</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="tabs/index.html">
-                        <div class="nav-container">
-                            <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                            <div class="text">tabs</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="settings/index.html">
-                        <div class="nav-container">
-                            <div class="icon"><i class="fa-solid fa-gear"></i></div>
-                            <div class="text">settings</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="partners/index.html">
-                        <div class="nav-container">
-                            <div class="icon"><i class="fa-solid fa-handshake"></i></div>
-                            <div class="text">partners</div>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="main-content">
-            <div class="browser-header">
-                <div class="url-bar-container">
-                    <div class="browser-actions">
-                        <div class="action-btn" id="back-btn">
-                            <i class="fa-solid fa-arrow-left"></i>
-                        </div>
-                        <div class="action-btn" id="forward-btn">
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </div>
-                        <div class="action-btn" id="reload-btn">
-                            <i class="fa-solid fa-rotate-right"></i>
-                        </div>
-                    </div>
-                    <div class="url-bar-wrapper">
-                        <i class="fa-solid fa-magnifying-glass url-bar-icon"></i>
-                        <input type="text" class="url-bar" id="url-bar" placeholder="Enter search or web address">
-                    </div>
-                </div>
-            </div>
-            <div class="content-area">
-                <iframe src="/landin" id="main-frame"></iframe>
-            </div>
-        </div>
+  <div class="container">
+    <div class="sidebar">
+      <ul>
+        <li class="highlighted"><a href="#"><div class="nav-container"><div class="icon"><i class="fa-solid fa-house"></i></div><div class="text">home</div></div></a></li>
+        <li><a href="games/index.html"><div class="nav-container"><div class="icon"><i class="fa-solid fa-gamepad"></i></div><div class="text">games</div></div></a></li>
+        <li><a href="movies/index.html"><div class="nav-container"><div class="icon"><i class="fa-solid fa-tv"></i></div><div class="text">movies</div></div></a></li>
+        <li><a href="apps/index.html"><div class="nav-container"><div class="icon"><i class="fa-solid fa-tablet"></i></div><div class="text">apps</div></div></a></li>
+        <li><a href="tabs/index.html"><div class="nav-container"><div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div><div class="text">tabs</div></div></a></li>
+        <li><a href="settings/index.html"><div class="nav-container"><div class="icon"><i class="fa-solid fa-gear"></i></div><div class="text">settings</div></div></a></li>
+        <li><a href="partners/index.html"><div class="nav-container"><div class="icon"><i class="fa-solid fa-handshake"></i></div><div class="text">partners</div></div></a></li>
+      </ul>
     </div>
+    <div class="main-content">
+      <div class="browser-header">
+        <div class="url-bar-container">
+          <div class="browser-actions">
+            <div class="action-btn" id="back-btn"><i class="fa-solid fa-arrow-left"></i></div>
+            <div class="action-btn" id="forward-btn"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="action-btn" id="reload-btn"><i class="fa-solid fa-rotate-right"></i></div>
+          </div>
+          <div class="url-bar-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="url-bar" id="url-bar" placeholder="Enter search or web address" />
+          </div>
+        </div>
+      </div>
+      <div class="content-area" id="content-area">
+        <div class="home-screen" id="home-screen">
+          <div class="bubble bubble-small"></div>
+          <div class="bubble bubble-medium"></div>
+          <div class="bubble bubble-large"></div>
+          <div class="unblockzone-text">unblockzone</div>
+        </div>
+        <iframe src="" id="main-frame" style="display: none;"></iframe>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        const urlBar = document.getElementById('url-bar');
-        const backBtn = document.getElementById('back-btn');
-        const forwardBtn = document.getElementById('forward-btn');
-        const reloadBtn = document.getElementById('reload-btn');
-        const mainFrame = document.getElementById('main-frame');
+  <script>
+    const urlBar = document.getElementById('url-bar');
+    const mainFrame = document.getElementById('main-frame');
+    const homeScreen = document.getElementById('home-screen');
 
-        function navigateToUrl(url) {
-            if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('/')) {
-                url = 'https://' + url;
-            }
-            mainFrame.src = url;
-        }
+    function navigateToUrl(url) {
+      if (!url.trim()) {
+        mainFrame.style.display = "none";
+        homeScreen.style.display = "block";
+        urlBar.value = "unblockzone://home";
+        return;
+      }
 
-        urlBar.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                navigateToUrl(urlBar.value);
-            }
-        });
+      homeScreen.style.display = "none";
+      mainFrame.style.display = "block";
 
-        backBtn.addEventListener('click', () => {
-            mainFrame.contentWindow.history.back();
-        });
+      let finalUrl = "";
+      if (url.startsWith("http://") || url.startsWith("https://")) {
+        finalUrl = "https://www.unblockzone.online/active/iframe.html#" + url;
+      } else {
+        finalUrl = "https://www.unblockzone.online/active/iframe.html#https://duckduckgo.com/?q=" + encodeURIComponent(url);
+      }
+      mainFrame.src = finalUrl;
+    }
 
-        forwardBtn.addEventListener('click', () => {
-            mainFrame.contentWindow.history.forward();
-        });
+    urlBar.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        navigateToUrl(urlBar.value);
+      }
+    });
 
-        reloadBtn.addEventListener('click', () => {
-            mainFrame.contentWindow.location.reload();
-        });
-    </script>
+    document.getElementById("back-btn").onclick = () => mainFrame.contentWindow.history.back();
+    document.getElementById("forward-btn").onclick = () => mainFrame.contentWindow.history.forward();
+    document.getElementById("reload-btn").onclick = () => mainFrame.contentWindow.location.reload();
+
+    // Load homepage on start
+    navigateToUrl("");
+  </script>
 </body>
 </html>
