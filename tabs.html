@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>unblockzone</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     * {
       margin: 0;
@@ -21,9 +21,7 @@
       height: 100vh;
       overflow: hidden;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
+      flex-direction: column;
     }
 
     .container {
@@ -171,10 +169,6 @@
       height: 36px;
     }
 
-    .url-bar-wrapper i {
-      margin-left: -10px;  /* Further moved the icon to the left */
-    }
-
     .url-bar {
       flex-grow: 1;
       background: transparent;
@@ -182,7 +176,6 @@
       outline: none;
       color: #666;
       font-size: 14px;
-      padding-left: 12px;  /* Move the text to the right */
     }
 
     .content-area {
@@ -207,10 +200,6 @@
       left: 0;
       overflow: hidden;
       z-index: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
     }
 
     .bubble {
@@ -261,19 +250,6 @@
         opacity: 0.6;
       }
     }
-
-    .unblockzone-text {
-      font-size: 3rem;
-      font-weight: bold;
-      text-transform: lowercase;
-      color: white;
-      text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 10;
-    }
   </style>
 </head>
 <body>
@@ -308,7 +284,6 @@
           <div class="bubble bubble-small"></div>
           <div class="bubble bubble-medium"></div>
           <div class="bubble bubble-large"></div>
-          <div class="unblockzone-text">unblockzone</div>
         </div>
         <iframe src="" id="main-frame" style="display: none;"></iframe>
       </div>
