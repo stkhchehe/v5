@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -355,36 +356,21 @@
   const mainFrame = document.getElementById('main-frame');
   const homeScreen = document.getElementById('home-screen');
   const centerContent = document.getElementById('center-content');
-  const baseURL = 'https://www.unblockzone.online/active/iframe.html#https://duckduckgo.com/?q=';
-
+  
   function navigateToUrl(url) {
-    const fullUrl = baseURL + encodeURIComponent(url);  // Prepend the base URL and encode the URL
-    urlBar.value = `https://duckduckgo.com/?q=${url}`;  // Show the DuckDuckGo search URL in the input field
+    urlBar.value = url;
     smallSearchBar.value = '';
     centerContent.style.display = 'none';
     homeScreen.style.display = 'none';
     mainFrame.style.display = 'block';
-    mainFrame.src = fullUrl;  // Set the iframe source with the full URL
-  }
-
-  function handleSearchOrUrl(input) {
-    let fullUrl = '';
-    if (input.includes(' ')) { // If there's a space, treat it as a search query
-      const query = input.trim().replace(/\s+/g, '+'); // Replace spaces with '+'
-      fullUrl = query;
-    } else if (input.startsWith('http') || input.startsWith('www')) { // If it's a URL
-      fullUrl = input;
-    } else { // If it's just a word, treat it as a search term
-      fullUrl = input.trim();
-    }
-    navigateToUrl(fullUrl); // Navigate to the constructed URL
+    mainFrame.src = url;
   }
   
   urlBar.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       const url = urlBar.value.trim();
       if (url) {
-        handleSearchOrUrl(url);
+        navigateToUrl(url);
       }
     }
   });
@@ -393,11 +379,10 @@
     if (e.key === 'Enter') {
       const query = smallSearchBar.value.trim();
       if (query) {
-        handleSearchOrUrl(query);
+        navigateToUrl(`https://duckduckgo.com/?q=${query}`);
       }
     }
   });
 </script>
-  
 </body>
 </html>
