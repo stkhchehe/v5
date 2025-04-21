@@ -203,7 +203,7 @@
     .bubble {
       position: absolute;
       border-radius: 50%;
-      background: linear-gradient(135deg, #4e4eff, #9b59b6); /* Purple and Blue gradient */
+      background: radial-gradient(circle, #4e9fff, #4c80e4);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       opacity: 0.6;
       animation: bubbleAnimation 10s infinite ease-in-out;
@@ -331,11 +331,11 @@
         <h1>unblockzone v5</h1>
         <input type="text" class="search-bar-small" id="small-search-bar" placeholder="search or enter a url" />
         <div class="image-circles">
-          <div class="image-circle" onclick="navigateToUrl('https://now.gg')"><img src="https://miro.medium.com/v2/resize:fit:1000/1*YM7t6RluDCb0XT62yy2aqQ.png" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://youtube.com')"><img src="https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small/youtube-logo-youtube-icon-transparent-free-png.png" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://tiktok.com')"><img src="https://static.vecteezy.com/system/resources/previews/016/716/450/non_2x/tiktok-icon-free-png.png" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://duckduckgo.com')"><img src="https://upload.wikimedia.org/wikipedia/en/9/90/The_DuckDuckGo_Duck.png" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://poki.com')"><img src="https://cdn-images-1.medium.com/v2/resize:fit:1200/1*7dBqKj2f3J42EjxdEdd1Ng.png" /></div>
+          <div class="image-circle" onclick="navigateToUrl('https://www.unblockzone.online/active/iframe.html#https://now.gg')"><img src="https://miro.medium.com/v2/resize:fit:1000/1*YM7t6RluDCb0XT62yy2aqQ.png" /></div>
+          <div class="image-circle" onclick="navigateToUrl('https://www.unblockzone.online/active/iframe.html#https://youtube.com')"><img src="https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small/youtube-logo-youtube-icon-transparent-free-png.png" /></div>
+          <div class="image-circle" onclick="navigateToUrl('https://www.unblockzone.online/active/iframe.html#https://tiktok.com')"><img src="https://static.vecteezy.com/system/resources/previews/016/716/450/non_2x/tiktok-icon-free-png.png" /></div>
+          <div class="image-circle" onclick="navigateToUrl('https://www.unblockzone.online/active/iframe.html#https://duckduckgo.com')"><img src="https://upload.wikimedia.org/wikipedia/en/9/90/The_DuckDuckGo_Duck.png" /></div>
+          <div class="image-circle" onclick="navigateToUrl('https://www.unblockzone.online/active/iframe.html#https://poki.com')"><img src="https://cdn-images-1.medium.com/v2/resize:fit:1200/1*7dBqKj2f3J42EjxdEdd1Ng.png" /></div>
         </div>
       </div>
 
@@ -349,40 +349,88 @@
       </div>
     </div>
   </div>
-  
-<script>
-  const urlBar = document.getElementById('url-bar');
-  const smallSearchBar = document.getElementById('small-search-bar');
-  const mainFrame = document.getElementById('main-frame');
-  const homeScreen = document.getElementById('home-screen');
-  const centerContent = document.getElementById('center-content');
-  
-  function navigateToUrl(url) {
-    urlBar.value = url;
-    smallSearchBar.value = '';
-    centerContent.style.display = 'none';
-    homeScreen.style.display = 'none';
-    mainFrame.style.display = 'block';
-    mainFrame.src = url;
-  }
-  
-  urlBar.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      const url = urlBar.value.trim();
-      if (url) {
-        navigateToUrl(url);
-      }
-    }
-  });
 
-  smallSearchBar.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      const query = smallSearchBar.value.trim();
-      if (query) {
-        navigateToUrl(`https://duckduckgo.com/?q=${query}`);
-      }
+<script>
+    const urlBar = document.getElementById('url-bar');
+    const smallSearchBar = document.getElementById('small-search-bar');
+    const mainFrame = document.getElementById('main-frame');
+    const homeScreen = document.getElementById('home-screen');
+    const centerContent = document.getElementById('center-content');
+
+    // History stack for iframe
+    let iframeHistory = [];
+    let currentIndex = -1;
+
+    function updateIframe(url) {
+        const proxyUrl = "https://www.unblockzone.online/active/iframe.html#" + url;
+
+        mainFrame.src = proxyUrl;
+        mainFrame.style.display = "block";
+        homeScreen.style.display = "none";
+        centerContent.style.display = "none";
+        urlBar.value = proxyUrl;
     }
-  });
+
+    function navigateToUrl(input) {
+        if (!input.trim()) return;
+
+        let finalUrl = "";
+
+        if (input === "now.gg") {
+            finalUrl = "https://now.gg";
+        } else if (input.startsWith("http://") || input.startsWith("https://")) {
+            finalUrl = input;
+        } else if (input.includes(".")) {
+            finalUrl = "https://" + input;
+        } else {
+            finalUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(input);
+        }
+
+        // Add to iframe history
+        iframeHistory = iframeHistory.slice(0, currentIndex + 1); // Clear forward history
+        iframeHistory.push(finalUrl);
+        currentIndex++;
+        updateIframe(finalUrl);
+    }
+
+    urlBar.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            navigateToUrl(urlBar.value);
+        }
+    });
+
+    smallSearchBar.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            navigateToUrl(smallSearchBar.value);
+        }
+    });
+
+    // Back button
+    document.getElementById("back-btn").onclick = () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateIframe(iframeHistory[currentIndex]);
+        }
+    };
+
+    // Forward button
+    document.getElementById("forward-btn").onclick = () => {
+        if (currentIndex < iframeHistory.length - 1) {
+            currentIndex++;
+            updateIframe(iframeHistory[currentIndex]);
+        }
+    };
+
+    // Reload button
+    document.getElementById("reload-btn").onclick = () => {
+        if (currentIndex >= 0) {
+            updateIframe(iframeHistory[currentIndex]);
+        }
+    };
 </script>
+
+  
 </body>
 </html>
