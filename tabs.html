@@ -202,7 +202,7 @@
     .bubble {
       position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle, #4e9fff, #4c80e4);
+      background: linear-gradient(135deg, #4e4eff, #9b59b6); /* Purple and Blue gradient */
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       opacity: 0.6;
       animation: bubbleAnimation 10s infinite ease-in-out;
@@ -355,79 +355,33 @@
   const mainFrame = document.getElementById('main-frame');
   const homeScreen = document.getElementById('home-screen');
   const centerContent = document.getElementById('center-content');
-
-  let iframeHistory = [];
-  let currentIndex = -1;
-
-  function navigateToUrl(input) {
-    input = input.trim();
-    if (!input) return;
-
-    let finalUrl;
-    if (input.startsWith('http://') || input.startsWith('https://')) {
-      finalUrl = input.replace(/^http:\/\//, 'https://'); // Force HTTPS
-    } else if (input.includes('.')) {
-      finalUrl = 'https://' + input;
-    } else {
-      finalUrl = 'https://duckduckgo.com/?q=' + encodeURIComponent(input);
-    }
-
-    const fullUrl = 'https://www.unblockzone.online/active/iframe.html#https://' + finalUrl.replace(/^https?:\/\//, '');
-    mainFrame.src = fullUrl;
-    mainFrame.style.display = 'block';
-    homeScreen.style.display = 'none';
+  
+  function navigateToUrl(url) {
+    urlBar.value = url;
+    smallSearchBar.value = '';
     centerContent.style.display = 'none';
-    urlBar.value = finalUrl;
-
-    iframeHistory = iframeHistory.slice(0, currentIndex + 1);
-    iframeHistory.push(finalUrl);
-    currentIndex++;
+    homeScreen.style.display = 'none';
+    mainFrame.style.display = 'block';
+    mainFrame.src = url;
   }
-
-  urlBar.addEventListener('keydown', (e) => {
+  
+  urlBar.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault();
-      navigateToUrl(urlBar.value);
+      const url = urlBar.value.trim();
+      if (url) {
+        navigateToUrl(url);
+      }
     }
   });
 
-  smallSearchBar.addEventListener('keydown', (e) => {
+  smallSearchBar.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault();
-      navigateToUrl(smallSearchBar.value);
+      const query = smallSearchBar.value.trim();
+      if (query) {
+        navigateToUrl(`https://duckduckgo.com/?q=${query}`);
+      }
     }
-  });
-
-  document.getElementById('back-btn').onclick = () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      navigateToUrl(iframeHistory[currentIndex]);
-    }
-  };
-
-  document.getElementById('forward-btn').onclick = () => {
-    if (currentIndex < iframeHistory.length - 1) {
-      currentIndex++;
-      navigateToUrl(iframeHistory[currentIndex]);
-    }
-  };
-
-  document.getElementById('reload-btn').onclick = () => {
-    if (currentIndex >= 0) {
-      navigateToUrl(iframeHistory[currentIndex]);
-    }
-  };
-
-  // Clickable image circles
-  const circles = document.querySelectorAll('.image-circle');
-  circles.forEach(circle => {
-    circle.addEventListener('click', () => {
-      const url = circle.getAttribute('onclick').match(/'(.*?)'/)[1];
-      navigateToUrl(url);
-    });
   });
 </script>
-
-  
 </body>
 </html>
