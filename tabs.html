@@ -330,11 +330,11 @@
         <h1>unblockzone v5</h1>
         <input type="text" class="search-bar-small" id="small-search-bar" placeholder="search or enter a url" />
         <div class="image-circles">
-          <div class="image-circle" onclick="navigateToUrl('https://now.gg')"><img src="image1.jpg" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://youtube.com')"><img src="image2.jpg" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://discord.com')"><img src="image3.jpg" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://example.com')"><img src="image4.jpg" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://github.com')"><img src="image5.jpg" /></div>
+          <div class="image-circle" onclick="navigateToUrl('https://www.unblockzone.online/active/iframe.html#https://now.gg')"><img src="https://miro.medium.com/v2/resize:fit:1000/1*YM7t6RluDCb0XT62yy2aqQ.png" /></div>
+          <div class="image-circle" onclick="navigateToUrl('https://www.unblockzone.online/active/iframe.html#https://youtube.com')"><img src="https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small/youtube-logo-youtube-icon-transparent-free-png.png" /></div>
+          <div class="image-circle" onclick="navigateToUrl('https://www.unblockzone.online/active/iframe.html#https://tiktok.com')"><img src="https://static.vecteezy.com/system/resources/previews/016/716/450/non_2x/tiktok-icon-free-png.png" /></div>
+          <div class="image-circle" onclick="navigateToUrl('https://www.unblockzone.online/active/iframe.html#https://duckduckgo.com')"><img src="https://upload.wikimedia.org/wikipedia/en/9/90/The_DuckDuckGo_Duck.png" /></div>
+          <div class="image-circle" onclick="navigateToUrl('https://www.unblockzone.online/active/iframe.html#https://poki.com')"><img src="https://cdn-images-1.medium.com/v2/resize:fit:1200/1*7dBqKj2f3J42EjxdEdd1Ng.png" /></div>
         </div>
       </div>
 
@@ -350,53 +350,86 @@
   </div>
 
 <script>
-  const urlBar = document.getElementById('url-bar');
-  const smallSearchBar = document.getElementById('small-search-bar');
-  const mainFrame = document.getElementById('main-frame');
-  const homeScreen = document.getElementById('home-screen');
-  const centerContent = document.getElementById('center-content');
+    const urlBar = document.getElementById('url-bar');
+    const smallSearchBar = document.getElementById('small-search-bar');
+    const mainFrame = document.getElementById('main-frame');
+    const homeScreen = document.getElementById('home-screen');
+    const centerContent = document.getElementById('center-content');
 
-  function navigateToUrl(input) {
-    if (!input.trim()) return;
+    // History stack for iframe
+    let iframeHistory = [];
+    let currentIndex = -1;
 
-    let finalUrl = "";
+    function updateIframe(url) {
+        const proxyUrl = "https://www.unblockzone.online/active/iframe.html#" + url;
 
-    // Check for direct URLs
-    if (input.startsWith("http://") || input.startsWith("https://")) {
-      finalUrl = input;
-    } else if (input.includes(".") && !input.includes(" ")) {
-      // Treat input with a dot as a domain (like "now.gg")
-      finalUrl = "https://" + input;
-    } else {
-      // Treat everything else as a search term
-      finalUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(input);
+        mainFrame.src = proxyUrl;
+        mainFrame.style.display = "block";
+        homeScreen.style.display = "none";
+        centerContent.style.display = "none";
+        urlBar.value = proxyUrl;
     }
 
-    const proxyUrl = "https://www.unblockzone.online/active/iframe.html#" + finalUrl;
-    mainFrame.src = proxyUrl;
-    mainFrame.style.display = "block";
-    homeScreen.style.display = "none";
-    centerContent.style.display = "none";
-    urlBar.value = proxyUrl;
-  }
+    function navigateToUrl(input) {
+        if (!input.trim()) return;
 
-  urlBar.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      navigateToUrl(urlBar.value);
+        let finalUrl = "";
+
+        if (input === "now.gg") {
+            finalUrl = "https://now.gg";
+        } else if (input.startsWith("http://") || input.startsWith("https://")) {
+            finalUrl = input;
+        } else if (input.includes(".")) {
+            finalUrl = "https://" + input;
+        } else {
+            finalUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(input);
+        }
+
+        // Add to iframe history
+        iframeHistory = iframeHistory.slice(0, currentIndex + 1); // Clear forward history
+        iframeHistory.push(finalUrl);
+        currentIndex++;
+        updateIframe(finalUrl);
     }
-  });
 
-  smallSearchBar.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      navigateToUrl(smallSearchBar.value);
-    }
-  });
+    urlBar.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            navigateToUrl(urlBar.value);
+        }
+    });
 
-  document.getElementById("back-btn").onclick = () => mainFrame.contentWindow.history.back();
-  document.getElementById("forward-btn").onclick = () => mainFrame.contentWindow.history.forward();
-  document.getElementById("reload-btn").onclick = () => mainFrame.contentWindow.location.reload();
+    smallSearchBar.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            navigateToUrl(smallSearchBar.value);
+        }
+    });
+
+    // Back button
+    document.getElementById("back-btn").onclick = () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateIframe(iframeHistory[currentIndex]);
+        }
+    };
+
+    // Forward button
+    document.getElementById("forward-btn").onclick = () => {
+        if (currentIndex < iframeHistory.length - 1) {
+            currentIndex++;
+            updateIframe(iframeHistory[currentIndex]);
+        }
+    };
+
+    // Reload button
+    document.getElementById("reload-btn").onclick = () => {
+        if (currentIndex >= 0) {
+            updateIframe(iframeHistory[currentIndex]);
+        }
+    };
 </script>
+
+  
 </body>
 </html>
