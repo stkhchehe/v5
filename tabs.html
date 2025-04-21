@@ -355,14 +355,16 @@
   const mainFrame = document.getElementById('main-frame');
   const homeScreen = document.getElementById('home-screen');
   const centerContent = document.getElementById('center-content');
-  
+  const baseURL = 'https://www.unblockzone.online/active/iframe.html#https://';
+
   function navigateToUrl(url) {
-    urlBar.value = url;
+    const fullUrl = baseURL + url;  // Prepend the base URL
+    urlBar.value = fullUrl;
     smallSearchBar.value = '';
     centerContent.style.display = 'none';
     homeScreen.style.display = 'none';
     mainFrame.style.display = 'block';
-    mainFrame.src = url;
+    mainFrame.src = fullUrl;
   }
   
   urlBar.addEventListener('keypress', (e) => {
@@ -383,5 +385,7 @@
     }
   });
 </script>
+
+  
 </body>
 </html>
