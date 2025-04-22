@@ -280,24 +280,62 @@
       gap: 20px;
     }
 
-    .image-circle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
+.image-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+}
 
-    .image-circle:hover {
-      transform: scale(1.2);
-    }
+.image-circle:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+}
 
     .image-circle img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+
+    .particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.1;
+  box-shadow: 0 0 8px white;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -326,6 +364,9 @@
           </div>
         </div>
       </div>
+
+      <div class="particles-container" id="particles-container"></div>
+
 
       <div class="center-content" id="center-content">
         <h1>unblockzone v5</h1>
@@ -429,6 +470,33 @@
             updateIframe(iframeHistory[currentIndex]);
         }
     };
+</script>
+
+<script>
+  const particlesContainer = document.getElementById('particles-container');
+
+  function createParticle() {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+
+    const size = Math.random() * 6 + 4; // 4px to 10px
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+
+    particle.style.left = `${Math.random() * 100}vw`;
+    particle.style.bottom = `-10px`; // start below view
+
+    const duration = Math.random() * 10 + 10; // 10s to 20s
+    particle.style.animationDuration = `${duration}s`;
+
+    particlesContainer.appendChild(particle);
+
+    setTimeout(() => {
+      particle.remove();
+    }, duration * 1000);
+  }
+
+  setInterval(createParticle, 300);
 </script>
 
   
