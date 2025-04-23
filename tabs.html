@@ -376,8 +376,6 @@
     </div>
   </div>
 
-  <div class="particles-container" id="particles-container"></div>
-
   <div class="center-content" id="center-content">
     <h1>unblockzone v5</h1>
     <input type="text" class="search-bar-small" id="small-search-bar" placeholder="search or enter a url" />
@@ -389,7 +387,7 @@
       <div class="image-circle" onclick="navigateToUrl('https://poki.com')"><img src="https://cdn-images-1.medium.com/v2/resize:fit:1200/1*7dBqKj2f3J42EjxdEdd1Ng.png" /></div>
     </div>
   </div>
-
+  
 <script>
   const urlBar = document.getElementById('url-bar');
   const smallSearchBar = document.getElementById('small-search-bar');
@@ -400,14 +398,17 @@
   let iframeHistory = [];
   let currentIndex = -1;
 
-  function updateIframe(url) {
-    const proxiedUrl = "https://blockzone.github.io/active/iframe.html#https://" + url.replace(/^https?:\/\//, '');
+  function updateIframe(originalUrl) {
+    const cleanedUrl = originalUrl.replace(/^https?:\/\//, '');
+    const proxiedUrl = "https://blockzone.github.io/active/iframe.html#https://" + cleanedUrl;
 
     mainFrame.src = proxiedUrl;
     mainFrame.style.display = "block";
     homeScreen.style.display = "none";
     centerContent.style.display = "none";
-    urlBar.value = proxiedUrl;
+
+    // Show the original URL (not the proxy one)
+    urlBar.value = originalUrl;
   }
 
   function navigateToUrl(input) {
@@ -464,6 +465,7 @@
     }
   };
 </script>
+
 
 
 <script>
