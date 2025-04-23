@@ -120,20 +120,24 @@
   margin-left: 0; /* prevent shifting */
 }
 
+.browser-header {
+  height: 52px;
+  background-color: #000;
+  display: flex;
+  justify-content: flex-start; /* align items to the left */
+  align-items: center;
+  padding: 8px 16px;
+  gap: 12px;
+}
 
-    .browser-header {
-      height: 52px;
-      background-color: #000;
-      display: flex;
-      align-items: center;
-      padding: 8px 16px;
-    }
+    
+.url-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px; /* ← space from the very left */
+}
 
-    .url-bar-container {
-      display: flex;
-      align-items: center;
-      flex-grow: 1;
-    }
 
     .browser-actions {
       display: flex;
@@ -154,25 +158,34 @@
       margin-right: 4px;
     }
 
-    .url-bar-wrapper {
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-      background-color: #000;
-      border-radius: 4px;
-      padding: 0 10px;
-      height: 36px;
-    }
+.url-bar-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  border-radius: 4px;
+  padding: 0 10px;
+  height: 36px;
+  width: 300px; /* or whatever fixed width looks best */
+}
 
-    .url-bar {
-      flex-grow: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #fff;
-      font-size: 14px;
-      padding-left: 20px;
-    }
+.url-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-left: 60px;
+
+}
+
+.url-bar {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  padding-left: 20px;
+}
 
     .content-area {
       flex-grow: 1;
