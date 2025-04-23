@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -280,21 +279,21 @@
       gap: 20px;
     }
 
-.image-circle {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
-}
+    .image-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+    }
 
-.image-circle:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 1);
-}
+    .image-circle:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
 
     .image-circle img {
       width: 100%;
@@ -302,55 +301,56 @@
       object-fit: cover;
     }
 
+    /* Particles */
     .particles-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
 
-.particle {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.1;
-  box-shadow: 0 0 8px white;
-  animation: floatUp linear infinite;
-}
+    .particle {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.1;
+      box-shadow: 0 0 8px white;
+      animation: floatUp linear infinite;
+    }
 
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(-100vh) scale(1.5);
-    opacity: 0;
-  }
-}
-
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.2;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="sidebar">
       <ul>
-        <li class="highlighted"><a href="#" class="home-link"><div class="nav-container"><div class="icon"><i class="fa-solid fa-house"></i></div><div class="text">home</div></div></a></li>
+        <li><a href="#" class="home-link"><div class="nav-container"><div class="icon"><i class="fa-solid fa-house"></i></div><div class="text">home</div></div></a></li>
         <li><a href="#" class="games-link"><div class="nav-container"><div class="icon"><i class="fa-solid fa-gamepad"></i></div><div class="text">games</div></div></a></li>
         <li><a href="#" class="movies-link"><div class="nav-container"><div class="icon"><i class="fa-solid fa-film"></i></div><div class="text">movies</div></div></a></li>
         <li><a href="#" class="apps-link"><div class="nav-container"><div class="icon"><i class="fa-solid fa-mobile"></i></div><div class="text">apps</div></div></a></li>
-        <li><a href="#" class="proxy-link"><div class="nav-container"><div class="icon"><i class="fa-solid magnifying-glass"></i></div><div class="text">proxy</div></div></a></li>
+        <li class="highlighted"><a href="#" class="proxy-link"><div class="nav-container"><div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div><div class="text">proxy</div></div></a></li>
         <li><a href="#" class="settings-link"><div class="nav-container"><div class="icon"><i class="fa-solid fa-cog"></i></div><div class="text">settings</div></div></a></li>
         <li><a href="#" class="partners-link"><div class="nav-container"><div class="icon"><i class="fa-solid fa-handshake"></i></div><div class="text">partners</div></div></a></li>
       </ul>
     </div>
+
     <div class="main-content">
       <div class="browser-header">
         <div class="url-bar-container">
@@ -365,22 +365,6 @@
           </div>
         </div>
       </div>
-
-      <div class="particles-container" id="particles-container"></div>
-
-
-      <div class="center-content" id="center-content">
-        <h1>unblockzone v5</h1>
-        <input type="text" class="search-bar-small" id="small-search-bar" placeholder="search or enter a url" />
-        <div class="image-circles">
-          <div class="image-circle" onclick="navigateToUrl('https://now.gg')"><img src="https://miro.medium.com/v2/resize:fit:1000/1*YM7t6RluDCb0XT62yy2aqQ.png" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://youtube.com')"><img src="https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small/youtube-logo-youtube-icon-transparent-free-png.png" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://tiktok.com')"><img src="https://static.vecteezy.com/system/resources/previews/016/716/450/non_2x/tiktok-icon-free-png.png" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://duckduckgo.com')"><img src="https://upload.wikimedia.org/wikipedia/en/9/90/The_DuckDuckGo_Duck.png" /></div>
-          <div class="image-circle" onclick="navigateToUrl('https://poki.com')"><img src="https://cdn-images-1.medium.com/v2/resize:fit:1200/1*7dBqKj2f3J42EjxdEdd1Ng.png" /></div>
-        </div>
-      </div>
-
       <div class="content-area">
         <div class="home-screen" id="home-screen">
           <div class="bubble bubble-small"></div>
@@ -392,86 +376,95 @@
     </div>
   </div>
 
+  <div class="particles-container" id="particles-container"></div>
+
+  <div class="center-content" id="center-content">
+    <h1>unblockzone v5</h1>
+    <input type="text" class="search-bar-small" id="small-search-bar" placeholder="search or enter a url" />
+    <div class="image-circles">
+      <div class="image-circle" onclick="navigateToUrl('https://now.gg')"><img src="https://miro.medium.com/v2/resize:fit:1000/1*YM7t6RluDCb0XT62yy2aqQ.png" /></div>
+      <div class="image-circle" onclick="navigateToUrl('https://youtube.com')"><img src="https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small/youtube-logo-youtube-icon-transparent-free-png.png" /></div>
+      <div class="image-circle" onclick="navigateToUrl('https://tiktok.com')"><img src="https://static.vecteezy.com/system/resources/previews/016/716/450/non_2x/tiktok-icon-free-png.png" /></div>
+      <div class="image-circle" onclick="navigateToUrl('https://duckduckgo.com')"><img src="https://upload.wikimedia.org/wikipedia/en/9/90/The_DuckDuckGo_Duck.png" /></div>
+      <div class="image-circle" onclick="navigateToUrl('https://poki.com')"><img src="https://cdn-images-1.medium.com/v2/resize:fit:1200/1*7dBqKj2f3J42EjxdEdd1Ng.png" /></div>
+    </div>
+  </div>
+
 <script>
-    const urlBar = document.getElementById('url-bar');
-    const smallSearchBar = document.getElementById('small-search-bar');
-    const mainFrame = document.getElementById('main-frame');
-    const homeScreen = document.getElementById('home-screen');
-    const centerContent = document.getElementById('center-content');
+  const urlBar = document.getElementById('url-bar');
+  const smallSearchBar = document.getElementById('small-search-bar');
+  const mainFrame = document.getElementById('main-frame');
+  const homeScreen = document.getElementById('home-screen');
+  const centerContent = document.getElementById('center-content');
 
-    // History stack for iframe
-    let iframeHistory = [];
-    let currentIndex = -1;
+  let iframeHistory = [];
+  let currentIndex = -1;
 
-    function updateIframe(url) {
-        const proxyUrl = "https://www.unblockzone.online/active/iframe.html#" + url;
+  function updateIframe(url) {
+    const proxiedUrl = "https://blockzone.github.io/active/iframe.html#https://" + url.replace(/^https?:\/\//, '');
 
-        mainFrame.src = proxyUrl;
-        mainFrame.style.display = "block";
-        homeScreen.style.display = "none";
-        centerContent.style.display = "none";
-        urlBar.value = proxyUrl;
+    mainFrame.src = proxiedUrl;
+    mainFrame.style.display = "block";
+    homeScreen.style.display = "none";
+    centerContent.style.display = "none";
+    urlBar.value = proxiedUrl;
+  }
+
+  function navigateToUrl(input) {
+    if (!input.trim()) return;
+
+    let formattedUrl = input.trim();
+
+    // Basic cleanup and normalization
+    if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
+      if (formattedUrl.includes(".")) {
+        formattedUrl = "https://" + formattedUrl;
+      } else {
+        formattedUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(formattedUrl);
+      }
     }
 
-    function navigateToUrl(input) {
-        if (!input.trim()) return;
+    iframeHistory = iframeHistory.slice(0, currentIndex + 1);
+    iframeHistory.push(formattedUrl);
+    currentIndex++;
+    updateIframe(formattedUrl);
+  }
 
-        let finalUrl = "";
-
-        if (input === "now.gg") {
-            finalUrl = "https://now.gg";
-        } else if (input.startsWith("http://") || input.startsWith("https://")) {
-            finalUrl = input;
-        } else if (input.includes(".")) {
-            finalUrl = "https://" + input;
-        } else {
-            finalUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(input);
-        }
-
-        // Add to iframe history
-        iframeHistory = iframeHistory.slice(0, currentIndex + 1); // Clear forward history
-        iframeHistory.push(finalUrl);
-        currentIndex++;
-        updateIframe(finalUrl);
+  urlBar.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      navigateToUrl(urlBar.value);
     }
+  });
 
-    urlBar.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-            navigateToUrl(urlBar.value);
-        }
-    });
+  smallSearchBar.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      navigateToUrl(smallSearchBar.value);
+    }
+  });
 
-    smallSearchBar.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-            navigateToUrl(smallSearchBar.value);
-        }
-    });
+  document.getElementById("back-btn").onclick = () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateIframe(iframeHistory[currentIndex]);
+    }
+  };
 
-    // Back button
-    document.getElementById("back-btn").onclick = () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateIframe(iframeHistory[currentIndex]);
-        }
-    };
+  document.getElementById("forward-btn").onclick = () => {
+    if (currentIndex < iframeHistory.length - 1) {
+      currentIndex++;
+      updateIframe(iframeHistory[currentIndex]);
+    }
+  };
 
-    // Forward button
-    document.getElementById("forward-btn").onclick = () => {
-        if (currentIndex < iframeHistory.length - 1) {
-            currentIndex++;
-            updateIframe(iframeHistory[currentIndex]);
-        }
-    };
-
-    // Reload button
-    document.getElementById("reload-btn").onclick = () => {
-        if (currentIndex >= 0) {
-            updateIframe(iframeHistory[currentIndex]);
-        }
-    };
+  document.getElementById("reload-btn").onclick = () => {
+    if (currentIndex >= 0) {
+      updateIframe(iframeHistory[currentIndex]);
+    }
+  };
 </script>
+
 
 <script>
   const particlesContainer = document.getElementById('particles-container');
@@ -499,7 +492,5 @@
 
   setInterval(createParticle, 300);
 </script>
-
-  
 </body>
 </html>
