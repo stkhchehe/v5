@@ -107,20 +107,19 @@
       background: rgba(255, 255, 255, 0.2);
     }
 
-    .main-content {
-      margin-left: 4.5vw;
-      flex-grow: 1;
-      height: 100%;
-      width: calc(100vw - 4.5vw);
-      transition: margin-left 0.3s ease, width 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
+.main-content {
+  margin-left: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: none;
+}
 
-    .sidebar:hover ~ .main-content {
-      margin-left: 13vw;
-      width: calc(100vw - 13vw);
-    }
+.sidebar:hover ~ .main-content {
+  margin-left: 0; /* prevent shifting */
+}
+
 
     .browser-header {
       height: 52px;
