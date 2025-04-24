@@ -164,6 +164,14 @@
       justify-content: center;
       align-items: center;
     }
+
+    .sidebar .nav-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
     
     .sidebar .text {
       white-space: nowrap;
@@ -365,65 +373,70 @@
       z-index: -1;
       pointer-events: none;
     }
-  </style>
+</style>
 </head>
 <body>
   <div id="particles-js"></div>
   <div class="bubble bubble-small"></div>
   <div class="bubble bubble-medium"></div>
   <div class="bubble bubble-large"></div>
-  <div class="sidebar">
-    <ul>
-      <li class="highlighted">
-        <a href="index.html">
-          <div class="container">
-            <div class="icon"><i class="fa-solid fa-house"></i></div>
-            <div class="text">home</div>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="g.html">
-          <div class="container">
-            <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
-            <div class="text">games</div>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="a.html">
-          <div class="container">
-            <div class="icon"><i class="fa-solid fa-tablet"></i></div>
-            <div class="text">apps</div>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="tabs.html">
-          <div class="container">
-            <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-            <div class="text">proxy</div>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="s.html">
-          <div class="container">
-            <div class="icon"><i class="fa-solid fa-gear"></i></div>
-            <div class="text">settings</div>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="p.html">
-          <div class="container">
-            <div class="icon"><i class="fa-solid fa-handshake"></i></div>
-            <div class="text">partners</div>
-          </div>
-        </a>
-      </li>
-    </ul>
+
+  <div class="container">
+    <div class="sidebar">
+      <ul>
+        <li>
+          <a href="/index.html" class="home-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-house"></i></div>
+              <div class="text">home</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/g.html" class="games-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
+              <div class="text">games</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/a.html" class="apps-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-mobile"></i></div>
+              <div class="text">apps</div>
+            </div>
+          </a>
+        </li>
+        <li class="highlighted">
+          <a href="/p.html" class="proxy-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+              <div class="text">proxy</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/s.html" class="settings-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-cog"></i></div>
+              <div class="text">settings</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/partners.html" class="partners-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-handshake"></i></div>
+              <div class="text">partners</div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
+
+      
   <div class="welcome">
     <div class="welcomeone">
       <div class="text-container">
