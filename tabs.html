@@ -5,167 +5,225 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>unblockzone</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', sans-serif;
       font-weight: bold;
       text-transform: lowercase;
       scrollbar-width: thin;
       scrollbar-color: #333333 #111111;
     }
 
-    body {
-      background: linear-gradient(135deg, #1a1a1a, #111);
-      color: #e8eaed;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
+html, body {
+  margin: 0;
+  padding: 0;
+}
 
-    .container {
-      display: flex;
-      flex-grow: 1;
-      height: calc(100vh - 40px);
-      width: 100vw;
-      overflow: hidden;
-    }
+body {
+  color: #f8f9fa;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  background: url('https://images.unsplash.com/photo-1707924962886-12ad20367315?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+  background-size: cover;
+}
 
-    .sidebar {
-      position: fixed;
-      width: 4.5vw;
-      background: linear-gradient(45deg, #1e1e1e, #2a2a2a);
-      height: 100vh;
-      transition: width 0.3s ease-in-out;
-      overflow: hidden;
-      z-index: 999;
-      top: 0;
-      left: 0;
-    }
-
-    .sidebar:hover {
-      width: 13vw;
-    }
-
-    .sidebar ul {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      padding-top: 2rem;
-      list-style-type: none;
-    }
-
-    .sidebar a {
-      color: white;
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      padding: 0.5rem 0.8rem;
-      border-radius: 2vh;
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .sidebar a:hover {
-      background: #444;
-      transform: scale(1.05);
-    }
-
-    .nav-container {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .icon {
-      width: 2rem;
-      height: 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .text {
-      white-space: nowrap;
-      opacity: 0;
-      transform: translateX(-10px);
-      transition: all 0.3s ease;
-      font-size: 1.3rem;
-    }
-
-    .sidebar:hover .text {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .highlighted a {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-.main-content {
-  margin-left: 0;
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-size: cover;
+  z-index: -2;
+  filter: brightness(0.7) blur(3px);
+}
+
+#particles-js {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.container,
+.center-content {
   position: relative;
+  z-index: 2;
+}
+
+.container {
+  display: flex;
+  flex-grow: 1;
+  height: calc(100vh - 40px);
+  width: 100vw;
   overflow: hidden;
-  transition: none;
+}
+
+.sidebar {
+  position: fixed;
+  width: 4.5vw;
+  background: #343a40;
+  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+  height: 100vh;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  transform: translateZ(0);
+  margin-right: -1px;
+}
+
+.sidebar:hover {
+  width: 13vw;
+}
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 2rem;
+  list-style-type: none;
+}
+
+.sidebar a {
+  color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 2vh;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.sidebar a:hover {
+  background: #495057;
+  transform: scale(1.05);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  font-size: 1.3rem;
+}
+
+.sidebar:hover .text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.highlighted a {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar:hover ~ .main-content {
-  margin-left: 0; /* prevent shifting */
+  margin-left: 4.5vw;
+  width: calc(100% - 4.5vw);
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 4.5vw;
+  width: calc(100% - 4.5vw);
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 
 .browser-header {
-  height: 52px;
-  background-color: #000;
+  height: 70px;
+  background-color: #343a40;
+  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
   display: flex;
-  justify-content: flex-start; /* align items to the left */
   align-items: center;
+  justify-content: flex-start;
   padding: 8px 16px;
-  gap: 12px;
+  position: relative;
+  transform: translateZ(0);
+  margin-left: -1px;
+  gap: 10px;
 }
 
-    
+.browser-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
+  opacity: 0.3;
+}
+
 .url-bar-container {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-left: 12px; /* ← space from the very left */
+  flex-grow: 1;
 }
 
+.browser-actions {
+  display: flex;
+  order: -1;
+}
 
-    .browser-actions {
-      display: flex;
-      margin-right: 8px;
-    }
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ced4da;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 16px;
+  margin-right: 4px;
+}
 
-    .action-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #aaa;
-      cursor: pointer;
-      transition: background-color 0.2s;
-      font-size: 14px;
-      margin-right: 4px;
-    }
+.action-btn:hover {
+  background-color: #495057;
+}
 
 .url-bar-wrapper {
   display: flex;
   align-items: center;
-  background-color: #000;
-  border-radius: 4px;
-  padding: 0 10px;
-  height: 36px;
-  width: 300px; /* or whatever fixed width looks best */
+  background-color: #2b3035;
+  border-radius: 25px;
+  padding: 0 15px;
+  height: 40px;
+  flex-grow: 1;
 }
 
 .url-bar-container {
@@ -173,8 +231,8 @@
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
-  margin-left: 60px;
-
+  margin-left: 10px;
+  flex-grow: 1;
 }
 
 .url-bar {
@@ -182,174 +240,128 @@
   background: transparent;
   border: none;
   outline: none;
-  color: #fff;
-  font-size: 14px;
+  color: #e9ecef;
+  font-size: 16px;
   padding-left: 20px;
 }
 
-    .content-area {
-      flex-grow: 1;
-      height: calc(100% - 52px);
-      position: relative;
-    }
+.content-area {
+  flex-grow: 1;
+  height: calc(100% - 70px);
+  position: relative;
+}
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: none;
-    }
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: none;
+}
 
-    .home-screen {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #1b1b1b, #000);
-      position: absolute;
-      top: 0;
-      left: 0;
-      overflow: hidden;
-      z-index: 1;
-    }
+.home-screen {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+}
 
-    .bubble {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, #4e9fff, #4c80e4);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      opacity: 0.6;
-      animation: bubbleAnimation 10s infinite ease-in-out;
-      mix-blend-mode: screen;
-    }
+.center-content {
+  text-align: center;
+  z-index: 10;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-    .bubble-small {
-      width: 50px;
-      height: 50px;
-      top: 20%;
-      left: 10%;
-      animation-delay: 2s;
-    }
+.center-content h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
 
-    .bubble-medium {
-      width: 100px;
-      height: 100px;
-      top: 40%;
-      left: 60%;
-      animation-delay: 4s;
-    }
+.search-bar-small {
+  margin-bottom: 20px;
+  padding: 8px;
+  border-radius: 20px;
+  width: 70%;
+  font-size: 1rem;
+  background-color: #495057;
+  border: 1px solid #6c757d;
+  color: #f8f9fa;
+  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+}
 
-    .bubble-large {
-      width: 150px;
-      height: 150px;
-      top: 30%;
-      left: 80%;
-      animation-delay: 6s;
-    }
+.image-circles {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
 
-    @keyframes bubbleAnimation {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.6;
-      }
-      50% {
-        transform: translateY(-60px) scale(1.05);
-        opacity: 0.9;
-      }
-      100% {
-        transform: translateY(0) scale(1);
-        opacity: 0.6;
-      }
-    }
+.image-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+}
 
-    .center-content {
-      text-align: center;
-      z-index: 10;
-      position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+.image-circle:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+}
 
-    .center-content h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
+.image-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    .search-bar-small {
-      margin-bottom: 20px;
-      padding: 8px;
-      border-radius: 20px;
-      width: 70%;
-      font-size: 1rem;
-      background-color: #222;
-      border: 1px solid white;
-      color: white;
-    }
+/* Particles */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
 
-    .image-circles {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
+.particle {
+  position: absolute;
+  background: #adb5bd;
+  border-radius: 50%;
+  opacity: 0.1;
+  box-shadow: 0 0 8px white;
+  animation: floatUp linear infinite;
+}
 
-    .image-circle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
-    }
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
+}
 
-    .image-circle:hover {
-      transform: scale(1.2);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 1);
-    }
-
-    .image-circle img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Particles */
-    .particles-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .particle {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.1;
-      box-shadow: 0 0 8px white;
-      animation: floatUp linear infinite;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.2;
-      }
-      50% {
-        opacity: 0.5;
-      }
-      100% {
-        transform: translateY(-100vh) scale(1.5);
-        opacity: 0;
-      }
-    }
   </style>
 </head>
 <body>
+  <div id="particles-js"></div>
   <div class="container">
     <div class="sidebar">
       <ul>
@@ -365,12 +377,12 @@
 
     <div class="main-content">
       <div class="browser-header">
+        <div class="browser-actions">
+          <div class="action-btn" id="back-btn"><i class="fa-solid fa-arrow-left"></i></div>
+          <div class="action-btn" id="forward-btn"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="action-btn" id="reload-btn"><i class="fa-solid fa-rotate-right"></i></div>
+        </div>
         <div class="url-bar-container">
-          <div class="browser-actions">
-            <div class="action-btn" id="back-btn"><i class="fa-solid fa-arrow-left"></i></div>
-            <div class="action-btn" id="forward-btn"><i class="fa-solid fa-arrow-right"></i></div>
-            <div class="action-btn" id="reload-btn"><i class="fa-solid fa-rotate-right"></i></div>
-          </div>
           <div class="url-bar-wrapper">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" class="url-bar" id="url-bar" placeholder="enter search or web address" />
@@ -379,9 +391,6 @@
       </div>
       <div class="content-area">
         <div class="home-screen" id="home-screen">
-          <div class="bubble bubble-small"></div>
-          <div class="bubble bubble-medium"></div>
-          <div class="bubble bubble-large"></div>
         </div>
         <iframe id="main-frame"></iframe>
       </div>
@@ -399,6 +408,58 @@
       <div class="image-circle" onclick="navigateToUrl('https://poki.com')"><img src="https://cdn-images-1.medium.com/v2/resize:fit:1200/1*7dBqKj2f3J42EjxdEdd1Ng.png" /></div>
     </div>
   </div>
+
+  <div class="particles-container" id="particles-container"></div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+            // Define a theme object (you can customize this)
+            const theme = {
+                particleColor: "#adb5bd",
+                particleLinks: "#adb5bd"
+            };
+
+            // Initialize particles
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": 20, "density": { "enable": false } },
+                    "color": { "value": theme.particleColor || "#adb5bd" },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.7, "random": true },
+                    "size": { "value": 3, "random": true },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": theme.particleLinks || "#adb5bd",
+                        "opacity": 0.6,
+                        "width": 1
+                    },
+                    "move": { 
+                        "enable": true, 
+                        "speed": 2, 
+                        "direction": "none",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": { 
+                        "onhover": { "enable": false },
+                        "onclick": { "enable": false },
+                        "resize": true 
+                    }
+                },
+                "retina_detect": false
+            });
+        });
+    </script>
+
   
 <script>
   const urlBar = document.getElementById('url-bar');
@@ -476,35 +537,6 @@
       updateIframe(iframeHistory[currentIndex]);
     }
   };
-</script>
-
-
-
-<script>
-  const particlesContainer = document.getElementById('particles-container');
-
-  function createParticle() {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-
-    const size = Math.random() * 6 + 4; // 4px to 10px
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-
-    particle.style.left = `${Math.random() * 100}vw`;
-    particle.style.bottom = `-10px`; // start below view
-
-    const duration = Math.random() * 10 + 10; // 10s to 20s
-    particle.style.animationDuration = `${duration}s`;
-
-    particlesContainer.appendChild(particle);
-
-    setTimeout(() => {
-      particle.remove();
-    }, duration * 1000);
-  }
-
-  setInterval(createParticle, 300);
 </script>
 </body>
 </html>
