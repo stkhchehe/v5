@@ -13,22 +13,37 @@
       padding: 0;
       box-sizing: border-box;
       text-transform: lowercase;
+      scrollbar-width: thin;
+      scrollbar-color: #333333 #111111;
     }
-
     body, html {
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background-color: #2f2f2f;
-      color: white;
+      background-color: #f8f9fa;
+      color: #f8f9fa;
       font-family: 'Vapor', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
       animation: bodyAnim 1s ease-in-out;
+      background: url('https://images.unsplash.com/photo-1707924962886-12ad20367315?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+      background-size: cover;
     }
-
+    
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      z-index: -2;
+      filter: brightness(0.7) blur(3px);
+    }
+    
     @keyframes bodyAnim {
       from {
         opacity: 0;
@@ -37,17 +52,17 @@
         opacity: 1;
       }
     }
-
+    
     .bubble {
       position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle, #4e9fff, #4c80e4);
+      background: radial-gradient(circle, #adb5bd, #6c757d);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       opacity: 0.6;
       animation: bubbleAnimation 10s infinite ease-in-out;
       mix-blend-mode: screen;
     }
-
+    
     .bubble-small {
       width: 50px;
       height: 50px;
@@ -55,7 +70,7 @@
       left: 10%;
       animation-delay: 2s;
     }
-
+    
     .bubble-medium {
       width: 100px;
       height: 100px;
@@ -63,7 +78,7 @@
       left: 60%;
       animation-delay: 4s;
     }
-
+    
     .bubble-large {
       width: 150px;
       height: 150px;
@@ -71,7 +86,7 @@
       left: 80%;
       animation-delay: 6s;
     }
-
+    
     @keyframes bubbleAnimation {
       0% {
         transform: translateY(0) scale(1);
@@ -86,24 +101,25 @@
         opacity: 0.6;
       }
     }
-
+    
     .sidebar {
       position: fixed;
       width: 4.5vw;
-      background: linear-gradient(45deg, #1e1e1e, #2a2a2a);
+      background: #343a40;
+      box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
       height: 100vh;
-      transition: width 0.3s ease-in-out, background-color 0.5s ease-in-out;
+      transition: width 0.3s ease-in-out;
       overflow: hidden;
       z-index: 999;
       top: 0;
       left: 0;
+      transform: translateZ(0);
     }
-
+    
     .sidebar:hover {
       width: 13vw;
-      background: linear-gradient(45deg, #111, #222);
     }
-
+    
     .sidebar ul {
       display: flex;
       flex-direction: column;
@@ -111,13 +127,13 @@
       gap: 1rem;
       padding-top: 2rem;
     }
-
+    
     .sidebar li {
       display: block;
     }
-
+    
     .sidebar a {
-      color: white;
+      color: #f8f9fa;
       display: flex;
       align-items: center;
       text-decoration: none;
@@ -125,22 +141,22 @@
       border-radius: 2vh;
       overflow: hidden;
       font-weight: bold;
+      padding: 0.5rem 0.8rem;
     }
-
+    
     .sidebar a:hover {
-      background: gray;
+      background: #495057;
       transform: scale(1.05);
       transition: all 0.3s ease;
     }
-
+    
     .sidebar .container {
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 0.5rem 0.8rem;
       transition: all 0.3s ease;
     }
-
+    
     .sidebar .icon {
       width: 2rem;
       height: 2rem;
@@ -148,7 +164,7 @@
       justify-content: center;
       align-items: center;
     }
-
+    
     .sidebar .text {
       white-space: nowrap;
       opacity: 0;
@@ -156,23 +172,25 @@
       transition: all 0.3s ease;
       font-size: 1.3rem;
     }
-
+    
     .sidebar:hover .text {
       opacity: 1;
       transform: translateX(0);
     }
-
+    
     .sidebar .highlighted a {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
     }
-
+    
     .welcome {
       display: flex;
       width: 100%;
       animation: fadeIn 1.5s ease-in-out;
       margin-left: 12vw;
+      z-index: 2;
+      position: relative;
     }
-
+    
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -183,7 +201,7 @@
         transform: translateY(0);
       }
     }
-
+    
     .welcomeone,
     .welcometwo {
       justify-content: center;
@@ -194,25 +212,25 @@
       flex-direction: column;
       text-align: center;
     }
-
+    
     .welcomeone .text-container {
       position: relative;
       opacity: 0;
       transform: translateX(-50px);
       animation: fadeSlideIn 1.2s forwards ease-in-out;
     }
-
+    
     .welcomeone h1 {
       font-size: 4rem;
       margin-bottom: 1rem;
       font-weight: bold;
       transition: transform 0.3s ease;
     }
-
+    
     .welcomeone h1:hover {
       transform: scale(1.03);
     }
-
+    
     .splash-wrapper {
       display: flex;
       align-items: center;
@@ -222,13 +240,13 @@
       animation-delay: 0.3s;
       transform: translateX(-30px);
     }
-
+    
     .splash-text {
       font-size: 1.5rem;
       font-weight: bold;
       transition: opacity 1s ease;
     }
-
+    
     .welcometwo button {
       padding: 1.8rem 3.5rem;
       font-size: 1.6rem;
@@ -236,22 +254,22 @@
       font-weight: 700;
       border: none;
       border-radius: 100rem;
-      background: linear-gradient(45deg, #ff00b3, #00bfff);
-      color: white;
+      background: linear-gradient(45deg, #343a40, #495057);
+      color: #f8f9fa;
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 20px rgba(100, 149, 237, 0.3);
       transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.3s ease-in-out;
       animation: buttonBounce 1s ease-in-out infinite;
     }
-
+    
     @keyframes buttonBounce {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); }
     }
-
+    
     .welcometwo button:before {
       content: '';
       position: absolute;
@@ -259,94 +277,101 @@
       left: 50%;
       width: 300%;
       height: 300%;
-      background: linear-gradient(45deg, #ff00b3, #00bfff);
+      background: linear-gradient(45deg, #343a40, #495057);
       transition: all 0.4s ease;
       transform: translate(-50%, -50%) rotate(45deg);
       border-radius: 50%;
       opacity: 0;
       z-index: 0;
     }
-
+    
     .welcometwo button:hover {
       transform: scale(1.1);
-      box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 30px rgba(100, 149, 237, 0.5);
       filter: brightness(1.2);
     }
-
+    
     .welcometwo button:hover:before {
       opacity: 1;
       width: 0;
       height: 0;
     }
-
+    
     @keyframes fadeSlideIn {
       to {
         opacity: 1;
         transform: translateX(0);
       }
     }
-
-            .popup {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 250px;
-            background: #222;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            z-index: 1000;
-        }
-
-        /* Glowing Top Line */
-        .popup::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: white;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-        }
-
-        /* Show Popup */
-        .popup.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Close Button */
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .close-btn:hover {
-            color: #ddd;
-        }
     
+    .popup {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 250px;
+      background: #343a40;
+      color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      z-index: 1000;
+    }
+    
+    /* Glowing Top Line */
+    .popup::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: #f8f9fa;
+      box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+    
+    /* Show Popup */
+    .popup.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Close Button */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #f8f9fa;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    .close-btn:hover {
+      color: #ced4da;
+    }
+    
+    #particles-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
   <div id="particles-js"></div>
-
   <div class="bubble bubble-small"></div>
   <div class="bubble bubble-medium"></div>
   <div class="bubble bubble-large"></div>
-
   <div class="sidebar">
     <ul>
       <li class="highlighted">
@@ -399,7 +424,6 @@
       </li>
     </ul>
   </div>
-
   <div class="welcome">
     <div class="welcomeone">
       <div class="text-container">
@@ -413,14 +437,14 @@
       <button onclick="window.location.href = 'tabs/index.html'">get started!</button>
     </div>
   </div>
-
-          <!-- Popup -->
-    <div class="popup" id="popup">
-        <button class="close-btn" onclick="closePopup()">✖</button>
-        <p><strong>notify - unblockzone</strong></p>
-        <p>welcome to unblockzone v5! updates - not released yet</p>
-    </div>
-
+  
+  <!-- Popup -->
+  <div class="popup" id="popup">
+    <button class="close-btn" onclick="closePopup()">✖</button>
+    <p><strong>notify - unblockzone</strong></p>
+    <p>welcome to unblockzone v5! updates - not released yet</p>
+  </div>
+  
   <script>
     const splashTexts = [
       "unblockzone v5 on top",
@@ -444,10 +468,8 @@
       "cooler than coolmath",
       "one click away from freedom"
     ];
-
     let current = 0;
     const splash = document.getElementById("splash-text");
-
     setInterval(() => {
       splash.style.opacity = 0;
       setTimeout(() => {
@@ -457,36 +479,83 @@
       }, 1000);
     }, 10000);
   </script>
-
-           <script>
-        // Function to show the popup
-        function showPopup() {
-            const popup = document.getElementById("popup");
-            popup.classList.add("show");
-
-            // Auto-close after 5 seconds
-            setTimeout(() => {
-                closePopup();
-            }, 5000);
-        }
-
-        // Function to close the popup
-        function closePopup() {
-            const popup = document.getElementById("popup");
-            popup.classList.remove("show");
-        }
-
-        // Show the popup after 1 second
-        setTimeout(showPopup, 1000);
-    </script>
-
-         <script>
-        window.addEventListener("load", () => {
-            setTimeout(() => {
-                document.getElementById("searchBar").classList.add("active");
-            }, 300);
-        });
-    </script>
   
+  <script>
+    // Function to show the popup
+    function showPopup() {
+      const popup = document.getElementById("popup");
+      popup.classList.add("show");
+      // Auto-close after 5 seconds
+      setTimeout(() => {
+        closePopup();
+      }, 5000);
+    }
+    
+    // Function to close the popup
+    function closePopup() {
+      const popup = document.getElementById("popup");
+      popup.classList.remove("show");
+    }
+    
+    // Show the popup after 1 second
+    setTimeout(showPopup, 1000);
+  </script>
+  
+  <script>
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        if (document.getElementById("searchBar")) {
+          document.getElementById("searchBar").classList.add("active");
+        }
+      }, 300);
+    });
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Define a theme object (you can customize this)
+      const theme = {
+        particleColor: "#adb5bd",
+        particleLinks: "#adb5bd"
+      };
+      
+      // Initialize particles
+      particlesJS("particles-js", {
+        "particles": {
+          "number": { "value": 20, "density": { "enable": false } },
+          "color": { "value": theme.particleColor || "#adb5bd" },
+          "shape": { "type": "circle" },
+          "opacity": { "value": 0.7, "random": true },
+          "size": { "value": 3, "random": true },
+          "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": theme.particleLinks || "#adb5bd",
+            "opacity": 0.6,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 2,
+            "direction": "none",
+            "random": true,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": { "enable": false },
+            "onclick": { "enable": false },
+            "resize": true
+          }
+        },
+        "retina_detect": false
+      });
+    });
+  </script>
 </body>
 </html>
+
