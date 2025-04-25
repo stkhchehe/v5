@@ -1,11 +1,10 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>unblockzone</title>
+  <title>unblockzone template</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,13 +62,9 @@ body::before {
   pointer-events: none;
 }
 
-.container,
-.center-content {
+.container {
   position: relative;
   z-index: 2;
-}
-
-.container {
   display: flex;
   flex-grow: 1;
   height: calc(100vh - 40px);
@@ -79,7 +74,7 @@ body::before {
 
 .sidebar {
   position: fixed;
-  width: 4.5vw;
+  width: 6vw;
   background: #343a40;
   box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
   height: 100vh;
@@ -92,14 +87,9 @@ body::before {
   margin-right: -1px;
 }
 
-.sidebar {
-  width: 6vw; /* previously 4.5vw */
-}
-
 .sidebar:hover {
-  width: 15vw; /* previously 13vw */
+  width: 15vw;
 }
-
 
 .sidebar ul {
   display: flex;
@@ -156,7 +146,7 @@ body::before {
 }
 
 .sidebar:hover ~ .main-content {
-  margin-left: 6vw; /* match the base (non-hovered) width */
+  margin-left: 6vw;
   width: calc(100% - 6vw);
 }
 
@@ -203,6 +193,7 @@ body::before {
 .browser-actions {
   display: flex;
   order: -1;
+  margin-left: 20px;
 }
 
 .action-btn {
@@ -230,15 +221,6 @@ body::before {
   border-radius: 25px;
   padding: 0 15px;
   height: 40px;
-  flex-grow: 1;
-}
-
-.url-bar-container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
-  margin-left: 10px;
   flex-grow: 1;
 }
 
@@ -276,116 +258,185 @@ iframe {
   z-index: 1;
 }
 
-.center-content {
-  text-align: center;
-  z-index: 10;
+.url-bar-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+.url-bar-icons i {
+  cursor: pointer;
+  font-size: 18px;
+  color: #ced4da;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.url-bar-icons i:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Modified original version */
+.games-title {
   position: absolute;
-  top: 40%;
+  top: 15%;
   left: 50%;
   transform: translateX(-50%);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6),
+               0 0 15px rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease;
+  z-index: 10;
 }
 
-.center-content h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
+.games-title:hover {
+  transform: translateX(-50%) scale(1.05);
 }
 
-.search-bar-small {
-  margin-bottom: 20px;
-  padding: 8px;
-  border-radius: 20px;
-  width: 70%;
-  font-size: 1rem;
-  background-color: #495057;
-  border: 1px solid #6c757d;
-  color: #f8f9fa;
-  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
-}
-
-.image-circles {
+.round-rectangles-container {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  gap: 1.5rem;
+  z-index: 5;
 }
 
-.image-circle {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+.round-rectangle {
+  width: 320px;
+  height: 200px;
+  border-radius: 15px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+  position: relative;
+  transition: box-shadow 0.2s ease;
+  will-change: transform;
 }
 
-.image-circle:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+.round-rectangle:hover {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
 }
 
-.image-circle img {
+.round-rectangle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.2s ease, transform 0.1s ease;
+  will-change: transform;
+}
+
+.round-rectangle:hover img {
+  filter: brightness(0.8) blur(2px);
+}
+
+.game-name {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.round-rectangle:hover .game-name {
+  opacity: 1;
+}
+
+/* Alternative Version - Flip Card Effect */
+.flip-container {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 1.5rem;
+  z-index: 5;
+}
+
+.flip-card {
+  width: 320px;
+  height: 200px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.flip-card-front img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Particles */
-.particles-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
+.flip-card-back {
+  background: linear-gradient(145deg, #2a2a2a, #3a3a3a);
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: white;
 }
 
-.particle {
-  position: absolute;
-  background: #adb5bd;
-  border-radius: 50%;
-  opacity: 0.1;
-  box-shadow: 0 0 8px white;
-  animation: floatUp linear infinite;
+.flip-card-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
 }
 
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(-100vh) scale(1.5);
-    opacity: 0;
-  }
+.flip-card-description {
+  font-size: 0.9rem;
+  text-align: center;
+  opacity: 0.8;
 }
 
-.url-bar-icons {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Increased gap */
-    margin-left: auto; /* Push icons to the right */
-    margin-right: 5px; /* Add a little space to the right */
+.flip-card-play {
+  margin-top: 15px;
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  transition: background 0.2s;
 }
 
-.url-bar-icons i {
-    cursor: pointer;
-    font-size: 18px;
-    color: #ced4da;
-    transition: color 0.2s, transform 0.2s;
+.flip-card-play:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
-.url-bar-icons i:hover {
-    color: #fff;
-    transform: scale(1.1); /* Zoom on hover */
-}
 
-</style>
+  </style>
 </head>
 <body>
   <div id="particles-js"></div>
@@ -441,6 +492,7 @@ iframe {
           </a>
         </li>
       </ul>
+    </div>
   
     <div class="main-content">
       <div class="browser-header">
@@ -453,6 +505,9 @@ iframe {
           <div class="url-bar-wrapper">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" class="url-bar" id="url-bar" placeholder="enter search or web address" />
+            <div class="url-bar-icons">
+                <i class="fa-solid fa-bookmark bookmark-header-icon" id="bookmark-icon" onclick="bookmarkCurrentPage()"></i>
+                <i class="fa-solid fa-puzzle-piece" onclick="togglePopup('extension-popup')"></i>
             </div>
           </div>
         </div>
@@ -464,25 +519,60 @@ iframe {
       </div>
     </div>
   </div>
+  
+<h1 class="games-title">games</h1>
+<div class="flip-container">
+  <a href="https://example1.com" class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f" alt="Gaming 1">
+      </div>
+      <div class="flip-card-back">
+        <div class="flip-card-title">minecraft</div>
+        <div class="flip-card-description">Build and explore infinite worlds in this creative sandbox game.</div>
+        <div class="flip-card-play">Play Now</div>
+      </div>
+    </div>
+  </a>
+  <!-- Repeat for other cards -->
+</div>
+
+
 
 
   <div id="particles-js"></div>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-
   <div class="particles-container" id="particles-container"></div>
 
 <script>
   const urlBar = document.getElementById('url-bar');
-  const smallSearchBar = document.getElementById('small-search-bar');
   const mainFrame = document.getElementById('main-frame');
   const homeScreen = document.getElementById('home-screen');
-  const centerContent = document.getElementById('center-content');
-  const sidebarBottomButtons = document.querySelector('.sidebar-bottom-buttons');
-  const sidebar = document.querySelector('.sidebar');
   const bookmarkIcon = document.getElementById('bookmark-icon');
-  const embedCodeText = document.getElementById('embed-code-text');
+
+  let iframeHistory = [];
+  let currentIndex = -1;
+  let currentUrl = '';
+  let activePopup = null;
+
+  // Bookmarks
+  let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+  const bookmarksList = document.getElementById('bookmarks-list');
+
+  // History
+  let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+  const historyList = document.getElementById('history-list');
+
+  // Extension States
+  const extensionStates = {
+      'dark-mode': false,
+      'incognito': false,
+      'download-manager': false,
+      'ad-blocker': false,
+      'light-mode': false
+  };
 
   function updateIframe(originalUrl) {
     const cleanedUrl = originalUrl.replace(/^https?:\/\//, '');
@@ -491,16 +581,10 @@ iframe {
     mainFrame.src = proxiedUrl;
     mainFrame.style.display = "block";
     homeScreen.style.display = "none";
-    centerContent.style.display = "none";
 
-    // Show the original URL (not the proxy one)
     urlBar.value = originalUrl;
-    currentUrl = originalUrl; // Update currentUrl
+    currentUrl = originalUrl;
 
-    // Update Embed Code
-    embedCodeText.textContent = "https://www.unblockzone.online/active/iframe.html#https://" + cleanedUrl;
-
-    // Check if the current URL is bookmarked
     if (bookmarks.some(bookmark => bookmark.url === currentUrl)) {
         bookmarkIcon.classList.add('bookmarked');
     } else {
@@ -513,7 +597,6 @@ iframe {
 
     let formattedUrl = input.trim();
 
-    // Basic cleanup and normalization
     if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
       if (formattedUrl.includes(".")) {
         formattedUrl = "https://" + formattedUrl;
@@ -527,7 +610,6 @@ iframe {
     currentIndex++;
     updateIframe(formattedUrl);
 
-    // Update History
     addSearchToHistory(formattedUrl);
   }
 
@@ -538,14 +620,131 @@ iframe {
     }
   });
 
-  smallSearchBar.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      navigateToUrl(smallSearchBar.value);
+  document.getElementById("back-btn").onclick = () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateIframe(iframeHistory[currentIndex]);
     }
-  });
+  };
 
-    // Initialize particles
+  document.getElementById("forward-btn").onclick = () => {
+    if (currentIndex < iframeHistory.length - 1) {
+      currentIndex++;
+      updateIframe(iframeHistory[currentIndex]);
+    }
+  };
+
+  document.getElementById("reload-btn").onclick = () => {
+    if (currentIndex >= 0) {
+      updateIframe(iframeHistory[currentIndex]);
+    }
+  };
+
+  function bookmarkCurrentPage() {
+    if (!currentUrl) return;
+
+    const pageTitle = currentUrl;
+    const bookmark = { url: currentUrl, title: pageTitle };
+
+    const isBookmarked = bookmarks.some(b => b.url === currentUrl);
+
+    if (isBookmarked) {
+      bookmarks = bookmarks.filter(b => b.url !== currentUrl);
+      bookmarkIcon.classList.remove('bookmarked');
+    } else {
+      bookmarks.push(bookmark);
+      bookmarkIcon.classList.add('bookmarked');
+    }
+
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  }
+
+  function addSearchToHistory(url) {
+    searchHistory.unshift(url);
+    searchHistory = searchHistory.slice(0, 10);
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+  }
+
+  function toggleExtension(extensionName) {
+    extensionStates[extensionName] = !extensionStates[extensionName];
+    const toggleElement = document.querySelector(`.extension-toggle[data-extension="${extensionName}"] i`);
+
+    if (extensionStates[extensionName]) {
+      if (extensionName === 'dark-mode') {
+        document.body.classList.add('dark-mode');
+      } else if (extensionName === 'incognito') {
+        document.body.classList.add('incognito');
+      } else if (extensionName === 'light-mode') {
+        document.body.classList.add('light-mode');
+        localStorage.setItem('lightMode', 'enabled');
+      }
+    } else {
+      if (extensionName === 'dark-mode') {
+        document.body.classList.remove('dark-mode');
+      } else if (extensionName === 'incognito') {
+        document.body.classList.remove('incognito');
+      } else if (extensionName === 'light-mode') {
+        document.body.classList.remove('light-mode');
+        localStorage.setItem('lightMode', 'disabled');
+      }
+    }
+  }
+
+  if (localStorage.getItem('lightMode') === 'enabled') {
+    document.body.classList.add('light-mode');
+    extensionStates['light-mode'] = true;
+  }
+
+  function loadSavedExtensionStates() {
+    const savedStates = JSON.parse(localStorage.getItem('extensionStates')) || {};
+    Object.keys(savedStates).forEach(extension => {
+      if (savedStates[extension]) {
+        extensionStates[extension] = true;
+        applyExtensionState(extension, true);
+      }
+    });
+  }
+
+  function applyExtensionState(extensionName, state) {
+    switch (extensionName) {
+      case 'dark-mode':
+        document.body.classList.toggle('dark-mode', state);
+        break;
+      case 'incognito':
+        document.body.classList.toggle('incognito', state);
+        break;
+      case 'ad-blocker':
+        state ? enableAdBlocker() : disableAdBlocker();
+        break;
+      case 'light-mode':
+        document.body.classList.toggle('light-mode', state);
+        break;
+    }
+  }
+
+  function enableAdBlocker() {
+    const adPatterns = [
+      'ads', 'advertisement', 'banner', 'sponsor', 'advertising',
+      'google_ads', 'adsense', 'advert', 'promotions', 'sponsored'
+    ];
+    setInterval(() => {
+      if (extensionStates['ad-blocker']) {
+        const elements = document.querySelectorAll('iframe, div, img, a');
+        elements.forEach(el => {
+          const str = (el.id + ' ' + el.className + ' ' + el.src + ' ' + el.href).toLowerCase();
+          if (adPatterns.some(pattern => str.includes(pattern))) {
+            el.style.display = 'none';
+          }
+        });
+      }
+    }, 1000);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadSavedExtensionStates();
+
+    const theme = window.theme || {};
+
     particlesJS("particles-js", {
       "particles": {
         "number": { "value": 20, "density": { "enable": false } },
@@ -580,10 +779,38 @@ iframe {
       },
       "retina_detect": false
     });
-
-    updateBookmarksList();
-    updateHistoryList();
   });
+  
+document.querySelectorAll('.round-rectangle').forEach(card => {
+  let rafId;
+  
+  card.addEventListener('mousemove', (e) => {
+    if (rafId) cancelAnimationFrame(rafId);
+    
+    rafId = requestAnimationFrame(() => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const moveX = (x - centerX) / 25;
+      const moveY = (y - centerY) / 25;
+      
+      const img = card.querySelector('img');
+      img.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    if (rafId) cancelAnimationFrame(rafId);
+    const img = card.querySelector('img');
+    img.style.transform = 'translate(0, 0)';
+  });
+});
+
+
 </script>
 
 </body>
