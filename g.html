@@ -1,749 +1,590 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UnblockZone</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>unblockzone</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      font-weight: bold;
+      text-transform: lowercase;
+      scrollbar-width: thin;
+      scrollbar-color: #333333 #111111;
+    }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #f8f9fa;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  background: url('https://images.unsplash.com/photo-1707924962886-12ad20367315?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+  background-size: cover;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  z-index: -2;
+  filter: brightness(0.7) blur(3px);
+}
+
+#particles-js {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.container,
+.center-content {
+  position: relative;
+  z-index: 2;
+}
+
+.container {
+  display: flex;
+  flex-grow: 1;
+  height: calc(100vh - 40px);
+  width: 100vw;
+  overflow: hidden;
+}
+
+.sidebar {
+  position: fixed;
+  width: 4.5vw;
+  background: #343a40;
+  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+  height: 100vh;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  transform: translateZ(0);
+  margin-right: -1px;
+}
+
+.sidebar {
+  width: 6vw; /* previously 4.5vw */
+}
+
+.sidebar:hover {
+  width: 15vw; /* previously 13vw */
+}
+
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 2rem;
+  list-style-type: none;
+}
+
+.sidebar a {
+  color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 2vh;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.sidebar a:hover {
+  background: #495057;
+  transform: scale(1.05);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  font-size: 1.3rem;
+}
+
+.sidebar:hover .text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.highlighted a {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar:hover ~ .main-content {
+  margin-left: 6vw; /* match the base (non-hovered) width */
+  width: calc(100% - 6vw);
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 4.5vw;
+  width: calc(100% - 4.5vw);
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+.browser-header {
+  height: 70px;
+  background-color: #343a40;
+  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 16px;
+  position: relative;
+  transform: translateZ(0);
+  margin-left: -1px;
+  gap: 10px;
+}
+
+.browser-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
+  opacity: 0.3;
+}
+
+.url-bar-container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.browser-actions {
+  display: flex;
+  order: -1;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ced4da;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 16px;
+  margin-right: 4px;
+}
+
+.action-btn:hover {
+  background-color: #495057;
+}
+
+.url-bar-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #2b3035;
+  border-radius: 25px;
+  padding: 0 15px;
+  height: 40px;
+  flex-grow: 1;
+}
+
+.url-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-left: 10px;
+  flex-grow: 1;
+}
+
+.url-bar {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e9ecef;
+  font-size: 16px;
+  padding-left: 20px;
+}
+
+.content-area {
+  flex-grow: 1;
+  height: calc(100% - 70px);
+  position: relative;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: none;
+}
+
+.home-screen {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.center-content {
+  text-align: center;
+  z-index: 10;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.center-content h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.search-bar-small {
+  margin-bottom: 20px;
+  padding: 8px;
+  border-radius: 20px;
+  width: 70%;
+  font-size: 1rem;
+  background-color: #495057;
+  border: 1px solid #6c757d;
+  color: #f8f9fa;
+  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+}
+
+.image-circles {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.image-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+}
+
+.image-circle:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+}
+
+.image-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Particles */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: #adb5bd;
+  border-radius: 50%;
+  opacity: 0.1;
+  box-shadow: 0 0 8px white;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.url-bar-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Increased gap */
+    margin-left: auto; /* Push icons to the right */
+    margin-right: 5px; /* Add a little space to the right */
+}
+
+.url-bar-icons i {
+    cursor: pointer;
+    font-size: 18px;
+    color: #ced4da;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.url-bar-icons i:hover {
+    color: #fff;
+    transform: scale(1.1); /* Zoom on hover */
+}
+
+</style>
 </head>
-<body class="body">
-    <div class="body-notsupported">
-        <h1>This screen size is not supported!</h1>
-      </div>
+<body>
+  <div id="particles-js"></div>
+  <div class="container">
     <div class="sidebar">
-        <ul>
-            <li>
-                <div class="container">
-                    <div class="icon"><i class="fa-solid fa-house"></i></div>
-                    <div class="text">Home</div>
-                </div>
-            </li>
-            <li class="highlighted">
-                <div class="container">
-                    <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
-                    <div class="text">Games</div>
-                </div>
-            </li>
-            <li>
-                <div class="container">
-                    <div class="icon"><i class="fa-solid fa-tv"></i></div>
-                    <div class="text">Movies</div>
-                </div>
-            </li>
-            <li>
-                <div class="container">
-                    <div class="icon"><i class="fa-solid fa-tablet"></i></div>
-                    <div class="text">Apps</div>
-                </div>
-            </li>
-            <li>
-                <div class="container">
-                    <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                    <div class="text">Tabs</div>
-                </div>
-            </li>
-            <li>
-                <div class="container">
-                    <div class="icon"><i class="fa-brands fa-discord"></i></div>
-                    <div class="text">Discord</div>
-                </div>
-            </li>
-        </ul>
+      <ul>
+        <li>
+          <a href="/index.html" class="home-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-house"></i></div>
+              <div class="text">home</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/g.html" class="games-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
+              <div class="text">games</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/a.html" class="apps-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-mobile"></i></div>
+              <div class="text">apps</div>
+            </div>
+          </a>
+        </li>
+        <li class="highlighted">
+          <a href="/p.html" class="proxy-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+              <div class="text">proxy</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/s.html" class="settings-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-cog"></i></div>
+              <div class="text">settings</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/partners.html" class="partners-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-handshake"></i></div>
+              <div class="text">partners</div>
+            </div>
+          </a>
+        </li>
+      </ul>
+  
+    <div class="main-content">
+      <div class="browser-header">
+        <div class="browser-actions">
+          <div class="action-btn" id="back-btn"><i class="fa-solid fa-arrow-left"></i></div>
+          <div class="action-btn" id="forward-btn"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="action-btn" id="reload-btn"><i class="fa-solid fa-rotate-right"></i></div>
+        </div>
+        <div class="url-bar-container">
+          <div class="url-bar-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="url-bar" id="url-bar" placeholder="enter search or web address" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-area">
+        <div class="home-screen" id="home-screen">
+        </div>
+        <iframe id="main-frame"></iframe>
+      </div>
     </div>
-    <div class="games">
-          <div class="game-box" onclick="window.open('/g/10-minutes-till-dawn/')">
-            <img src="assets/images/10mintilldawn.png">
-            <h2>10 Minutes Till Dawn</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/1v1-lol/')">
-            <img src="assets/images/1v1lol.jpg">
-            <h2>1V1 Lol</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/2048-cupcakes/')">
-            <img src="assets/images/2048-cupcakes-game.jpg">
-            <h2>2048 Cupcakes</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/2048/')">
-            <img src="assets/images/2048.jpg">
-            <h2>2048</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/amaze/')">
-            <img src="assets/images/amaze.png">
-            <h2>Amaze</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/among-us/')">
-            <img src="assets/images/amongus.jpg">
-            <h2>Among Us</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/asmr-beauty-homeless/')">
-            <img src="assets/images/asmrbeautyhomeless.jpg">
-            <h2>Asmr Beauty Homeless</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/attack-hole/')">
-            <img src="assets/images/attackhole.png">
-            <h2>Attack Hole</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/baldis-basics/')">
-            <img src="">
-            <h2>Baldis Basics</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/basket-battle/')">
-            <img src="">
-            <h2>Basket Battle</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/basket-random/')">
-            <img src="">
-            <h2>Basket Random</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/basketball-stars/')">
-            <img src="">
-            <h2>Basketball Stars</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/basketball-superstars/')">
-            <img src="">
-            <h2>Basketball Superstars</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/bitlife/')">
-            <img src="">
-            <h2>Bitlife</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/block-blast/')">
-            <img src="">
-            <h2>Block Blast</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/bloxd-io/')">
-            <img src="">
-            <h2>Bloxd Io</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/bolly-beat/')">
-            <img src="">
-            <h2>Bolly Beat</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/bowmasters/')">
-            <img src="">
-            <h2>Bowmasters</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/brawl-stars/')">
-            <img src="">
-            <h2>Brawl Stars</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/braybray-clicker/')">
-            <img src="">
-            <h2>Braybray Clicker</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/braybrayclicker/')">
-            <img src="">
-            <h2>Braybrayclicker</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/bubble-shooter/')">
-            <img src="">
-            <h2>Bubble Shooter</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/car-crash-3/')">
-            <img src="">
-            <h2>Car Crash 3</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/chat-with-stepsister/')">
-            <img src="">
-            <h2>Chat With Stepsister</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/cluster-rush/')">
-            <img src="">
-            <h2>Cluster Rush</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/color-water-sort/')">
-            <img src="">
-            <h2>Color Water Sort</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/cookie-clicker/')">
-            <img src="">
-            <h2>Cookie Clicker</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/crazy-flips-3d/')">
-            <img src="">
-            <h2>Crazy Flips 3D</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/crazy-motorcycle/')">
-            <img src="">
-            <h2>Crazy Motorcycle</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/creepy-granny-scream/')">
-            <img src="">
-            <h2>Creepy Granny Scream</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/crossy-road/')">
-            <img src="">
-            <h2>Crossy Road</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/cut-the-rope/')">
-            <img src="">
-            <h2>Cut The Rope</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/digital-circus-obby/')">
-            <img src="">
-            <h2>Digital Circus Obby</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/doors-online/')">
-            <img src="">
-            <h2>Doors Online</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/draw-climber/')">
-            <img src="">
-            <h2>Draw Climber</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/drift-boss/')">
-            <img src="">
-            <h2>Drift Boss</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/drift-hunters/')">
-            <img src="">
-            <h2>Drift Hunters</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/drive-mad/')">
-            <img src="">
-            <h2>Drive Mad</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/dunk-hit/')">
-            <img src="">
-            <h2>Dunk Hit</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/elastic-man/')">
-            <img src="">
-            <h2>Elastic Man</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/escape-road/')">
-            <img src="">
-            <h2>Escape Road</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/evil-neighbor-3/')">
-            <img src="">
-            <h2>Evil Neighbor 3</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/fashion-battle/')">
-            <img src="">
-            <h2>Fashion Battle</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/fashion-famous/')">
-            <img src="">
-            <h2>Fashion Famous</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/flappy-bird/')">
-            <img src="">
-            <h2>Flappy Bird</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/floor-is-lava/')">
-            <img src="">
-            <h2>Floor Is Lava</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/fnaf-2/')">
-            <img src="">
-            <h2>Fnaf 2</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/fnaf-shooter/')">
-            <img src="">
-            <h2>Fnaf Shooter</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/fnaf/')">
-            <img src="">
-            <h2>Fnaf</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/fortnite/')">
-            <img src="">
-            <h2>Fortnite</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/fortzone/')">
-            <img src="">
-            <h2>Fortzone</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/friday-night-funkin/')">
-            <img src="">
-            <h2>Friday Night Funkin</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/fruit-ninja/')">
-            <img src="">
-            <h2>Fruit Ninja</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/geometry-dash/')">
-            <img src="">
-            <h2>Geometry Dash</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/gladihoppers/')">
-            <img src="">
-            <h2>Gladihoppers</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/glass-bridge-obby/')">
-            <img src="">
-            <h2>Glass Bridge Obby</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/grand-theft-auto/')">
-            <img src="">
-            <h2>Grand Theft Auto</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/grand-theft-grotto/')">
-            <img src="">
-            <h2>Grand Theft Grotto</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/granny-2/')">
-            <img src="">
-            <h2>Granny 2</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/granny-3/')">
-            <img src="">
-            <h2>Granny 3</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/granny-offline/')">
-            <img src="">
-            <h2>Granny Offline</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/granny-playtime/')">
-            <img src="">
-            <h2>Granny Playtime</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/granny-shooter/')">
-            <img src="">
-            <h2>Granny Shooter</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/helix-jump/')">
-            <img src="">
-            <h2>Helix Jump</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/hide-n-seek/')">
-            <img src="">
-            <h2>Hide N Seek</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/hole-io/')">
-            <img src="">
-            <h2>Hole Io</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/indian-truck-simulator/')">
-            <img src="">
-            <h2>Indian Truck Simulator</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/infinite-craft/')">
-            <img src="">
-            <h2>Infinite Craft</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/just-fall-lol/')">
-            <img src="">
-            <h2>Just Fall Lol</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/knife-hit/')">
-            <img src="">
-            <h2>Knife Hit</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/lazy-jump-3d/')">
-            <img src="">
-            <h2>Lazy Jump 3D</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/lucky-blocks/')">
-            <img src="">
-            <h2>Lucky Blocks</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/magic-tiles-3/')">
-            <img src="">
-            <h2>Magic Tiles 3</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/mega-makeup-seasons-best')">
-            <img src="">
-            <h2>Mega Makeup Seasons Best</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/minecraft-parkour/')">
-            <img src="">
-            <h2>Minecraft Parkour</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/minecraft-shooter/')">
-            <img src="">
-            <h2>Minecraft Shooter</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/minecraft/')">
-            <img src="">
-            <h2>Minecraft</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/monkey-mart/')">
-            <img src="">
-            <h2>Monkey Mart</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/monster-tracks/')">
-            <img src="">
-            <h2>Monster Tracks</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/moto-x3m-pool/')">
-            <img src="">
-            <h2>Moto X3M Pool</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/moto-x3m/')">
-            <img src="">
-            <h2>Moto X3M</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/mountain-bike-racer/')">
-            <img src="">
-            <h2>Mountain Bike Racer</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/mx-offroad-mountain-bike/')">
-            <img src="">
-            <h2>Mx Offroad Mountain Bike</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/my-femboy-roommate/')">
-            <img src="">
-            <h2>My Femboy Roommate</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/my-perfect-hotel/')">
-            <img src="">
-            <h2>My Perfect Hotel</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/obby-but-your-on-a-bike/')">
-            <img src="">
-            <h2>Obby But Your On A Bike</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/only-up/')">
-            <img src="">
-            <h2>Only Up</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/ovo/')">
-            <img src="">
-            <h2>Ovo</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/papas-burgeria/')">
-            <img src="">
-            <h2>Papas Burgeria</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/papas-freezeria/')">
-            <img src="">
-            <h2>Papas Freezeria</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/papas-pizzeria/')">
-            <img src="">
-            <h2>Papas Pizzeria</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/paper-io-2/')">
-            <img src="">
-            <h2>Paper Io 2</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/paper-io-3d/')">
-            <img src="">
-            <h2>Paper Io 3D</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/poly-track/')">
-            <img src="">
-            <h2>Poly Track</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/ragdoll-archers/')">
-            <img src="">
-            <h2>Ragdoll Archers</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/ragdoll-io/')">
-            <img src="">
-            <h2>Ragdoll Io</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/rainbow-obby/')">
-            <img src="">
-            <h2>Rainbow Obby</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/retro-bowl/')">
-            <img src="">
-            <h2>Retro Bowl</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/roblox-only-up/')">
-            <img src="">
-            <h2>Roblox Only Up</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/roblox/')">
-            <img src="">
-            <h2>Roblox</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/rocket-soccer/')">
-            <img src="">
-            <h2>Rocket Soccer</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/russian-car-driving/')">
-            <img src="">
-            <h2>Russian Car Driving</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/shell-shockers/')">
-            <img src="">
-            <h2>Shell Shockers</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/shreks-hotel/')">
-            <img src="">
-            <h2>Shreks Hotel</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/skribbl-io/')">
-            <img src="">
-            <h2>Skribbl Io</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/sky-race-3d/')">
-            <img src="">
-            <h2>Sky Race 3D</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/slice-master/')">
-            <img src="">
-            <h2>Slice Master</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/slide-in-the-woods/')">
-            <img src="">
-            <h2>Slide In The Woods</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/slither-io/')">
-            <img src="">
-            <h2>Slither Io</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/slope-3/')">
-            <img src="">
-            <h2>Slope 3</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/slope/')">
-            <img src="">
-            <h2>Slope</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/smash-karts-io/')">
-            <img src="">
-            <h2>Smash Karts Io</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/smash-karts/')">
-            <img src="">
-            <h2>Smash Karts</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/smashy-road/')">
-            <img src="">
-            <h2>Smashy Road</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/snowball-io/')">
-            <img src="">
-            <h2>Snowball Io</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/solar-smash/')">
-            <img src="">
-            <h2>Solar Smash</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/space-waves/')">
-            <img src="">
-            <h2>Space Waves</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/squid-game-online/')">
-            <img src="">
-            <h2>Squid Game Online</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/stacky-dash/')">
-            <img src="">
-            <h2>Stacky Dash</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/stair-race-3d/')">
-            <img src="">
-            <h2>Stair Race 3D</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/stick-fight-the-game/')">
-            <img src="">
-            <h2>Stick Fight The Game</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/stickman-hook/')">
-            <img src="">
-            <h2>Stickman Hook</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/stumble-guys/')">
-            <img src="">
-            <h2>Stumble Guys</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/subway-surfers/')">
-            <img src="">
-            <h2>Subway Surfers</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/super-crime-steel-war-hero/')">
-            <img src="">
-            <h2>Super Crime Steel War Hero</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/super-hot/')">
-            <img src="">
-            <h2>Super Hot</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/survival-race/')">
-            <img src="">
-            <h2>Survival Race</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/tall-man-run/')">
-            <img src="">
-            <h2>Tall Man Run</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/temple-run-2/')">
-            <img src="">
-            <h2>Temple Run 2</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/tetris/')">
-            <img src="">
-            <h2>Tetris</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/the-last-io/')">
-            <img src="">
-            <h2>The Last Io</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/tile-jumper-3d/')">
-            <img src="">
-            <h2>Tile Jumper 3D</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/twerk-race-3d/')">
-            <img src="">
-            <h2>Twerk Race 3D</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/ultimate-driving-simulator/')">
-            <img src="">
-            <h2>Ultimate Driving Simulator</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/watermelon-game/')">
-            <img src="">
-            <h2>Watermelon Game</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/who-ate-the-nutella/')">
-            <img src="">
-            <h2>Who Ate The Nutella</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/world-guesser/')">
-            <img src="">
-            <h2>World Guesser</h2>
-          </div>
-          
-          <div class="game-box" onclick="window.open('/g/zen-word/')">
-            <img src="">
-            <h2>Zen Word</h2>
-          </div>          
-    </div>
+  </div>
+
+
+  <div id="particles-js"></div>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+
+  <div class="particles-container" id="particles-container"></div>
+
+<script>
+  const urlBar = document.getElementById('url-bar');
+  const smallSearchBar = document.getElementById('small-search-bar');
+  const mainFrame = document.getElementById('main-frame');
+  const homeScreen = document.getElementById('home-screen');
+  const centerContent = document.getElementById('center-content');
+  const sidebarBottomButtons = document.querySelector('.sidebar-bottom-buttons');
+  const sidebar = document.querySelector('.sidebar');
+  const bookmarkIcon = document.getElementById('bookmark-icon');
+  const embedCodeText = document.getElementById('embed-code-text');
+
+  function updateIframe(originalUrl) {
+    const cleanedUrl = originalUrl.replace(/^https?:\/\//, '');
+    const proxiedUrl = "https://blockzone.github.io/active/iframe.html#https://" + cleanedUrl;
+
+    mainFrame.src = proxiedUrl;
+    mainFrame.style.display = "block";
+    homeScreen.style.display = "none";
+    centerContent.style.display = "none";
+
+    // Show the original URL (not the proxy one)
+    urlBar.value = originalUrl;
+    currentUrl = originalUrl; // Update currentUrl
+
+    // Update Embed Code
+    embedCodeText.textContent = "https://www.unblockzone.online/active/iframe.html#https://" + cleanedUrl;
+
+    // Check if the current URL is bookmarked
+    if (bookmarks.some(bookmark => bookmark.url === currentUrl)) {
+        bookmarkIcon.classList.add('bookmarked');
+    } else {
+        bookmarkIcon.classList.remove('bookmarked');
+    }
+  }
+
+  function navigateToUrl(input) {
+    if (!input.trim()) return;
+
+    let formattedUrl = input.trim();
+
+    // Basic cleanup and normalization
+    if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
+      if (formattedUrl.includes(".")) {
+        formattedUrl = "https://" + formattedUrl;
+      } else {
+        formattedUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(formattedUrl);
+      }
+    }
+
+    iframeHistory = iframeHistory.slice(0, currentIndex + 1);
+    iframeHistory.push(formattedUrl);
+    currentIndex++;
+    updateIframe(formattedUrl);
+
+    // Update History
+    addSearchToHistory(formattedUrl);
+  }
+
+  urlBar.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      navigateToUrl(urlBar.value);
+    }
+  });
+
+  smallSearchBar.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      navigateToUrl(smallSearchBar.value);
+    }
+  });
+
+    // Initialize particles
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 20, "density": { "enable": false } },
+        "color": { "value": theme.particleColor || "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.7, "random": true },
+        "size": { "value": 3, "random": true },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": theme.particleLinks || "#ffffff",
+          "opacity": 0.6,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": false },
+          "onclick": { "enable": false },
+          "resize": true
+        }
+      },
+      "retina_detect": false
+    });
+
+    updateBookmarksList();
+    updateHistoryList();
+  });
+</script>
+
 </body>
 </html>
-<script src="scripts.js"></script>
