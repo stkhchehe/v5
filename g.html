@@ -353,15 +353,22 @@ iframe {
   opacity: 1;
 }
 
-/* Alternative Version - Flip Card Effect */
-.flip-container {
+/* Container for both sets of cards */
+.games-container {
   position: absolute;
-  top: 55%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 3rem;
   z-index: 5;
+}
+
+/* Flip Cards Section */
+.flip-container {
+  display: flex;
+  gap: 1.5rem;
 }
 
 .flip-card {
@@ -399,7 +406,6 @@ iframe {
 }
 
 .flip-card-back {
-  background: linear-gradient(145deg, #2a2a2a, #3a3a3a);
   transform: rotateY(180deg);
   display: flex;
   flex-direction: column;
@@ -407,6 +413,16 @@ iframe {
   align-items: center;
   padding: 20px;
   color: white;
+  overflow: hidden;
+}
+
+.flip-card-back-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.3) blur(8px);
+  z-index: -1;
 }
 
 .flip-card-title {
@@ -414,12 +430,14 @@ iframe {
   font-weight: 700;
   font-size: 1.5rem;
   margin-bottom: 10px;
+  z-index: 2;
 }
 
 .flip-card-description {
   font-size: 0.9rem;
   text-align: center;
-  opacity: 0.8;
+  opacity: 0.9;
+  z-index: 2;
 }
 
 .flip-card-play {
@@ -429,11 +447,62 @@ iframe {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   transition: background 0.2s;
+  z-index: 2;
 }
 
 .flip-card-play:hover {
   background: rgba(255, 255, 255, 0.2);
 }
+
+/* Zoom Cards Section */
+.zoom-container {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.zoom-card {
+  width: 320px;
+  height: 200px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: box-shadow 0.2s ease;
+}
+
+.zoom-card:hover {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.zoom-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.zoom-card:hover img {
+  transform: scale(1.1);
+}
+
+.zoom-card-name {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.zoom-card:hover .zoom-card-name {
+  opacity: 1;
+}
+
 
 
   </style>
@@ -521,20 +590,65 @@ iframe {
   </div>
   
 <h1 class="games-title">games</h1>
-<div class="flip-container">
-  <a href="https://example1.com" class="flip-card">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f" alt="Gaming 1">
+<div class="games-container">
+  <!-- Flip Cards -->
+  <div class="flip-container">
+    <a href="https://example1.com" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://example.com/game1-front.jpg" alt="Game 1">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://example.com/game1-back.jpg" class="flip-card-back-image" alt="Game 1 Background">
+          <div class="flip-card-title">minecraft</div>
+          <div class="flip-card-description">Build and explore infinite worlds in this creative sandbox game.</div>
+          <div class="flip-card-play">Play Now</div>
+        </div>
       </div>
-      <div class="flip-card-back">
-        <div class="flip-card-title">minecraft</div>
-        <div class="flip-card-description">Build and explore infinite worlds in this creative sandbox game.</div>
-        <div class="flip-card-play">Play Now</div>
+    </a>
+    <a href="https://example2.com" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://example.com/game2-front.jpg" alt="Game 2">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://example.com/game2-back.jpg" class="flip-card-back-image" alt="Game 2 Background">
+          <div class="flip-card-title">roblox</div>
+          <div class="flip-card-description">Join millions of players in this ultimate gaming platform.</div>
+          <div class="flip-card-play">Play Now</div>
+        </div>
       </div>
-    </div>
-  </a>
-  <!-- Repeat for other cards -->
+    </a>
+    <a href="https://example3.com" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://example.com/game3-front.jpg" alt="Game 3">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://example.com/game3-back.jpg" class="flip-card-back-image" alt="Game 3 Background">
+          <div class="flip-card-title">fortnite</div>
+          <div class="flip-card-description">Battle royale action with unique building mechanics.</div>
+          <div class="flip-card-play">Play Now</div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Zoom Cards -->
+  <div class="zoom-container">
+    <a href="https://example4.com" class="zoom-card">
+      <img src="https://example.com/game4.jpg" alt="Game 4">
+      <div class="zoom-card-name">among us</div>
+    </a>
+    <a href="https://example5.com" class="zoom-card">
+      <img src="https://example.com/game5.jpg" alt="Game 5">
+      <div class="zoom-card-name">geometry dash</div>
+    </a>
+    <a href="https://example6.com" class="zoom-card">
+      <img src="https://example.com/game6.jpg" alt="Game 6">
+      <div class="zoom-card-name">subway surfers</div>
+    </a>
+  </div>
 </div>
 
 
