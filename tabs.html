@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -679,21 +680,43 @@ body.incognito .url-bar-wrapper {
     padding: 8px 0;
 }
 
-/* Custom cursor */
-body.custom-cursor {
-    cursor: none !important;
+// Add this CSS
+body.light-mode {
+    background: #ffffff !important;
+    color: #333333 !important;
 }
 
-.cursor-dot {
-    width: 10px;
-    height: 10px;
-    background-color: white;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.8;
-    transition: opacity 0.3s ease-in-out;
+body.light-mode .browser-header,
+body.light-mode .sidebar {
+    background-color: #f8f9fa !important;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+body.light-mode .url-bar-wrapper {
+    background-color: #ffffff !important;
+    border: 1px solid #dee2e6;
+}
+
+body.light-mode .url-bar {
+    color: #333333 !important;
+}
+
+body.light-mode .sidebar a {
+    color: #333333 !important;
+}
+
+body.light-mode .popup {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+body.light-mode .action-btn {
+    color: #333333 !important;
+}
+
+body.light-mode .url-bar-icons i {
+    color: #333333 !important;
 }
 
 </style>
@@ -800,7 +823,7 @@ body.custom-cursor {
     <input type="text" class="search-bar-small" id="small-search-bar" placeholder="search or enter a url" />
     <div class="image-circles">
       <div class="image-circle" onclick="navigateToUrl('https://now.gg')"><img src="https://miro.medium.com/v2/resize:fit:1000/1*YM7t6RluDCb0XT62yy2aqQ.png" /></div>
-      <div class="image-circle" onclick="navigateToUrl('https://tuna.voicemod.net')"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT21s_PxCTz2BnLYGiy7AVDnBZ8S60ZL7sMng&s" /></div>
+      <div class="image-circle" onclick="navigateToUrl('https://youtube.com')"><img src="https://static.vecteezy.com/system/resources/thumbnails/018/930/572/small/youtube-logo-youtube-icon-transparent-free-png.png" /></div>
       <div class="image-circle" onclick="navigateToUrl('https://tiktok.com')"><img src="https://static.vecteezy.com/system/resources/previews/016/716/450/non_2x/tiktok-icon-free-png.png" /></div>
       <div class="image-circle" onclick="navigateToUrl('https://duckduckgo.com')"><img src="https://upload.wikimedia.org/wikipedia/en/9/90/The_DuckDuckGo_Duck.png" /></div>
       <div class="image-circle" onclick="navigateToUrl('https://poki.com')"><img src="https://cdn-images-1.medium.com/v2/resize:fit:1200/1*7dBqKj2f3J42EjxdEdd1Ng.png" /></div>
@@ -828,6 +851,7 @@ body.custom-cursor {
     </div>
     <button class="copy-button" onclick="copyEmbedCode()">copy</button>
   </div>
+  
 
 <div class="popup" id="extension-popup">
     <h3>extensions</h3>
@@ -843,12 +867,6 @@ body.custom-cursor {
         <li>
             <span>incognito mode</span>
             <span class="extension-toggle" data-extension="incognito" onclick="toggleExtension('incognito')">
-                <i class="fa-solid fa-toggle-off"></i>
-            </span>
-        </li>
-        <li>
-            <span>custom cursor</span>
-            <span class="extension-toggle" data-extension="custom-cursor" onclick="toggleExtension('custom-cursor')">
                 <i class="fa-solid fa-toggle-off"></i>
             </span>
         </li>
@@ -874,54 +892,6 @@ body.custom-cursor {
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-            // Define a theme object (you can customize this)
-            const theme = {
-                particleColor: "#adb5bd",
-                particleLinks: "#adb5bd"
-            };
-
-            // Initialize particles
-            particlesJS("particles-js", {
-                "particles": {
-                    "number": { "value": 20, "density": { "enable": false } },
-                    "color": { "value": theme.particleColor || "#adb5bd" },
-                    "shape": { "type": "circle" },
-                    "opacity": { "value": 0.7, "random": true },
-                    "size": { "value": 3, "random": true },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": theme.particleLinks || "#adb5bd",
-                        "opacity": 0.6,
-                        "width": 1
-                    },
-                    "move": { 
-                        "enable": true, 
-                        "speed": 2, 
-                        "direction": "none",
-                        "random": true,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": { 
-                        "onhover": { "enable": false },
-                        "onclick": { "enable": false },
-                        "resize": true 
-                    }
-                },
-                "retina_detect": false
-            });
-        });
-    </script>
-
-  
 <script>
   const urlBar = document.getElementById('url-bar');
   const smallSearchBar = document.getElementById('small-search-bar');
@@ -951,7 +921,8 @@ body.custom-cursor {
       'dark-mode': false,
       'incognito': false,
       'download-manager': false,
-      'ad-blocker': false
+      'ad-blocker': false,
+      'light-mode': false // Added for light mode
   };
 
   function updateIframe(originalUrl) {
@@ -1132,6 +1103,7 @@ body.custom-cursor {
       });
   }
 
+  // Modified toggleExtension function with light mode
   function toggleExtension(extensionName) {
       extensionStates[extensionName] = !extensionStates[extensionName];
       const toggleElement = document.querySelector(`.extension-toggle[data-extension="${extensionName}"] i`);
@@ -1139,115 +1111,50 @@ body.custom-cursor {
       if (extensionStates[extensionName]) {
           toggleElement.classList.remove('fa-toggle-off');
           toggleElement.classList.add('fa-toggle-on');
-          // Add logic to enable the extension
-          console.log(`${extensionName} enabled`);
+          
+          // Handle specific extensions
+          if (extensionName === 'dark-mode') {
+              document.body.classList.add('dark-mode');
+          } else if (extensionName === 'incognito') {
+              document.body.classList.add('incognito');
+          } else if (extensionName === 'light-mode') {
+              document.body.classList.add('light-mode');
+              localStorage.setItem('lightMode', 'enabled');
+          }
       } else {
           toggleElement.classList.remove('fa-toggle-on');
           toggleElement.classList.add('fa-toggle-off');
-          // Add logic to disable the extension
-          console.log(`${extensionName} disabled`);
+          
+          // Handle specific extensions
+          if (extensionName === 'dark-mode') {
+              document.body.classList.remove('dark-mode');
+          } else if (extensionName === 'incognito') {
+              document.body.classList.remove('incognito');
+          } else if (extensionName === 'light-mode') {
+              document.body.classList.remove('light-mode');
+              localStorage.setItem('lightMode', 'disabled');
+          }
       }
   }
-  
+
+  // Initialize light mode if it's saved in localStorage
+  if (localStorage.getItem('lightMode') === 'enabled') {
+    document.body.classList.add('light-mode');
+    extensionStates['light-mode'] = true;
+    const toggleElement = document.querySelector('.extension-toggle[data-extension="light-mode"] i');
+    toggleElement.classList.remove('fa-toggle-off');
+    toggleElement.classList.add('fa-toggle-on');
+  }
+
   // Clear history function
-function clearHistory() {
+  function clearHistory() {
     searchHistory = [];
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
     updateHistoryList();
-}
+  }
 
-// Modified updateBookmarksList function
-function updateBookmarksList() {
-    bookmarksList.innerHTML = '';
-    bookmarks.forEach((bookmark, index) => {
-        const li = document.createElement('li');
-        li.className = 'bookmark-item';
-        li.innerHTML = `
-            <span onclick="navigateToUrl('${bookmark.url}')">${bookmark.title}</span>
-            <i class="fas fa-times remove-bookmark" onclick="removeBookmark(${index})"></i>
-        `;
-        bookmarksList.appendChild(li);
-    });
-}
-
-// Remove bookmark function
-function removeBookmark(index) {
-    bookmarks.splice(index, 1);
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-    updateBookmarksList();
-    if (bookmarks.every(b => b.url !== currentUrl)) {
-        bookmarkIcon.classList.remove('bookmarked');
-    }
-}
-
-// Modified toggleExtension function
-function toggleExtension(extensionName) {
-    extensionStates[extensionName] = !extensionStates[extensionName];
-    const toggleElement = document.querySelector(`.extension-toggle[data-extension="${extensionName}"] i`);
-
-    if (extensionStates[extensionName]) {
-        toggleElement.classList.remove('fa-toggle-off');
-        toggleElement.classList.add('fa-toggle-on');
-        
-        // Handle specific extensions
-        if (extensionName === 'dark-mode') {
-            document.body.classList.add('dark-mode');
-        } else if (extensionName === 'incognito') {
-            document.body.classList.add('incognito');
-        }
-    } else {
-        toggleElement.classList.remove('fa-toggle-on');
-        toggleElement.classList.add('fa-toggle-off');
-        
-        // Handle specific extensions
-        if (extensionName === 'dark-mode') {
-            document.body.classList.remove('dark-mode');
-        } else if (extensionName === 'incognito') {
-            document.body.classList.remove('incognito');
-        }
-    }
-}
-
-// Modified navigateToUrl function to handle incognito mode
-function navigateToUrl(input) {
-    if (!input.trim()) return;
-
-    let formattedUrl = input.trim();
-
-    if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
-        if (formattedUrl.includes(".")) {
-            formattedUrl = "https://" + formattedUrl;
-        } else {
-            formattedUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(formattedUrl);
-        }
-    }
-
-    iframeHistory = iframeHistory.slice(0, currentIndex + 1);
-    iframeHistory.push(formattedUrl);
-    currentIndex++;
-    updateIframe(formattedUrl);
-
-    // Only add to history if not in incognito mode
-    if (!extensionStates['incognito']) {
-        addSearchToHistory(formattedUrl);
-    }
-}
-
-// Create cursor dot element
-const cursorDot = document.createElement('div');
-cursorDot.className = 'cursor-dot';
-document.body.appendChild(cursorDot);
-
-// Custom cursor movement
-document.addEventListener('mousemove', (e) => {
-    if (extensionStates['custom-cursor']) {
-        cursorDot.style.left = e.clientX + 'px';
-        cursorDot.style.top = e.clientY + 'px';
-    }
-});
-
-// Load saved extension states
-function loadSavedExtensionStates() {
+  // Load saved extension states
+  function loadSavedExtensionStates() {
     const savedStates = JSON.parse(localStorage.getItem('extensionStates')) || {};
     Object.keys(savedStates).forEach(extension => {
         if (savedStates[extension]) {
@@ -1260,10 +1167,10 @@ function loadSavedExtensionStates() {
             applyExtensionState(extension, true);
         }
     });
-}
+  }
 
-// Apply extension state
-function applyExtensionState(extensionName, state) {
+  // Apply extension state
+  function applyExtensionState(extensionName, state) {
     switch(extensionName) {
         case 'dark-mode':
             if (state) document.body.classList.add('dark-mode');
@@ -1282,11 +1189,15 @@ function applyExtensionState(extensionName, state) {
             if (state) enableAdBlocker();
             else disableAdBlocker();
             break;
+        case 'light-mode': // Adding the light mode case here
+            if (state) document.body.classList.add('light-mode');
+            else document.body.classList.remove('light-mode');
+            break;
     }
-}
+  }
 
-// Modified toggleExtension function
-function toggleExtension(extensionName) {
+  // Modified toggleExtension function with saving states to localStorage
+  function toggleExtension(extensionName) {
     extensionStates[extensionName] = !extensionStates[extensionName];
     const toggleElement = document.querySelector(`.extension-toggle[data-extension="${extensionName}"] i`);
 
@@ -1302,10 +1213,10 @@ function toggleExtension(extensionName) {
     
     // Save states to localStorage
     localStorage.setItem('extensionStates', JSON.stringify(extensionStates));
-}
+  }
 
-// Ad Blocker functionality
-function enableAdBlocker() {
+  // Ad Blocker functionality
+  function enableAdBlocker() {
     const adPatterns = [
         'ads', 'advertisement', 'banner', 'sponsor', 'advertising',
         'google_ads', 'adsense', 'advert', 'promotions', 'sponsored'
@@ -1322,10 +1233,10 @@ function enableAdBlocker() {
             });
         }
     }, 1000);
-}
+  }
 
-// Modified popup management
-function togglePopup(popupId) {
+  // Modified popup management
+  function togglePopup(popupId) {
     // Close any open popup
     const openPopup = document.querySelector('.popup.show');
     if (openPopup) {
@@ -1337,14 +1248,12 @@ function togglePopup(popupId) {
         const popup = document.getElementById(popupId);
         popup.classList.add('show');
     }
-}
+  }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
     loadSavedExtensionStates();
-});
-
-
+  });
 
   // Initial Load
   updateBookmarksList();
@@ -1352,3 +1261,5 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
+
