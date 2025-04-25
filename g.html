@@ -477,19 +477,18 @@ iframe {
   transition: box-shadow 0.2s ease;
 }
 
-.zoom-card:hover {
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-}
-
 .zoom-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  transform-origin: center;
+  scale: 1.1; /* Start slightly zoomed to prevent white edges during movement */
 }
 
 .zoom-card:hover img {
-  transform: scale(1.1);
+  filter: brightness(0.7) blur(2px);
+  transform: scale(1.2); /* Further zoom on hover */
 }
 
 .zoom-card-name {
@@ -505,6 +504,11 @@ iframe {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
   z-index: 2;
 }
+
+.zoom-card:hover .zoom-card-name {
+  opacity: 1;
+}
+
 
 .zoom-card:hover .zoom-card-name {
   opacity: 1;
@@ -603,10 +607,10 @@ iframe {
     <a href="https://example1.com" class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-front">
-          <img src="https://example.com/game1-front.jpg" alt="Game 1">
+          <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" alt="Game 1">
         </div>
         <div class="flip-card-back">
-          <img src="https://example.com/game1-back.jpg" class="flip-card-back-image" alt="Game 1 Background">
+          <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" class="flip-card-back-image" alt="Game 1 Background">
           <div class="flip-card-title">minecraft</div>
           <div class="flip-card-description">Build and explore infinite worlds in this creative sandbox game.</div>
           <div class="flip-card-play">Play Now</div>
@@ -629,10 +633,10 @@ iframe {
     <a href="https://example3.com" class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-front">
-          <img src="https://example.com/game3-front.jpg" alt="Game 3">
+          <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" alt="Game 3">
         </div>
         <div class="flip-card-back">
-          <img src="https://example.com/game3-back.jpg" class="flip-card-back-image" alt="Game 3 Background">
+          <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" class="flip-card-back-image" alt="Game 3 Background">
           <div class="flip-card-title">fortnite</div>
           <div class="flip-card-description">Battle royale action with unique building mechanics.</div>
           <div class="flip-card-play">Play Now</div>
@@ -644,15 +648,15 @@ iframe {
   <!-- Zoom Cards -->
   <div class="zoom-container">
     <a href="https://example4.com" class="zoom-card">
-      <img src="https://example.com/game4.jpg" alt="Game 4">
+      <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" alt="Game 4">
       <div class="zoom-card-name">among us</div>
     </a>
     <a href="https://example5.com" class="zoom-card">
-      <img src="https://example.com/game5.jpg" alt="Game 5">
+      <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" alt="Game 5">
       <div class="zoom-card-name">geometry dash</div>
     </a>
     <a href="https://example6.com" class="zoom-card">
-      <img src="https://example.com/game6.jpg" alt="Game 6">
+      <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" alt="Game 6">
       <div class="zoom-card-name">subway surfers</div>
     </a>
   </div>
@@ -902,7 +906,7 @@ iframe {
     });
   });
   
-document.querySelectorAll('.round-rectangle').forEach(card => {
+document.querySelectorAll('.zoom-card').forEach(card => {
   let rafId;
   
   card.addEventListener('mousemove', (e) => {
@@ -916,20 +920,21 @@ document.querySelectorAll('.round-rectangle').forEach(card => {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       
-      const moveX = (x - centerX) / 25;
-      const moveY = (y - centerY) / 25;
+      const moveX = (x - centerX) / 15; // Reduced divisor for more pronounced movement
+      const moveY = (y - centerY) / 15;
       
       const img = card.querySelector('img');
-      img.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      img.style.transform = `scale(1.2) translate(${moveX}px, ${moveY}px)`;
     });
   });
   
   card.addEventListener('mouseleave', () => {
     if (rafId) cancelAnimationFrame(rafId);
     const img = card.querySelector('img');
-    img.style.transform = 'translate(0, 0)';
+    img.style.transform = 'scale(1.1)'; // Return to initial zoom level
   });
 });
+
 
 
 </script>
