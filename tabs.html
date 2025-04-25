@@ -607,9 +607,9 @@ iframe {
     transform: scale(1.1); /* Zoom on hover */
 }
 
-/* Dark theme */
+/* Dark mode background */
 body.dark-mode {
-    background-color: #111;
+    background: #000 !important;
 }
 
 body.dark-mode .browser-header,
@@ -625,9 +625,9 @@ body.dark-mode .popup {
     background-color: #111;
 }
 
-/* Incognito theme */
+/* Incognito mode background */
 body.incognito {
-    background-color: #333;
+    background: url('https://garden.spoonflower.com/c/15197924/p/f/m/xIIl333PyyzkyIvJPgPxHyC8Zvdl-kAWYNamSdb5DXXqqKQU3gyFusuInw/Charcoal%20Grey%20Dark%20Gray%20Solid%20%234b4646.jpg') center/cover fixed !important;
 }
 
 body.incognito .browser-header,
@@ -677,6 +677,23 @@ body.incognito .url-bar-wrapper {
     justify-content: space-between;
     align-items: center;
     padding: 8px 0;
+}
+
+/* Custom cursor */
+body.custom-cursor {
+    cursor: none !important;
+}
+
+.cursor-dot {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
 }
 
 </style>
@@ -812,29 +829,38 @@ body.incognito .url-bar-wrapper {
     <button class="copy-button" onclick="copyEmbedCode()">copy</button>
   </div>
 
-  <div class="popup" id="extension-popup">
+<div class="popup" id="extension-popup">
     <h3>extensions</h3>
     <span class="close-button" onclick="closePopup('extension-popup')">&times;</span>
     <hr>
     <ul>
         <li>
             <span>dark mode</span>
-            <span class="extension-toggle" data-extension="dark-mode" onclick="toggleExtension('dark-mode')"><i class="fa-solid fa-toggle-off"></i></span>
+            <span class="extension-toggle" data-extension="dark-mode" onclick="toggleExtension('dark-mode')">
+                <i class="fa-solid fa-toggle-off"></i>
+            </span>
         </li>
         <li>
             <span>incognito mode</span>
-            <span class="extension-toggle" data-extension="incognito" onclick="toggleExtension('incognito')"><i class="fa-solid fa-toggle-off"></i></span>
+            <span class="extension-toggle" data-extension="incognito" onclick="toggleExtension('incognito')">
+                <i class="fa-solid fa-toggle-off"></i>
+            </span>
         </li>
         <li>
-            <span>download manager</span>
-            <span class="extension-toggle" data-extension="download-manager" onclick="toggleExtension('download-manager')"><i class="fa-solid fa-toggle-off"></i></span>
+            <span>custom cursor</span>
+            <span class="extension-toggle" data-extension="custom-cursor" onclick="toggleExtension('custom-cursor')">
+                <i class="fa-solid fa-toggle-off"></i>
+            </span>
         </li>
         <li>
             <span>ad blocker</span>
-            <span class="extension-toggle" data-extension="ad-blocker" onclick="toggleExtension('ad-blocker')"><i class="fa-solid fa-toggle-off"></i></span>
+            <span class="extension-toggle" data-extension="ad-blocker" onclick="toggleExtension('ad-blocker')">
+                <i class="fa-solid fa-toggle-off"></i>
+            </span>
         </li>
     </ul>
-  </div>
+</div>
+
 
 <div class="popup" id="history-popup">
     <h3>history</h3>
@@ -1206,6 +1232,118 @@ function navigateToUrl(input) {
         addSearchToHistory(formattedUrl);
     }
 }
+
+// Create cursor dot element
+const cursorDot = document.createElement('div');
+cursorDot.className = 'cursor-dot';
+document.body.appendChild(cursorDot);
+
+// Custom cursor movement
+document.addEventListener('mousemove', (e) => {
+    if (extensionStates['custom-cursor']) {
+        cursorDot.style.left = e.clientX + 'px';
+        cursorDot.style.top = e.clientY + 'px';
+    }
+});
+
+// Load saved extension states
+function loadSavedExtensionStates() {
+    const savedStates = JSON.parse(localStorage.getItem('extensionStates')) || {};
+    Object.keys(savedStates).forEach(extension => {
+        if (savedStates[extension]) {
+            extensionStates[extension] = true;
+            const toggleElement = document.querySelector(`.extension-toggle[data-extension="${extension}"] i`);
+            if (toggleElement) {
+                toggleElement.classList.remove('fa-toggle-off');
+                toggleElement.classList.add('fa-toggle-on');
+            }
+            applyExtensionState(extension, true);
+        }
+    });
+}
+
+// Apply extension state
+function applyExtensionState(extensionName, state) {
+    switch(extensionName) {
+        case 'dark-mode':
+            if (state) document.body.classList.add('dark-mode');
+            else document.body.classList.remove('dark-mode');
+            break;
+        case 'incognito':
+            if (state) document.body.classList.add('incognito');
+            else document.body.classList.remove('incognito');
+            break;
+        case 'custom-cursor':
+            if (state) document.body.classList.add('custom-cursor');
+            else document.body.classList.remove('custom-cursor');
+            cursorDot.style.display = state ? 'block' : 'none';
+            break;
+        case 'ad-blocker':
+            if (state) enableAdBlocker();
+            else disableAdBlocker();
+            break;
+    }
+}
+
+// Modified toggleExtension function
+function toggleExtension(extensionName) {
+    extensionStates[extensionName] = !extensionStates[extensionName];
+    const toggleElement = document.querySelector(`.extension-toggle[data-extension="${extensionName}"] i`);
+
+    if (extensionStates[extensionName]) {
+        toggleElement.classList.remove('fa-toggle-off');
+        toggleElement.classList.add('fa-toggle-on');
+    } else {
+        toggleElement.classList.remove('fa-toggle-on');
+        toggleElement.classList.add('fa-toggle-off');
+    }
+
+    applyExtensionState(extensionName, extensionStates[extensionName]);
+    
+    // Save states to localStorage
+    localStorage.setItem('extensionStates', JSON.stringify(extensionStates));
+}
+
+// Ad Blocker functionality
+function enableAdBlocker() {
+    const adPatterns = [
+        'ads', 'advertisement', 'banner', 'sponsor', 'advertising',
+        'google_ads', 'adsense', 'advert', 'promotions', 'sponsored'
+    ];
+    
+    setInterval(() => {
+        if (extensionStates['ad-blocker']) {
+            const elements = document.querySelectorAll('iframe, div, img, a');
+            elements.forEach(element => {
+                const elementString = (element.id + ' ' + element.className + ' ' + element.src + ' ' + element.href).toLowerCase();
+                if (adPatterns.some(pattern => elementString.includes(pattern))) {
+                    element.style.display = 'none';
+                }
+            });
+        }
+    }, 1000);
+}
+
+// Modified popup management
+function togglePopup(popupId) {
+    // Close any open popup
+    const openPopup = document.querySelector('.popup.show');
+    if (openPopup) {
+        closePopup(openPopup.id);
+    }
+    
+    // Open new popup if it's not the one that was just closed
+    if (!openPopup || openPopup.id !== popupId) {
+        const popup = document.getElementById(popupId);
+        popup.classList.add('show');
+    }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    loadSavedExtensionStates();
+});
+
 
 
   // Initial Load
