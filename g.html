@@ -370,11 +370,26 @@ iframe {
   gap: 1.5rem;
 }
 
+/* For flip cards */
 .flip-card {
   width: 320px;
   height: 200px;
   perspective: 1000px;
   cursor: pointer;
+  position: relative;
+}
+
+.flip-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  transition: box-shadow 0.3s ease;
+  pointer-events: none;
 }
 
 .flip-card-inner {
@@ -467,6 +482,7 @@ iframe {
   gap: 1.5rem;
 }
 
+/* For zoom cards */
 .zoom-card {
   width: 320px;
   height: 200px;
@@ -475,6 +491,25 @@ iframe {
   cursor: pointer;
   position: relative;
   transition: box-shadow 0.2s ease;
+}
+
+.zoom-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  transition: box-shadow 0.3s ease;
+  pointer-events: none;
+}
+
+.zoom-card:hover::after {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
+              0 0 30px rgba(255, 255, 255, 0.3),
+              0 0 40px rgba(255, 255, 255, 0.1);
 }
 
 .zoom-card img {
@@ -620,10 +655,10 @@ iframe {
     <a href="https://example2.com" class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-front">
-          <img src="https://example.com/game2-front.jpg" alt="Game 2">
+          <img src="https://www.morningbrew.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fbl383u0v%2Fproduction%2F983c91154758b4963f933dd6af4f6454a7fba59b-2069x1164.jpg%3Frect%3D1%2C0%2C2067%2C1164%26w%3D412%26h%3D232%26q%3D80%26fit%3Dmax%26auto%3Dformat%26dpr%3D2.625&w=828&q=75" alt="Game 2">
         </div>
         <div class="flip-card-back">
-          <img src="https://example.com/game2-back.jpg" class="flip-card-back-image" alt="Game 2 Background">
+          <img src="https://www.morningbrew.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fbl383u0v%2Fproduction%2F983c91154758b4963f933dd6af4f6454a7fba59b-2069x1164.jpg%3Frect%3D1%2C0%2C2067%2C1164%26w%3D412%26h%3D232%26q%3D80%26fit%3Dmax%26auto%3Dformat%26dpr%3D2.625&w=828&q=75" class="flip-card-back-image" alt="Game 2 Background">
           <div class="flip-card-title">roblox</div>
           <div class="flip-card-description">Join millions of players in this ultimate gaming platform.</div>
           <div class="flip-card-play">Play Now</div>
@@ -633,10 +668,10 @@ iframe {
     <a href="https://example3.com" class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-front">
-          <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" alt="Game 3">
+          <img src="https://images.ctfassets.net/w5r1fvmogo3f/1Z1YaSuHeVxl3TmOIXDHQU/43900d53ebcd67174a218c8347ce146f/fortnite-main-banner_bc195a6e28dc43f7b6a2f149e73c7908.jpg?fm=webp&q=90&fit=scale&w=1920" alt="Game 3">
         </div>
         <div class="flip-card-back">
-          <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" class="flip-card-back-image" alt="Game 3 Background">
+          <img src="https://images.ctfassets.net/w5r1fvmogo3f/1Z1YaSuHeVxl3TmOIXDHQU/43900d53ebcd67174a218c8347ce146f/fortnite-main-banner_bc195a6e28dc43f7b6a2f149e73c7908.jpg?fm=webp&q=90&fit=scale&w=1920" class="flip-card-back-image" alt="Game 3 Background">
           <div class="flip-card-title">fortnite</div>
           <div class="flip-card-description">Battle royale action with unique building mechanics.</div>
           <div class="flip-card-play">Play Now</div>
@@ -648,15 +683,15 @@ iframe {
   <!-- Zoom Cards -->
   <div class="zoom-container">
     <a href="https://example4.com" class="zoom-card">
-      <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" alt="Game 4">
+      <img src="https://wallpapersok.com/images/high/among-us-space-cover-photo-povdj96qwumjth52.jpg" alt="Game 4">
       <div class="zoom-card-name">among us</div>
     </a>
     <a href="https://example5.com" class="zoom-card">
-      <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" alt="Game 5">
+      <img src="https://i.ytimg.com/vi/_EgqV3ECxjs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC_fcJg7eYugX5sWiNBRkzNNPkg6w" alt="Game 5">
       <div class="zoom-card-name">geometry dash</div>
     </a>
     <a href="https://example6.com" class="zoom-card">
-      <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" alt="Game 6">
+      <img src="https://9to5mac.com/wp-content/uploads/sites/6/2023/03/subway-surfers-4-billion-downloads.jpg?quality=82&strip=all" alt="Game 6">
       <div class="zoom-card-name">subway surfers</div>
     </a>
   </div>
