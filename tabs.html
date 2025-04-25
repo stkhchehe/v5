@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -364,6 +363,322 @@ iframe {
   }
 }
 
+/* Sidebar Bottom Buttons */
+.sidebar-bottom-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar:hover .sidebar-bottom-buttons {
+    opacity: 1;
+}
+
+.sidebar-bottom-button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f8f9fa;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.sidebar-bottom-button:hover {
+  background-color: #495057;
+  transform: scale(1.1);
+}
+
+/* Popup Styles */
+.popup {
+  display: none;
+  position: fixed; /* Changed to fixed */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust position */
+  background-color: rgba(52, 58, 64, 0.9); /* Semi-transparent background */
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 250px;
+  color: #f8f9fa;
+  text-align: center;
+  transition: opacity 0.3s ease; /* Fade out transition */
+}
+
+/* Popup modifications */
+.popup {
+    background-color: rgba(52, 58, 64, 1); /* 100% opacity */
+    min-width: 300px; /* Base width for all popups */
+}
+
+.popup.fade-out {
+    opacity: 0;
+}
+
+.popup h3 {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.popup hr {
+  border-top: 1px solid #fff;
+  margin: 10px 0;
+  opacity: 0.5;
+}
+
+.popup ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.popup li {
+  padding: 8px 0;
+  border-bottom: 1px solid #fff;
+  opacity: 0.7;
+}
+
+.popup li:last-child {
+  border-bottom: none;
+}
+
+.popup.show {
+  display: block;
+}
+
+.popup .close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    color: #fff;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.popup .close-button:hover {
+    opacity: 1;
+}
+
+/* Bookmark Icon in Header */
+.bookmark-header-icon {
+  font-size: 20px;
+  color: #f8f9fa;
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.bookmark-header-icon:hover {
+  transform: scale(1.2);
+}
+
+.bookmarked {
+    color: #ffc107; /* Darker color when bookmarked */
+}
+
+/* Embed Code Popup */
+#embed-code-popup textarea {
+  width: 100%;
+  height: 100px;
+  background-color: #343a40;
+  color: #f8f9fa;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  resize: none;
+}
+
+#embed-code-popup {
+    width: 450px; /* Wider embed popup */
+}
+
+#embed-code-popup .embed-code-container {
+    background-color: #2b3035;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    word-break: break-all;
+}
+
+#embed-code-popup .copy-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#embed-code-popup .copy-button:hover {
+    background-color: #0056b3;
+}
+
+/* Extension Popup */
+#extension-popup p {
+  margin-bottom: 10px;
+}
+
+#extension-popup ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#extension-popup li {
+    padding: 8px 0;
+    border-bottom: 1px solid #fff;
+    opacity: 0.7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#extension-popup li:last-child {
+    border-bottom: none;
+}
+
+#extension-popup .extension-toggle {
+    cursor: pointer;
+    color: #fff;
+    transition: color 0.2s;
+}
+
+#extension-popup .extension-toggle:hover {
+    color: #007bff;
+}
+
+/* History Popup */
+#history-popup ul {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+#history-popup {
+    width: 400px; /* Wider history popup */
+}
+
+/* Bookmark Button */
+.bookmark-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.url-bar-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Increased gap */
+    margin-left: auto; /* Push icons to the right */
+    margin-right: 5px; /* Add a little space to the right */
+}
+
+.url-bar-icons i {
+    cursor: pointer;
+    font-size: 18px;
+    color: #ced4da;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.url-bar-icons i:hover {
+    color: #fff;
+    transform: scale(1.1); /* Zoom on hover */
+}
+
+/* Dark theme */
+body.dark-mode {
+    background-color: #111;
+}
+
+body.dark-mode .browser-header,
+body.dark-mode .sidebar {
+    background-color: #000;
+}
+
+body.dark-mode .url-bar-wrapper {
+    background-color: #222;
+}
+
+body.dark-mode .popup {
+    background-color: #111;
+}
+
+/* Incognito theme */
+body.incognito {
+    background-color: #333;
+}
+
+body.incognito .browser-header,
+body.incognito .sidebar {
+    background-color: #222;
+}
+
+body.incognito .url-bar-wrapper {
+    background-color: #444;
+}
+
+/* Browser actions */
+.browser-actions {
+    margin-left: 20px; /* Move buttons right */
+}
+
+/* Clear history button */
+.clear-history-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.clear-history-button:hover {
+    background-color: #c82333;
+}
+
+/* Remove bookmark button */
+.remove-bookmark {
+    color: #dc3545;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.remove-bookmark:hover {
+    color: #c82333;
+}
+
+/* Bookmark list item */
+.bookmark-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
 </style>
 </head>
 <body>
@@ -420,6 +735,21 @@ iframe {
           </a>
         </li>
       </ul>
+
+      <div class="sidebar-bottom-buttons">
+        <div class="sidebar-bottom-button" onclick="togglePopup('bookmarks-popup')">
+          <i class="fa-solid fa-bookmark"></i>
+        </div>
+        <div class="sidebar-bottom-button" onclick="togglePopup('embed-code-popup')">
+          <i class="fa-solid fa-code"></i>
+        </div>
+        <div class="sidebar-bottom-button" onclick="togglePopup('extension-popup')">
+          <i class="fa-solid fa-puzzle-piece"></i>
+        </div>
+        <div class="sidebar-bottom-button" onclick="togglePopup('history-popup')">
+          <i class="fa-solid fa-history"></i>
+        </div>
+      </div>
     </div>
   
     <div class="main-content">
@@ -433,6 +763,10 @@ iframe {
           <div class="url-bar-wrapper">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" class="url-bar" id="url-bar" placeholder="enter search or web address" />
+            <div class="url-bar-icons">
+                <i class="fa-solid fa-bookmark bookmark-header-icon" id="bookmark-icon" onclick="bookmarkCurrentPage()"></i>
+                <i class="fa-solid fa-puzzle-piece" onclick="togglePopup('extension-popup')"></i>
+            </div>
           </div>
         </div>
       </div>
@@ -457,6 +791,60 @@ iframe {
   </div>
 
   <div class="particles-container" id="particles-container"></div>
+
+  <!-- Popups -->
+  <div class="popup" id="bookmarks-popup">
+    <h3>bookmarks</h3>
+    <span class="close-button" onclick="closePopup('bookmarks-popup')">&times;</span>
+    <hr>
+    <ul id="bookmarks-list">
+      <!-- Bookmarks will be dynamically added here -->
+    </ul>
+  </div>
+
+  <div class="popup" id="embed-code-popup">
+    <h3>embed link</h3>
+    <span class="close-button" onclick="closePopup('embed-code-popup')">&times;</span>
+    <hr>
+    <div class="embed-code-container">
+        <div id="embed-code-text">https://www.unblockzone.online/active/iframe.html#https://</div>
+    </div>
+    <button class="copy-button" onclick="copyEmbedCode()">copy</button>
+  </div>
+
+  <div class="popup" id="extension-popup">
+    <h3>extensions</h3>
+    <span class="close-button" onclick="closePopup('extension-popup')">&times;</span>
+    <hr>
+    <ul>
+        <li>
+            <span>dark mode</span>
+            <span class="extension-toggle" data-extension="dark-mode" onclick="toggleExtension('dark-mode')"><i class="fa-solid fa-toggle-off"></i></span>
+        </li>
+        <li>
+            <span>incognito mode</span>
+            <span class="extension-toggle" data-extension="incognito" onclick="toggleExtension('incognito')"><i class="fa-solid fa-toggle-off"></i></span>
+        </li>
+        <li>
+            <span>download manager</span>
+            <span class="extension-toggle" data-extension="download-manager" onclick="toggleExtension('download-manager')"><i class="fa-solid fa-toggle-off"></i></span>
+        </li>
+        <li>
+            <span>ad blocker</span>
+            <span class="extension-toggle" data-extension="ad-blocker" onclick="toggleExtension('ad-blocker')"><i class="fa-solid fa-toggle-off"></i></span>
+        </li>
+    </ul>
+  </div>
+
+<div class="popup" id="history-popup">
+    <h3>history</h3>
+    <span class="close-button" onclick="closePopup('history-popup')">&times;</span>
+    <hr>
+    <ul id="history-list">
+        <!-- History items will be added here -->
+    </ul>
+    <button class="clear-history-button" onclick="clearHistory()">clear history</button>
+</div>
 
 
 
@@ -514,9 +902,31 @@ iframe {
   const mainFrame = document.getElementById('main-frame');
   const homeScreen = document.getElementById('home-screen');
   const centerContent = document.getElementById('center-content');
+  const sidebarBottomButtons = document.querySelector('.sidebar-bottom-buttons');
+  const sidebar = document.querySelector('.sidebar');
+  const bookmarkIcon = document.getElementById('bookmark-icon');
+  const embedCodeText = document.getElementById('embed-code-text');
 
   let iframeHistory = [];
   let currentIndex = -1;
+  let currentUrl = ''; // Store the current URL
+  let activePopup = null; // Track the currently open popup
+
+  // Bookmarks
+  let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+  const bookmarksList = document.getElementById('bookmarks-list');
+
+  // History
+  let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+  const historyList = document.getElementById('history-list');
+
+  // Extension States
+  const extensionStates = {
+      'dark-mode': false,
+      'incognito': false,
+      'download-manager': false,
+      'ad-blocker': false
+  };
 
   function updateIframe(originalUrl) {
     const cleanedUrl = originalUrl.replace(/^https?:\/\//, '');
@@ -529,6 +939,17 @@ iframe {
 
     // Show the original URL (not the proxy one)
     urlBar.value = originalUrl;
+    currentUrl = originalUrl; // Update currentUrl
+
+    // Update Embed Code
+    embedCodeText.textContent = "https://www.unblockzone.online/active/iframe.html#https://" + cleanedUrl;
+
+    // Check if the current URL is bookmarked
+    if (bookmarks.some(bookmark => bookmark.url === currentUrl)) {
+        bookmarkIcon.classList.add('bookmarked');
+    } else {
+        bookmarkIcon.classList.remove('bookmarked');
+    }
   }
 
   function navigateToUrl(input) {
@@ -549,6 +970,9 @@ iframe {
     iframeHistory.push(formattedUrl);
     currentIndex++;
     updateIframe(formattedUrl);
+
+    // Update History
+    addSearchToHistory(formattedUrl);
   }
 
   urlBar.addEventListener("keydown", (e) => {
@@ -584,6 +1008,209 @@ iframe {
       updateIframe(iframeHistory[currentIndex]);
     }
   };
+
+  // Popup Functions
+  function togglePopup(popupId) {
+      const popup = document.getElementById(popupId);
+
+      if (activePopup === popupId) {
+          // If the popup is already open, close it
+          closePopup(popupId);
+      } else {
+          // Close any currently open popup
+          if (activePopup) {
+              closePopup(activePopup);
+          }
+
+          // Open the new popup
+          popup.classList.add('show');
+          activePopup = popupId;
+      }
+  }
+
+  function closePopup(popupId) {
+      const popup = document.getElementById(popupId);
+      popup.classList.add('fade-out'); // Start fade out
+
+      setTimeout(() => {
+          popup.classList.remove('show', 'fade-out'); // Hide after transition
+          activePopup = null; // Reset active popup
+      }, 300); // Match transition duration
+  }
+
+  // Bookmarks Functions
+  function bookmarkCurrentPage() {
+    if (!currentUrl) return;
+
+    const pageTitle = currentUrl; // Replace with actual page title if available
+    const bookmark = { url: currentUrl, title: pageTitle };
+
+    const isBookmarked = bookmarks.some(b => b.url === currentUrl);
+
+    if (isBookmarked) {
+        // Remove bookmark
+        bookmarks = bookmarks.filter(b => b.url !== currentUrl);
+        bookmarkIcon.classList.remove('bookmarked');
+    } else {
+        // Add bookmark
+        bookmarks.push(bookmark);
+        
+        bookmarkIcon.classList.add('bookmarked');
+    }
+
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    updateBookmarksList();
+  }
+
+  function updateBookmarksList() {
+    bookmarksList.innerHTML = '';
+    bookmarks.forEach(bookmark => {
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="${bookmark.url}">${bookmark.title}</a>`;
+      li.onclick = (event) => {
+          event.preventDefault(); // Prevent default link behavior
+          navigateToUrl(bookmark.url);
+          closePopup('bookmarks-popup');
+      };
+      bookmarksList.appendChild(li);
+    });
+  }
+
+  // History Functions
+  function addSearchToHistory(url) {
+    searchHistory.unshift(url); // Add to the beginning
+    searchHistory = searchHistory.slice(0, 10); // Limit to 10 entries
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    updateHistoryList();
+  }
+
+  function updateHistoryList() {
+    historyList.innerHTML = '';
+    searchHistory.forEach(url => {
+      const li = document.createElement('li');
+      li.textContent = url;
+      li.onclick = () => navigateToUrl(url);
+      historyList.appendChild(li);
+    });
+  }
+
+  function copyEmbedCode() {
+    const code = embedCodeText.textContent;
+    navigator.clipboard.writeText(code)
+      .then(() => {
+        alert('Embed code copied to clipboard!');
+      })
+      .catch(err => {
+        console.error('Failed to copy: ', err);
+        alert('Failed to copy embed code.');
+      });
+  }
+
+  function toggleExtension(extensionName) {
+      extensionStates[extensionName] = !extensionStates[extensionName];
+      const toggleElement = document.querySelector(`.extension-toggle[data-extension="${extensionName}"] i`);
+
+      if (extensionStates[extensionName]) {
+          toggleElement.classList.remove('fa-toggle-off');
+          toggleElement.classList.add('fa-toggle-on');
+          // Add logic to enable the extension
+          console.log(`${extensionName} enabled`);
+      } else {
+          toggleElement.classList.remove('fa-toggle-on');
+          toggleElement.classList.add('fa-toggle-off');
+          // Add logic to disable the extension
+          console.log(`${extensionName} disabled`);
+      }
+  }
+  
+  // Clear history function
+function clearHistory() {
+    searchHistory = [];
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    updateHistoryList();
+}
+
+// Modified updateBookmarksList function
+function updateBookmarksList() {
+    bookmarksList.innerHTML = '';
+    bookmarks.forEach((bookmark, index) => {
+        const li = document.createElement('li');
+        li.className = 'bookmark-item';
+        li.innerHTML = `
+            <span onclick="navigateToUrl('${bookmark.url}')">${bookmark.title}</span>
+            <i class="fas fa-times remove-bookmark" onclick="removeBookmark(${index})"></i>
+        `;
+        bookmarksList.appendChild(li);
+    });
+}
+
+// Remove bookmark function
+function removeBookmark(index) {
+    bookmarks.splice(index, 1);
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    updateBookmarksList();
+    if (bookmarks.every(b => b.url !== currentUrl)) {
+        bookmarkIcon.classList.remove('bookmarked');
+    }
+}
+
+// Modified toggleExtension function
+function toggleExtension(extensionName) {
+    extensionStates[extensionName] = !extensionStates[extensionName];
+    const toggleElement = document.querySelector(`.extension-toggle[data-extension="${extensionName}"] i`);
+
+    if (extensionStates[extensionName]) {
+        toggleElement.classList.remove('fa-toggle-off');
+        toggleElement.classList.add('fa-toggle-on');
+        
+        // Handle specific extensions
+        if (extensionName === 'dark-mode') {
+            document.body.classList.add('dark-mode');
+        } else if (extensionName === 'incognito') {
+            document.body.classList.add('incognito');
+        }
+    } else {
+        toggleElement.classList.remove('fa-toggle-on');
+        toggleElement.classList.add('fa-toggle-off');
+        
+        // Handle specific extensions
+        if (extensionName === 'dark-mode') {
+            document.body.classList.remove('dark-mode');
+        } else if (extensionName === 'incognito') {
+            document.body.classList.remove('incognito');
+        }
+    }
+}
+
+// Modified navigateToUrl function to handle incognito mode
+function navigateToUrl(input) {
+    if (!input.trim()) return;
+
+    let formattedUrl = input.trim();
+
+    if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
+        if (formattedUrl.includes(".")) {
+            formattedUrl = "https://" + formattedUrl;
+        } else {
+            formattedUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(formattedUrl);
+        }
+    }
+
+    iframeHistory = iframeHistory.slice(0, currentIndex + 1);
+    iframeHistory.push(formattedUrl);
+    currentIndex++;
+    updateIframe(formattedUrl);
+
+    // Only add to history if not in incognito mode
+    if (!extensionStates['incognito']) {
+        addSearchToHistory(formattedUrl);
+    }
+}
+
+
+  // Initial Load
+  updateBookmarksList();
+  updateHistoryList();
 </script>
 </body>
 </html>
