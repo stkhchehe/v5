@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -549,6 +550,167 @@ iframe {
   opacity: 1;
 }
 
+/* Update games container positioning */
+.games-container {
+  position: absolute;
+  top: 65%; /* Moved down */
+  left: 58%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  z-index: 5;
+}
+
+/* Enhanced flip card animations */
+.flip-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.flip-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.flip-card-inner {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add hover effects for play button */
+.flip-card-play {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.flip-card-play:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: all 0.5s ease;
+}
+
+.flip-card-play:hover:before {
+  left: 100%;
+}
+
+.flip-card-play:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Add pulsing animation for new games */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.new-game::after {
+  content: 'NEW';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff4757;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  animation: pulse 2s infinite;
+}
+
+/* Add floating animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.games-title {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Add shine effect on cards */
+.flip-card-front::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.flip-card:hover .flip-card-front::after {
+  animation: shine 1.5s ease-out;
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0;
+    transform: rotate(45deg) translateY(-100%);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translateY(100%);
+  }
+}
+
+/* Add entrance animations */
+.flip-card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger the entrance of cards */
+.flip-container:nth-child(1) .flip-card { animation-delay: 0.2s; }
+.flip-container:nth-child(2) .flip-card { animation-delay: 0.4s; }
+.flip-container:nth-child(3) .flip-card { animation-delay: 0.6s; }
+
+.flip-card-title,
+.flip-card-description {
+  transition: transform 0.3s ease;
+}
+
+.flip-card:hover .flip-card-title {
+  transform: scale(1.1);
+}
+
+.flip-card:hover .flip-card-description {
+  transform: scale(1.05);
+}
 
 
   </style>
@@ -680,24 +842,48 @@ iframe {
     </a>
   </div>
 
-  <!-- Zoom Cards -->
-  <div class="zoom-container">
-    <a href="https://example4.com" class="zoom-card">
-      <img src="https://wallpapers.com/images/featured/among-us-cb21ldue3llceiua.jpg" alt="Game 4">
-      <div class="zoom-card-name">among us</div>
-    </a>
-    <a href="https://example5.com" class="zoom-card">
-      <img src="https://i.ytimg.com/vi/_EgqV3ECxjs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC_fcJg7eYugX5sWiNBRkzNNPkg6w" alt="Game 5">
-      <div class="zoom-card-name">geometry dash</div>
-    </a>
-    <a href="https://example6.com" class="zoom-card">
-      <img src="https://9to5mac.com/wp-content/uploads/sites/6/2023/03/subway-surfers-4-billion-downloads.jpg?quality=82&strip=all" alt="Game 6">
-      <div class="zoom-card-name">subway surfers</div>
-    </a>
-  </div>
+<!-- Replace the zoom-container with this -->
+<div class="flip-container">
+  <a href="https://example4.com" class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="https://wallpapers.com/images/featured/among-us-cb21ldue3llceiua.jpg" alt="Game 4">
+      </div>
+      <div class="flip-card-back">
+        <img src="https://wallpapers.com/images/featured/among-us-cb21ldue3llceiua.jpg" class="flip-card-back-image" alt="Game 4 Background">
+        <div class="flip-card-title">among us</div>
+        <div class="flip-card-description">Work together or deceive others in this multiplayer party game.</div>
+        <div class="flip-card-play">Play Now</div>
+      </div>
+    </div>
+  </a>
+  <a href="https://example5.com" class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="https://i.ytimg.com/vi/_EgqV3ECxjs/hq720.jpg" alt="Game 5">
+      </div>
+      <div class="flip-card-back">
+        <img src="https://i.ytimg.com/vi/_EgqV3ECxjs/hq720.jpg" class="flip-card-back-image" alt="Game 5 Background">
+        <div class="flip-card-title">geometry dash</div>
+        <div class="flip-card-description">Test your reflexes in this rhythm-based platformer.</div>
+        <div class="flip-card-play">Play Now</div>
+      </div>
+    </div>
+  </a>
+  <a href="https://example6.com" class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="https://9to5mac.com/wp-content/uploads/sites/6/2023/03/subway-surfers-4-billion-downloads.jpg" alt="Game 6">
+      </div>
+      <div class="flip-card-back">
+        <img src="https://9to5mac.com/wp-content/uploads/sites/6/2023/03/subway-surfers-4-billion-downloads.jpg" class="flip-card-back-image" alt="Game 6 Background">
+        <div class="flip-card-title">subway surfers</div>
+        <div class="flip-card-description">Endless running action in this classic mobile game.</div>
+        <div class="flip-card-play">Play Now</div>
+      </div>
+    </div>
+  </a>
 </div>
-
-
 
 
   <div id="particles-js"></div>
