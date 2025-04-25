@@ -447,9 +447,14 @@
       </div>
     </div>
     <div class="welcometwo">
-      <button onclick="window.location.href = 'tabs/index.html'">get started!</button>
+      <button onclick="window.location.href = '/tabs.html'">get started!</button>
     </div>
   </div>
+
+  <div id="particles-js"></div>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
   
   <!-- Popup -->
   <div class="popup" id="popup">
@@ -531,42 +536,45 @@
         particleColor: "#adb5bd",
         particleLinks: "#adb5bd"
       };
-      
-      // Initialize particles
-      particlesJS("particles-js", {
-        "particles": {
-          "number": { "value": 20, "density": { "enable": false } },
-          "color": { "value": theme.particleColor || "#adb5bd" },
-          "shape": { "type": "circle" },
-          "opacity": { "value": 0.7, "random": true },
-          "size": { "value": 3, "random": true },
-          "line_linked": {
-            "enable": true,
-            "distance": 150,
-            "color": theme.particleLinks || "#adb5bd",
-            "opacity": 0.6,
-            "width": 1
-          },
-          "move": {
-            "enable": true,
-            "speed": 2,
-            "direction": "none",
-            "random": true,
-            "straight": false,
-            "out_mode": "out",
-            "bounce": false
-          }
+
+        </script>
+   
+  <script>
+
+    // Initialize particles
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 20, "density": { "enable": false } },
+        "color": { "value": theme.particleColor || "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.7, "random": true },
+        "size": { "value": 3, "random": true },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": theme.particleLinks || "#ffffff",
+          "opacity": 0.6,
+          "width": 1
         },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": { "enable": false },
-            "onclick": { "enable": false },
-            "resize": true
-          }
-        },
-        "retina_detect": false
-      });
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": false },
+          "onclick": { "enable": false },
+          "resize": true
+        }
+      },
+      "retina_detect": false
     });
   </script>
 </body>
