@@ -1,10 +1,11 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>unblockzone - settings</title>
+  <title>unblockzone template</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -340,83 +341,6 @@ body.light-mode .url-bar-icons i {
   color: #333333 !important;
 }
 
-/* Add this to your existing CSS */
-
-.settings-title {
-  position: absolute;
-  top: 20%;
-  left: 49%;
-  transform: translateX(-50%);
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 3rem;
-  color: #ffffff;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6),
-               0 0 15px rgba(255, 255, 255, 0.4);
-  transition: transform 0.2s ease;
-  z-index: 10;
-}
-
-/* Modify the theme-container CSS */
-.theme-container {
-  position: absolute;
-  top: 40%; /* Moved down from 35% */
-  left: 50%;
-  transform: translateX(-50%);
-  background: #343a40;
-  border: 2px solid #ffffff;
-  border-radius: 25px;
-  padding: 40px; /* Increased padding */
-  width: 70%; /* Increased width */
-  height: auto; /* Allow container to grow with content */
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  z-index: 10;
-}
-
-/* Modify theme-options to handle two rows */
-.theme-options {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-gap: 25px;
-  row-gap: 30px; /* Space between rows */
-  justify-items: center;
-  padding: 10px;
-}
-
-/* Modify theme-circle */
-.theme-circle {
-  width: 70px; /* Slightly larger circles */
-  height: 70px;
-  border-radius: 50%;
-  border: 3px solid #ffffff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background-size: cover !important;
-  background-position: center !important;
-}
-
-.theme-circle:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-}
-
-/* Add this to your existing CSS */
-
-.settings-title {
-  position: absolute;
-  top: 20%;
-  left: 49%;
-  transform: translateX(-50%);
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 3rem;
-  color: #ffffff;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6),
-               0 0 15px rgba(255, 255, 255, 0.4);
-  transition: transform 0.2s ease;
-  z-index: 10;
-}
-
 .theme-container {
   position: absolute;
   top: 35%;
@@ -470,6 +394,87 @@ body.light-mode .url-bar-icons i {
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
 }
 
+.theme-container, .tab-cloaker-container {
+  position: absolute;
+  background: #343a40;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  padding: 40px;
+  width: 70%;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.theme-container {
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tab-cloaker-container {
+  top: 55%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.theme-title, .cloaker-title {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+.theme-divider, .cloaker-divider {
+  width: 100%;
+  height: 2px;
+  background: #ffffff;
+  margin: 15px 0 25px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.theme-options, .cloaker-options {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
+  justify-items: center;
+}
+
+.cloaker-options {
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.theme-circle, .cloaker-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-circle:hover, .cloaker-circle:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
 
 
   </style>
@@ -559,27 +564,16 @@ body.light-mode .url-bar-icons i {
 <div class="theme-container">
   <h2 class="theme-title">Theme Changer</h2>
   <div class="theme-divider"></div>
-<div class="theme-options">
-  <!-- First row - Solid colors -->
-  <div class="theme-circle" style="background: #343a40" data-theme="default"></div>
-  <div class="theme-circle" style="background: #1a237e" data-theme="blue"></div>
-  <div class="theme-circle" style="background: #1b5e20" data-theme="green"></div>
-  <div class="theme-circle" style="background: #b71c1c" data-theme="red"></div>
-  <div class="theme-circle" style="background: #4a148c" data-theme="purple"></div>
-  <div class="theme-circle" style="background: #f57f17" data-theme="orange"></div>
-  <div class="theme-circle" style="background: #263238" data-theme="dark"></div>
-
-  <!-- Second row - Custom backgrounds -->
-  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986')" data-theme="space"></div>
-  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809')" data-theme="gradient"></div>
-  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1518655048521-f130df041f66')" data-theme="minimal"></div>
-  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1554034483-04fda0d3507b')" data-theme="neon"></div>
-  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1550684376-efcbd6e3f031')" data-theme="cyberpunk"></div>
-  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926')" data-theme="sunset"></div>
-  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1579548122080-c35fd6820ecb')" data-theme="matrix"></div>
+  <div class="theme-options">
+    <div class="theme-circle" style="background: #343a40" data-theme="default"></div>
+    <div class="theme-circle" style="background: #1a237e" data-theme="blue"></div>
+    <div class="theme-circle" style="background: #1b5e20" data-theme="green"></div>
+    <div class="theme-circle" style="background: #b71c1c" data-theme="red"></div>
+    <div class="theme-circle" style="background: #4a148c" data-theme="purple"></div>
+    <div class="theme-circle" style="background: #f57f17" data-theme="orange"></div>
+    <div class="theme-circle" style="background: #263238" data-theme="dark"></div>
+  </div>
 </div>
-
-
 
 
   <div id="particles-js"></div>
@@ -891,114 +885,188 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// Theme configuration
 const themes = {
   default: {
     sidebar: '#343a40',
     header: '#343a40',
-    background: '#212529',
-    backgroundImage: 'none'
+    backgroundImage: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809'
   },
   blue: {
     sidebar: '#1a237e',
     header: '#1a237e',
-    background: '#e8eaf6',
-    backgroundImage: 'none'
+    backgroundImage: 'https://images.unsplash.com/photo-1579547621113-e4bb2a19bdd6'
   },
-  green: {
+  // Add more themes...
+};
+
+// Tab cloaker configuration
+const cloakOptions = [
+  { name: 'Google', icon: 'https://www.google.com/favicon.ico', title: 'Google' },
+  { name: 'Drive', icon: 'https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png', title: 'Google Drive' },
+  { name: 'Classroom', icon: 'https://www.gstatic.com/classroom/favicon.png', title: 'Google Classroom' },
+  // Add more options...
+];
+
+// Optimized theme application
+function applyTheme(themeName) {
+  const theme = themes[themeName];
+  
+  requestAnimationFrame(() => {
+    document.documentElement.style.setProperty('--sidebar-color', theme.sidebar);
+    document.documentElement.style.setProperty('--header-color', theme.header);
+    
+    const body = document.body;
+    if (body.style.backgroundImage !== `url(${theme.backgroundImage})`) {
+      body.style.backgroundImage = `url(${theme.backgroundImage})`;
+    }
+  });
+  
+  localStorage.setItem('selectedTheme', themeName);
+}
+
+// Tab cloaking function
+function applyCloak(cloak) {
+  const favicon = document.querySelector('link[rel="icon"]') || document.createElement('link');
+  favicon.type = 'image/x-icon';
+  favicon.rel = 'icon';
+  favicon.href = cloak.icon;
+  document.head.appendChild(favicon);
+  
+  document.title = cloak.title;
+  localStorage.setItem('selectedCloak', JSON.stringify(cloak));
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  // Load saved theme
+  const savedTheme = localStorage.getItem('selectedTheme');
+  if (savedTheme && themes[savedTheme]) {
+    applyTheme(savedTheme);
+  }
+  
+  // Load saved cloak
+  const savedCloak = JSON.parse(localStorage.getItem('selectedCloak'));
+  if (savedCloak) {
+    applyCloak(savedCloak);
+  }
+  
+  // Preload images
+  Object.values(themes).forEach(theme => {
+    const img = new Image();
+    img.src = theme.backgroundImage;
+  });
+});
+
+// Create theme circles
+const themeOptions = document.querySelector('.theme-options');
+Object.entries(themes).forEach(([name, theme]) => {
+  const circle = document.createElement('div');
+  circle.className = 'theme-circle';
+  circle.style.backgroundImage = `url(${theme.backgroundImage})`;
+  circle.addEventListener('click', () => applyTheme(name));
+  themeOptions.appendChild(circle);
+});
+
+// Create cloak circles
+const cloakerOptions = document.querySelector('.cloaker-options');
+cloakOptions.forEach(cloak => {
+  const circle = document.createElement('div');
+  circle.className = 'cloaker-circle';
+  circle.style.backgroundImage = `url(${cloak.icon})`;
+  circle.addEventListener('click', () => applyCloak(cloak));
+  cloakerOptions.appendChild(circle);
+});
+
+// Complete theme configuration
+const themes = {
+  default: {
+    sidebar: '#343a40',
+    header: '#343a40',
+    backgroundImage: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809'
+  },
+  ocean: {
+    sidebar: '#006064',
+    header: '#006064',
+    backgroundImage: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b'
+  },
+  forest: {
     sidebar: '#1b5e20',
     header: '#1b5e20',
-    background: '#e8f5e9',
-    backgroundImage: 'none'
+    backgroundImage: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d'
   },
-  red: {
-    sidebar: '#b71c1c',
-    header: '#b71c1c',
-    background: '#ffebee',
-    backgroundImage: 'none'
+  sunset: {
+    sidebar: '#bf360c',
+    header: '#bf360c',
+    backgroundImage: 'https://images.unsplash.com/photo-1494548162494-384bba4ab999'
   },
-  purple: {
-    sidebar: '#4a148c',
-    header: '#4a148c',
-    background: '#f3e5f5',
-    backgroundImage: 'none'
+  galaxy: {
+    sidebar: '#311b92',
+    header: '#311b92',
+    backgroundImage: 'https://images.unsplash.com/photo-1539721972319-f943342fa4b9'
   },
-  orange: {
-    sidebar: '#f57f17',
-    header: '#f57f17',
-    background: '#fff3e0',
-    backgroundImage: 'none'
-  },
-  dark: {
-    sidebar: '#263238',
-    header: '#263238',
-    background: '#37474f',
-    backgroundImage: 'none'
-  },
-  // Custom background themes
-  space: {
-    sidebar: '#1a1a2e',
-    header: '#1a1a2e',
-    background: '#000000',
-    backgroundImage: 'url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986")'
-  },
-  gradient: {
-    sidebar: '#2c3e50',
-    header: '#2c3e50',
-    background: '#000000',
-    backgroundImage: 'url("https://images.unsplash.com/photo-1579546929518-9e396f3cc809")'
+  cyber: {
+    sidebar: '#1a237e',
+    header: '#1a237e',
+    backgroundImage: 'https://images.unsplash.com/photo-1515630278258-407f66498911'
   },
   minimal: {
-    sidebar: '#2c3e50',
-    header: '#2c3e50',
-    background: '#ffffff',
-    backgroundImage: 'url("https://images.unsplash.com/photo-1518655048521-f130df041f66")'
+    sidebar: '#212121',
+    header: '#212121',
+    backgroundImage: 'https://images.unsplash.com/photo-1518655048521-f130df041f66'
   },
   neon: {
     sidebar: '#000000',
     header: '#000000',
-    background: '#000000',
-    backgroundImage: 'url("https://images.unsplash.com/photo-1554034483-04fda0d3507b")'
+    backgroundImage: 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031'
   },
-  cyberpunk: {
-    sidebar: '#1a1a2e',
-    header: '#1a1a2e',
-    background: '#000000',
-    backgroundImage: 'url("https://images.unsplash.com/photo-1550684376-efcbd6e3f031")'
+  aurora: {
+    sidebar: '#004d40',
+    header: '#004d40',
+    backgroundImage: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7'
   },
-  sunset: {
-    sidebar: '#2c1810',
-    header: '#2c1810',
-    background: '#000000',
-    backgroundImage: 'url("https://images.unsplash.com/photo-1557683316-973673baf926")'
+  desert: {
+    sidebar: '#bf360c',
+    header: '#bf360c',
+    backgroundImage: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35'
   },
   matrix: {
-    sidebar: '#0a0a0a',
-    header: '#0a0a0a',
-    background: '#000000',
-    backgroundImage: 'url("https://images.unsplash.com/photo-1579548122080-c35fd6820ecb")'
+    sidebar: '#003300',
+    header: '#003300',
+    backgroundImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5'
+  },
+  synthwave: {
+    sidebar: '#6a1b9a',
+    header: '#6a1b9a',
+    backgroundImage: 'https://images.unsplash.com/photo-1558470598-a5dda9640f68'
+  },
+  midnight: {
+    sidebar: '#000051',
+    header: '#000051',
+    backgroundImage: 'https://images.unsplash.com/photo-1519681393784-d120267933ba'
+  },
+  abstract: {
+    sidebar: '#4a148c',
+    header: '#4a148c',
+    backgroundImage: 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031'
   }
 };
 
-// Update the applyTheme function
-function applyTheme(themeName) {
-  const theme = themes[themeName];
-  document.querySelector('.sidebar').style.backgroundColor = theme.sidebar;
-  document.querySelector('.browser-header').style.backgroundColor = theme.header;
-  document.body.style.backgroundColor = theme.background;
-  
-  // Apply background image
-  if (theme.backgroundImage === 'none') {
-    document.body.style.backgroundImage = 'none';
-  } else {
-    document.body.style.backgroundImage = theme.backgroundImage;
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundPosition = 'center';
-    document.body.style.backgroundAttachment = 'fixed';
-  }
-  
-  // Save theme preference
-  localStorage.setItem('selectedTheme', themeName);
-}
+// Complete tab cloaker configuration
+const cloakOptions = [
+  { name: 'Google', icon: 'https://www.google.com/favicon.ico', title: 'Google' },
+  { name: 'Drive', icon: 'https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png', title: 'Google Drive' },
+  { name: 'Docs', icon: 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico', title: 'Google Docs' },
+  { name: 'Classroom', icon: 'https://www.gstatic.com/classroom/favicon.png', title: 'Google Classroom' },
+  { name: 'Gmail', icon: 'https://www.google.com/gmail/about/static/images/favicon.ico', title: 'Gmail' },
+  { name: 'Calendar', icon: 'https://calendar.google.com/googlecalendar/images/favicon_v2018_256.png', title: 'Google Calendar' },
+  { name: 'Meet', icon: 'https://www.gstatic.com/meet/google_meet_favicon_2020q4_192x192.png', title: 'Google Meet' },
+  { name: 'Canvas', icon: 'https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico', title: 'Canvas' },
+  { name: 'Zoom', icon: 'https://st1.zoom.us/zoom.ico', title: 'Zoom Meeting' },
+  { name: 'Office', icon: 'https://www.office.com/favicon.ico', title: 'Microsoft Office' },
+  { name: 'Teams', icon: 'https://teams.microsoft.com/favicon.ico', title: 'Microsoft Teams' },
+  { 
+
 
 </script>
 
