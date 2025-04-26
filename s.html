@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>unblockzone template</title>
+  <title>unblockzone - settings</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -339,6 +339,139 @@ body.light-mode .action-btn {
 body.light-mode .url-bar-icons i {
   color: #333333 !important;
 }
+
+/* Add this to your existing CSS */
+
+.settings-title {
+  position: absolute;
+  top: 20%;
+  left: 49%;
+  transform: translateX(-50%);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6),
+               0 0 15px rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease;
+  z-index: 10;
+}
+
+/* Modify the theme-container CSS */
+.theme-container {
+  position: absolute;
+  top: 40%; /* Moved down from 35% */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #343a40;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  padding: 40px; /* Increased padding */
+  width: 70%; /* Increased width */
+  height: auto; /* Allow container to grow with content */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+/* Modify theme-options to handle two rows */
+.theme-options {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 25px;
+  row-gap: 30px; /* Space between rows */
+  justify-items: center;
+  padding: 10px;
+}
+
+/* Modify theme-circle */
+.theme-circle {
+  width: 70px; /* Slightly larger circles */
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.theme-circle:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+/* Add this to your existing CSS */
+
+.settings-title {
+  position: absolute;
+  top: 20%;
+  left: 49%;
+  transform: translateX(-50%);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6),
+               0 0 15px rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease;
+  z-index: 10;
+}
+
+.theme-container {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #343a40;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  padding: 30px;
+  width: 60%;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+.theme-title {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  margin-bottom: 15px;
+}
+
+.theme-divider {
+  width: 100%;
+  height: 2px;
+  background: #ffffff;
+  margin: 15px 0 25px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.theme-options {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.theme-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-circle:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+
+
   </style>
 </head>
 <body>
@@ -422,6 +555,32 @@ body.light-mode .url-bar-icons i {
       </div>
     </div>
   </div>
+  
+<div class="theme-container">
+  <h2 class="theme-title">Theme Changer</h2>
+  <div class="theme-divider"></div>
+<div class="theme-options">
+  <!-- First row - Solid colors -->
+  <div class="theme-circle" style="background: #343a40" data-theme="default"></div>
+  <div class="theme-circle" style="background: #1a237e" data-theme="blue"></div>
+  <div class="theme-circle" style="background: #1b5e20" data-theme="green"></div>
+  <div class="theme-circle" style="background: #b71c1c" data-theme="red"></div>
+  <div class="theme-circle" style="background: #4a148c" data-theme="purple"></div>
+  <div class="theme-circle" style="background: #f57f17" data-theme="orange"></div>
+  <div class="theme-circle" style="background: #263238" data-theme="dark"></div>
+
+  <!-- Second row - Custom backgrounds -->
+  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986')" data-theme="space"></div>
+  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809')" data-theme="gradient"></div>
+  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1518655048521-f130df041f66')" data-theme="minimal"></div>
+  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1554034483-04fda0d3507b')" data-theme="neon"></div>
+  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1550684376-efcbd6e3f031')" data-theme="cyberpunk"></div>
+  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926')" data-theme="sunset"></div>
+  <div class="theme-circle" style="background-image: url('https://images.unsplash.com/photo-1579548122080-c35fd6820ecb')" data-theme="matrix"></div>
+</div>
+
+
+
 
   <div id="particles-js"></div>
 
@@ -663,6 +822,184 @@ body.light-mode .url-bar-icons i {
       "retina_detect": false
     });
   });
+  
+  // Add this to your existing JavaScript
+const themeCircles = document.querySelectorAll('.theme-circle');
+const root = document.documentElement;
+
+const themes = {
+  default: {
+    sidebar: '#343a40',
+    header: '#343a40',
+    background: '#212529'
+  },
+  blue: {
+    sidebar: '#1a237e',
+    header: '#1a237e',
+    background: '#e8eaf6'
+  },
+  green: {
+    sidebar: '#1b5e20',
+    header: '#1b5e20',
+    background: '#e8f5e9'
+  },
+  red: {
+    sidebar: '#b71c1c',
+    header: '#b71c1c',
+    background: '#ffebee'
+  },
+  purple: {
+    sidebar: '#4a148c',
+    header: '#4a148c',
+    background: '#f3e5f5'
+  },
+  orange: {
+    sidebar: '#f57f17',
+    header: '#f57f17',
+    background: '#fff3e0'
+  },
+  dark: {
+    sidebar: '#263238',
+    header: '#263238',
+    background: '#37474f'
+  }
+};
+
+function applyTheme(themeName) {
+  const theme = themes[themeName];
+  document.querySelector('.sidebar').style.backgroundColor = theme.sidebar;
+  document.querySelector('.browser-header').style.backgroundColor = theme.header;
+  document.body.style.backgroundColor = theme.background;
+  
+  // Save theme preference
+  localStorage.setItem('selectedTheme', themeName);
+}
+
+// Apply theme on click
+themeCircles.forEach(circle => {
+  circle.addEventListener('click', () => {
+    const themeName = circle.dataset.theme;
+    applyTheme(themeName);
+  });
+});
+
+// Load saved theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('selectedTheme');
+  if (savedTheme) {
+    applyTheme(savedTheme);
+  }
+});
+
+const themes = {
+  default: {
+    sidebar: '#343a40',
+    header: '#343a40',
+    background: '#212529',
+    backgroundImage: 'none'
+  },
+  blue: {
+    sidebar: '#1a237e',
+    header: '#1a237e',
+    background: '#e8eaf6',
+    backgroundImage: 'none'
+  },
+  green: {
+    sidebar: '#1b5e20',
+    header: '#1b5e20',
+    background: '#e8f5e9',
+    backgroundImage: 'none'
+  },
+  red: {
+    sidebar: '#b71c1c',
+    header: '#b71c1c',
+    background: '#ffebee',
+    backgroundImage: 'none'
+  },
+  purple: {
+    sidebar: '#4a148c',
+    header: '#4a148c',
+    background: '#f3e5f5',
+    backgroundImage: 'none'
+  },
+  orange: {
+    sidebar: '#f57f17',
+    header: '#f57f17',
+    background: '#fff3e0',
+    backgroundImage: 'none'
+  },
+  dark: {
+    sidebar: '#263238',
+    header: '#263238',
+    background: '#37474f',
+    backgroundImage: 'none'
+  },
+  // Custom background themes
+  space: {
+    sidebar: '#1a1a2e',
+    header: '#1a1a2e',
+    background: '#000000',
+    backgroundImage: 'url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986")'
+  },
+  gradient: {
+    sidebar: '#2c3e50',
+    header: '#2c3e50',
+    background: '#000000',
+    backgroundImage: 'url("https://images.unsplash.com/photo-1579546929518-9e396f3cc809")'
+  },
+  minimal: {
+    sidebar: '#2c3e50',
+    header: '#2c3e50',
+    background: '#ffffff',
+    backgroundImage: 'url("https://images.unsplash.com/photo-1518655048521-f130df041f66")'
+  },
+  neon: {
+    sidebar: '#000000',
+    header: '#000000',
+    background: '#000000',
+    backgroundImage: 'url("https://images.unsplash.com/photo-1554034483-04fda0d3507b")'
+  },
+  cyberpunk: {
+    sidebar: '#1a1a2e',
+    header: '#1a1a2e',
+    background: '#000000',
+    backgroundImage: 'url("https://images.unsplash.com/photo-1550684376-efcbd6e3f031")'
+  },
+  sunset: {
+    sidebar: '#2c1810',
+    header: '#2c1810',
+    background: '#000000',
+    backgroundImage: 'url("https://images.unsplash.com/photo-1557683316-973673baf926")'
+  },
+  matrix: {
+    sidebar: '#0a0a0a',
+    header: '#0a0a0a',
+    background: '#000000',
+    backgroundImage: 'url("https://images.unsplash.com/photo-1579548122080-c35fd6820ecb")'
+  }
+};
+
+// Update the applyTheme function
+function applyTheme(themeName) {
+  const theme = themes[themeName];
+  document.querySelector('.sidebar').style.backgroundColor = theme.sidebar;
+  document.querySelector('.browser-header').style.backgroundColor = theme.header;
+  document.body.style.backgroundColor = theme.background;
+  
+  // Apply background image
+  if (theme.backgroundImage === 'none') {
+    document.body.style.backgroundImage = 'none';
+  } else {
+    document.body.style.backgroundImage = theme.backgroundImage;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundAttachment = 'fixed';
+  }
+  
+  // Save theme preference
+  localStorage.setItem('selectedTheme', themeName);
+}
+
 </script>
 
 </body>
