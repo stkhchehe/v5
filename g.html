@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>unblockzone - games</title>
+  <title>unblockzone template</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -788,6 +788,34 @@ body {
   padding-bottom: 50px;
 }
 
+.game-section {
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.game-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.quick-access-btn.active {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.game-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.game-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
   </style>
 </head>
@@ -873,20 +901,45 @@ body {
     </div>
   </div>
   
-  <div class="quick-access">
-  <div class="quick-access-btn" title="Recently Played">
+<!-- Add after your games container -->
+<div class="quick-access">
+  <div class="quick-access-btn" data-section="recent" title="Recently Played">
     <i class="fas fa-history"></i>
   </div>
-  <div class="quick-access-btn" title="Favorites">
+  <div class="quick-access-btn" data-section="favorites" title="Favorites">
     <i class="fas fa-star"></i>
   </div>
-  <div class="quick-access-btn" title="Random Game">
-    <i class="fas fa-random"></i>
-  </div>
-  <div class="quick-access-btn" title="Popular">
+  <div class="quick-access-btn" data-section="popular" title="Popular">
     <i class="fas fa-fire"></i>
   </div>
+  <div class="quick-access-btn" data-section="all" title="All Games">
+    <i class="fas fa-gamepad"></i>
+  </div>
 </div>
+
+<!-- Add game sections -->
+<div class="game-sections">
+  <section id="recent" class="game-section" style="display: none;">
+    <h2>recently played</h2>
+    <!-- Add your recent games flip cards here -->
+  </section>
+  
+  <section id="favorites" class="game-section" style="display: none;">
+    <h2>favorites</h2>
+    <!-- Add your favorite games flip cards here -->
+  </section>
+  
+  <section id="popular" class="game-section" style="display: none;">
+    <h2>popular games</h2>
+    <!-- Add your popular games flip cards here -->
+  </section>
+  
+  <section id="all" class="game-section">
+    <h2>all games</h2>
+    <!-- Your existing games container goes here -->
+  </section>
+</div>
+
 
   
 <h1 class="games-title">games</h1>
@@ -1248,6 +1301,95 @@ document.querySelectorAll('.zoom-card').forEach(card => {
   });
 });
 
+// Quick Access Panel functionality
+document.addEventListener('DOMContentLoaded', () => {
+  const quickAccessBtns = document.querySelectorAll('.quick-access-btn');
+  const gameSections = document.querySelectorAll('.game-section');
+  
+  // Store game data
+  const gameData = {
+    recent: [],
+    favorites: [],
+    popular: [
+      {
+        title: 'Minecraft',
+        image: 'minecraft.jpg',
+        description: 'Popular sandbox game',
+        plays: 1000000
+      },
+      // Add more popular games
+    ],
+    all: [] // All games
+  };
+
+  // Handle quick access button clicks
+  quickAccessBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const section = btn.dataset.section;
+      
+      // Hide all sections
+      gameSections.forEach(s => s.style.display = 'none');
+      
+      // Show selected section
+      document.getElementById(section).style.display = 'block';
+      
+      // Update active button state
+      quickAccessBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Smooth scroll to section
+      document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Track recently played games
+  function addToRecent(game) {
+    const recent = JSON.parse(localStorage.getItem('recentGames') || '[]');
+    const exists = recent.findIndex(g => g.id === game.id);
+    
+    if (exists !== -1) {
+      recent.splice(exists, 1);
+    }
+    
+    recent.unshift(game);
+    recent.splice(10); // Keep only last 10 games
+    
+    localStorage.setItem('recentGames', JSON.stringify(recent));
+    updateRecentSection();
+  }
+
+  // Handle favorites
+  function toggleFavorite(gameId) {
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const index = favorites.indexOf(gameId);
+    
+    if (index === -1) {
+      favorites.push(gameId);
+    } else {
+      favorites.splice(index, 1);
+    }
+    
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    updateFavoritesSection();
+  }
+
+  // Update sections
+  function updateRecentSection() {
+    const recent = JSON.parse(localStorage.getItem('recentGames') || '[]');
+    const recentSection = document.getElementById('recent');
+    // Update recent games display
+  }
+
+  function updateFavoritesSection() {
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const favSection = document.getElementById('favorites');
+    // Update favorites display
+  }
+
+  // Initialize sections
+  updateRecentSection();
+  updateFavoritesSection();
+});
 
 
 </script>
