@@ -725,164 +725,92 @@ body.light-mode .url-bar-icons i {
     color: #333333 !important;
 }
 
-/* Adjust main content layout */
-.browser-header {
-  margin-top: 35px; /* Make room for tabs */
-}
-
-/* Tab System with Animations */
+/* Simplified Tab System */
 .tabs-container {
   position: fixed;
   top: 0;
-  left: 4.5vw; /* Match sidebar width */
+  left: 4.5vw;
   right: 0;
-  height: 35px;
+  height: 40px;
   background: #2b3035;
   display: flex;
   align-items: center;
-  padding-left: 5px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px;
   z-index: 1000;
   transition: width 0.3s ease-in-out;
-}
-
-.sidebar:hover ~ .main-content .tabs-container {
-  left: 15vw;
 }
 
 .tab {
   display: flex;
   align-items: center;
   background: #343a40;
-  border-radius: 5px 5px 0 0;
-  padding: 8px 25px 8px 15px;
+  border-radius: 10px;
+  padding: 8px 30px 8px 15px;
   margin-right: 5px;
   cursor: pointer;
   position: relative;
-  max-width: 200px;
+  max-width: 180px;
   min-width: 100px;
-  transition: all 0.3s ease;
-  animation: tabOpen 0.3s ease-out forwards;
-  transform-origin: left center;
-}
-
-.tab.closing {
-  animation: tabClose 0.3s ease-out forwards;
-}
-
-@keyframes tabOpen {
-  0% {
-    transform: scaleX(0.3);
-    opacity: 0;
-  }
-  100% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-}
-
-@keyframes tabClose {
-  0% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scaleX(0.3);
-    opacity: 0;
-  }
+  height: 30px;
+  transition: background 0.2s ease;
 }
 
 .tab.active {
   background: #495057;
-  z-index: 2;
 }
 
 .tab:hover {
   background: #444b52;
 }
 
-.tab::before,
-.tab::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  width: 8px;
-  height: 8px;
-  background: transparent;
-  transition: all 0.3s ease;
-}
-
-.tab::before {
-  left: -8px;
-  border-bottom-right-radius: 8px;
-  box-shadow: 4px 4px 0 4px #343a40;
-}
-
-.tab::after {
-  right: -8px;
-  border-bottom-left-radius: 8px;
-  box-shadow: -4px 4px 0 4px #343a40;
-}
-
-.tab.active::before {
-  box-shadow: 4px 4px 0 4px #495057;
-}
-
-.tab.active::after {
-  box-shadow: -4px 4px 0 4px #495057;
-}
-
 .tab-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-right: 10px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #ced4da;
 }
 
 .tab-close {
   position: absolute;
   right: 8px;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   opacity: 0.7;
   transition: all 0.2s ease;
-  background: rgba(255, 255, 255, 0.1);
 }
 
 .tab-close:hover {
   opacity: 1;
-  transform: scale(1.1);
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .new-tab-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
   background: transparent;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
   color: #ced4da;
 }
 
 .new-tab-btn:hover {
   background: #495057;
-  transform: rotate(180deg);
 }
 
-/* Adjust main content for new tab bar */
-.main-content {
-  padding-top: 35px;
+/* Adjust header positioning */
+.browser-header {
+  margin-top: 40px;
 }
+
 
 
 </style>
@@ -1431,7 +1359,7 @@ body.light-mode .url-bar-icons i {
     updateHistoryList();
   });
   
-  // Tab System
+// Tab System
 class TabManager {
   constructor() {
     this.tabs = [];
@@ -1565,7 +1493,6 @@ function updateIframe(originalUrl) {
   bookmarkIcon.classList.toggle('bookmarked', bookmarks.some(bookmark => bookmark.url === currentUrl));
 }
 
-  
 
 </script>
 
