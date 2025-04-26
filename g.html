@@ -816,6 +816,36 @@ body {
   transform: translateY(0);
 }
 
+/* Favorite button styles */
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  cursor: pointer;
+  color: white;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.2);
+}
+
+.favorite-btn.active i {
+  color: #ffd700;
+}
+
+/* Favorite games section */
+.favorite-games {
+  margin-bottom: 30px;
+  display: none; /* Show only when has favorites */
+}
+
+.favorite-games.has-favorites {
+  display: block;
+}
+
 
   </style>
 </head>
@@ -900,46 +930,6 @@ body {
       </div>
     </div>
   </div>
-  
-<!-- Add after your games container -->
-<div class="quick-access">
-  <div class="quick-access-btn" data-section="recent" title="Recently Played">
-    <i class="fas fa-history"></i>
-  </div>
-  <div class="quick-access-btn" data-section="favorites" title="Favorites">
-    <i class="fas fa-star"></i>
-  </div>
-  <div class="quick-access-btn" data-section="popular" title="Popular">
-    <i class="fas fa-fire"></i>
-  </div>
-  <div class="quick-access-btn" data-section="all" title="All Games">
-    <i class="fas fa-gamepad"></i>
-  </div>
-</div>
-
-<!-- Add game sections -->
-<div class="game-sections">
-  <section id="recent" class="game-section" style="display: none;">
-    <h2>recently played</h2>
-    <!-- Add your recent games flip cards here -->
-  </section>
-  
-  <section id="favorites" class="game-section" style="display: none;">
-    <h2>favorites</h2>
-    <!-- Add your favorite games flip cards here -->
-  </section>
-  
-  <section id="popular" class="game-section" style="display: none;">
-    <h2>popular games</h2>
-    <!-- Add your popular games flip cards here -->
-  </section>
-  
-  <section id="all" class="game-section">
-    <h2>all games</h2>
-    <!-- Your existing games container goes here -->
-  </section>
-</div>
-
 
   
 <h1 class="games-title">games</h1>
@@ -1390,6 +1380,80 @@ document.addEventListener('DOMContentLoaded', () => {
   updateRecentSection();
   updateFavoritesSection();
 });
+
+// Add to your existing JavaScript
+const recentlyPlayed = {
+  games: JSON.parse(localStorage.getItem('recentlyPlayed')) || [],
+  maxItems: 12,
+
+  add(game) {
+    // Remove if already exists
+    this.games = this.games.filter(g => g.id !== game.id);
+    
+    // Add to front
+    this.games.unshift(game);
+    
+    // Keep only max items
+    if (this.games.length > this.maxItems) {
+      this.games.pop();
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('recentlyPlayed', JSON.stringify(this.games));
+    this.updateDisplay();
+  },
+
+  updateDisplay() {
+    const recentSection = document.querySelector('.recently-played');
+    if (!recentSection) return;
+
+    recentSection.innerHTML = this.games.map(game => `
+      <div class="flip-card">
+        <!-- Game card content -->
+      </div>
+    `).join('');
+  }
+};
+
+// Add click handlers to game cards
+document.querySelectorAll('.flip-card').forEach(card => {
+  // Favorite button handler
+  const favBtn = card.querySelector('.favorite-btn');
+  favBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    favBtn.classList.toggle('active');
+    updateFavorites();
+  });
+
+  // Play button handler
+  const playBtn = card.querySelector('.flip-card-play');
+  playBtn.addEventListener('click', () => {
+    const gameData = {
+      id: card.dataset.gameId,
+      title: card.querySelector('.flip-card-title').textContent,
+      image: card.querySelector('img').src,
+      description: card.querySelector('.flip-card-description').textContent
+    };
+    recentlyPlayed.add(gameData);
+  });
+});
+
+function updateFavorites() {
+  const favorites = Array.from(document.querySelectorAll('.favorite-btn.active'))
+    .map(btn => btn.closest('.flip-card'));
+  
+  const favoriteSection = document.querySelector('.favorite-games');
+  favoriteSection.classList.toggle('has-favorites', favorites.length > 0);
+  
+  // Move favorites to top
+  const gamesContainer = document.querySelector('.games-container');
+  favorites.forEach(card => {
+    const clone = card.cloneNode(true);
+    favoriteSection.appendChild(clone);
+    card.style.display = 'none';
+  });
+}
 
 
 </script>
