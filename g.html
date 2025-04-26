@@ -302,7 +302,7 @@ iframe {
 .round-rectangles-container {
   position: absolute;
   top: 55%;
-  left: 20%;
+  left: 100%;  /* Moved further left */
   transform: translate(-50%, -50%);
   display: flex;
   gap: 1.5rem;
@@ -357,7 +357,7 @@ iframe {
 .games-container {
   position: absolute;
   top: 55%;
-  left: 58%;
+  left: 30%;  /* Adjusted to move left */
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
@@ -844,6 +844,58 @@ body {
 
 .favorite-games.has-favorites {
   display: block;
+}
+
+/* Update the games container positioning */
+.games-container {
+  position: absolute;
+  top: 55%;
+  left: 40%; /* Changed from 58% to 40% to move left */
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 5;
+}
+
+/* Update the games title positioning */
+.games-title {
+  position: absolute;
+  top: 20%;
+  left: 35%; /* Changed from 44% to 35% to match container movement */
+  transform: translateX(-50%);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6),
+               0 0 15px rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease;
+  z-index: 10;
+}
+
+/* Update the round rectangles container positioning */
+.round-rectangles-container {
+  position: absolute;
+  top: 55%;
+  left: 40%; /* Changed from 100% to 40% to move left */
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 1.5rem;
+  z-index: 5;
+}
+
+/* Optional: Adjust the flip container width if needed */
+.flip-container {
+  display: flex;
+  gap: 1.5rem;
+  width: fit-content; /* This ensures the container fits its content */
+  margin: 0 auto; /* This centers the container if needed */
+}
+
+/* Optional: Add some padding to the main content area */
+.content-area {
+  padding-left: 2rem; /* Adds some space from the sidebar */
 }
 
 
