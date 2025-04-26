@@ -1,0 +1,1516 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>unblockzone - apps</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      font-weight: bold;
+      text-transform: lowercase;
+      scrollbar-width: thin;
+      scrollbar-color: #333333 #111111;
+    }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #f8f9fa;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  background: url('https://images.unsplash.com/photo-1707924962886-12ad20367315?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+  background-size: cover;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  z-index: -2;
+  filter: brightness(0.7) blur(3px);
+}
+
+#particles-js {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-grow: 1;
+  height: calc(100vh - 40px);
+  width: 100vw;
+  overflow: hidden;
+}
+
+.sidebar {
+  position: fixed;
+  width: 6vw;
+  background: #343a40;
+  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+  height: 100vh;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  transform: translateZ(0);
+  margin-right: -1px;
+}
+
+.sidebar:hover {
+  width: 15vw;
+}
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 2rem;
+  list-style-type: none;
+}
+
+.sidebar a {
+  color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 2vh;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.sidebar a:hover {
+  background: #495057;
+  transform: scale(1.05);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  font-size: 1.3rem;
+}
+
+.sidebar:hover .text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.highlighted a {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar:hover ~ .main-content {
+  margin-left: 6vw;
+  width: calc(100% - 6vw);
+}
+
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 4.5vw;
+  width: calc(100% - 4.5vw);
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+.browser-header {
+  height: 70px;
+  background-color: #343a40;
+  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 16px;
+  position: relative;
+  transform: translateZ(0);
+  margin-left: -1px;
+  gap: 10px;
+}
+
+.browser-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
+  opacity: 0.3;
+}
+
+.url-bar-container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.browser-actions {
+  display: flex;
+  order: -1;
+  margin-left: 20px;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ced4da;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 16px;
+  margin-right: 4px;
+}
+
+.action-btn:hover {
+  background-color: #495057;
+}
+
+.url-bar-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #2b3035;
+  border-radius: 25px;
+  padding: 0 15px;
+  height: 40px;
+  flex-grow: 1;
+}
+
+.url-bar {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e9ecef;
+  font-size: 16px;
+  padding-left: 20px;
+}
+
+.content-area {
+  flex-grow: 1;
+  height: calc(100% - 70px);
+  position: relative;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: none;
+}
+
+.home-screen {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.url-bar-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+.url-bar-icons i {
+  cursor: pointer;
+  font-size: 18px;
+  color: #ced4da;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.url-bar-icons i:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.games-title {
+  position: absolute;
+  top: 20%;
+  left: 44%;
+  transform: translateX(-50%);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6),
+               0 0 15px rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease;
+  z-index: 10;
+}
+
+.games-title:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+.round-rectangles-container {
+  position: absolute;
+  top: 55%;
+  left: 100%;  /* Moved further left */
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 1.5rem;
+  z-index: 5;
+}
+
+.round-rectangle {
+  width: 340px;
+  height: 220px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+.round-rectangle:hover {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.round-rectangle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.2s ease, transform 0.1s ease;
+  will-change: transform;
+}
+
+.round-rectangle:hover img {
+  filter: brightness(0.8) blur(2px);
+}
+
+.game-name {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.round-rectangle:hover .game-name {
+  opacity: 1;
+}
+
+.games-container {
+  position: absolute;
+  top: 55%;
+  left: 30%;  /* Adjusted to move left */
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 5;
+}
+
+/* Flip Cards Section */
+.flip-container {
+  display: flex;
+  gap: 1.5rem;
+}
+
+/* For flip cards */
+.flip-card {
+  width: 320px;
+  height: 200px;
+  perspective: 1000px;
+  cursor: pointer;
+  position: relative;
+}
+
+.flip-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  transition: box-shadow 0.3s ease;
+  pointer-events: none;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-container, .zoom-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.flip-card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: white;
+  background-color: #343a40;
+  overflow: hidden;
+}
+
+.flip-card-back-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.3) blur(8px);
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.flip-card-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  z-index: 2;
+}
+
+.flip-card-description {
+  font-size: 0.9rem;
+  text-align: center;
+  opacity: 0.9;
+  z-index: 2;
+}
+
+.flip-card-play {
+  margin-top: 15px;
+  padding: 8px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  transition: background 0.2s;
+  z-index: 2;
+  color: white;
+}
+
+.flip-card-play:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Zoom Cards Section */
+.zoom-container {
+  display: flex;
+  gap: 1.5rem;
+}
+
+/* For zoom cards */
+.zoom-card {
+  width: 320px;
+  height: 200px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: box-shadow 0.2s ease;
+}
+
+.zoom-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  transition: box-shadow 0.3s ease;
+  pointer-events: none;
+}
+
+.zoom-card:hover::after {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
+              0 0 30px rgba(255, 255, 255, 0.3),
+              0 0 40px rgba(255, 255, 255, 0.1);
+}
+
+.zoom-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+  transform-origin: center;
+  scale: 1.1; /* Start slightly zoomed to prevent white edges during movement */
+}
+
+.zoom-card:hover img {
+  filter: brightness(0.7) blur(2px);
+  transform: scale(1.2); /* Further zoom on hover */
+}
+
+.zoom-card-name {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.zoom-card:hover .zoom-card-name {
+  opacity: 1;
+}
+
+
+.zoom-card:hover .zoom-card-name {
+  opacity: 1;
+}
+
+/* Update games container positioning */
+.games-container {
+  position: absolute;
+  top: 65%; /* Moved down */
+  left: 58%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  z-index: 5;
+}
+
+/* Enhanced flip card animations */
+.flip-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.flip-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.flip-card-inner {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add hover effects for play button */
+.flip-card-play {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.flip-card-play:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: all 0.5s ease;
+}
+
+.flip-card-play:hover:before {
+  left: 100%;
+}
+
+.flip-card-play:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Add pulsing animation for new games */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.new-game::after {
+  content: 'NEW';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff4757;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  animation: pulse 2s infinite;
+}
+
+/* Add floating animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.games-title {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Add shine effect on cards */
+.flip-card-front::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.flip-card:hover .flip-card-front::after {
+  animation: shine 1.5s ease-out;
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0;
+    transform: rotate(45deg) translateY(-100%);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translateY(100%);
+  }
+}
+
+/* Add entrance animations */
+.flip-card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger the entrance of cards */
+.flip-container:nth-child(1) .flip-card { animation-delay: 0.2s; }
+.flip-container:nth-child(2) .flip-card { animation-delay: 0.4s; }
+.flip-container:nth-child(3) .flip-card { animation-delay: 0.6s; }
+
+.flip-card-title,
+.flip-card-description {
+  transition: transform 0.3s ease;
+}
+
+.flip-card:hover .flip-card-title {
+  transform: scale(1.1);
+}
+
+.flip-card:hover .flip-card-description {
+  transform: scale(1.05);
+}
+
+/* Add these new sidebar items */
+.sidebar ul {
+  /* Add after your existing sidebar items */
+  
+  .favorites-link {
+    position: relative;
+  }
+  
+  .favorites-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4757;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    animation: bounce 1s infinite;
+  }
+}
+
+/* Quick Access Panel */
+.quick-access {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(52, 58, 64, 0.9);
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  backdrop-filter: blur(10px);
+  z-index: 100;
+}
+
+.quick-access-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quick-access-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: #f8f9fa;
+  min-height: 100vh;
+  position: relative;
+  background: url('https://images.unsplash.com/photo-1707924962886-12ad20367315?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+  background-size: cover;
+  padding-bottom: 50px;
+}
+
+.game-section {
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.game-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.quick-access-btn.active {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.game-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.game-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Favorite button styles */
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  cursor: pointer;
+  color: white;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.2);
+}
+
+.favorite-btn.active i {
+  color: #ffd700;
+}
+
+/* Favorite games section */
+.favorite-games {
+  margin-bottom: 30px;
+  display: none; /* Show only when has favorites */
+}
+
+.favorite-games.has-favorites {
+  display: block;
+}
+
+/* Update the games container positioning */
+.games-container {
+  position: absolute;
+  top: 75%;
+  left: 55%; /* Moved from 60% to 55% (a medium tad left) */
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 5;
+}
+
+/* Update the games title positioning */
+.games-title {
+  position: absolute;
+  top: 20%;
+  left: 49%; /* Moved from 65% to 60% (a medium tad left) */
+  transform: translateX(-50%);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6),
+               0 0 15px rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease;
+  z-index: 10;
+}
+
+/* Update the round rectangles container positioning */
+.round-rectangles-container {
+  position: absolute;
+  top: 55%;
+  left: 10%; /* Moved from 80% to 75% (a medium tad left) */
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 1.5rem;
+  z-index: 5;
+}
+
+/* Optional: Adjust the flip container width if needed */
+.flip-container {
+  display: flex;
+  gap: 1.5rem;
+  width: fit-content; /* This ensures the container fits its content */
+  margin: 0 auto; /* This centers the container if needed */
+}
+
+/* Optional: Add some padding to the main content area */
+.content-area {
+  padding-left: 2rem; /* Adds some space from the sidebar */
+}
+
+
+
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <div class="container">
+    <div class="sidebar">
+      <ul>
+        <li>
+          <a href="/index.html" class="home-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-house"></i></div>
+              <div class="text">home</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/g.html" class="games-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-gamepad"></i></div>
+              <div class="text">games</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/a.html" class="apps-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-mobile"></i></div>
+              <div class="text">apps</div>
+            </div>
+          </a>
+        </li>
+        <li class="highlighted">
+          <a href="/p.html" class="proxy-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+              <div class="text">proxy</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/s.html" class="settings-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-cog"></i></div>
+              <div class="text">settings</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="/partners.html" class="partners-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-handshake"></i></div>
+              <div class="text">partners</div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  
+    <div class="main-content">
+      <div class="browser-header">
+        <div class="browser-actions">
+          <div class="action-btn" id="back-btn"><i class="fa-solid fa-arrow-left"></i></div>
+          <div class="action-btn" id="forward-btn"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="action-btn" id="reload-btn"><i class="fa-solid fa-rotate-right"></i></div>
+        </div>
+        <div class="url-bar-container">
+          <div class="url-bar-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="url-bar" id="url-bar" placeholder="enter search or web address" />
+            <div class="url-bar-icons">
+                <i class="fa-solid fa-bookmark bookmark-header-icon" id="bookmark-icon" onclick="bookmarkCurrentPage()"></i>
+                <i class="fa-solid fa-puzzle-piece" onclick="togglePopup('extension-popup')"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-area">
+        <div class="home-screen" id="home-screen">
+        </div>
+        <iframe id="main-frame"></iframe>
+      </div>
+    </div>
+  </div>
+
+  
+<h1 class="games-title">apps</h1>
+<div class="games-container">
+  <!-- Flip Cards -->
+  <div class="flip-container">
+    <a href="https://example1.com" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" alt="Game 1">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" class="flip-card-back-image" alt="Game 1 Background">
+          <div class="flip-card-title">minecraft</div>
+          <div class="flip-card-description">Build and explore infinite worlds in this creative sandbox game.</div>
+          <div class="flip-card-play">Play Now</div>
+        </div>
+      </div>
+    </a>
+    <a href="https://example2.com" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://www.morningbrew.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fbl383u0v%2Fproduction%2F983c91154758b4963f933dd6af4f6454a7fba59b-2069x1164.jpg%3Frect%3D1%2C0%2C2067%2C1164%26w%3D412%26h%3D232%26q%3D80%26fit%3Dmax%26auto%3Dformat%26dpr%3D2.625&w=828&q=75" alt="Game 2">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://www.morningbrew.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fbl383u0v%2Fproduction%2F983c91154758b4963f933dd6af4f6454a7fba59b-2069x1164.jpg%3Frect%3D1%2C0%2C2067%2C1164%26w%3D412%26h%3D232%26q%3D80%26fit%3Dmax%26auto%3Dformat%26dpr%3D2.625&w=828&q=75" class="flip-card-back-image" alt="Game 2 Background">
+          <div class="flip-card-title">roblox</div>
+          <div class="flip-card-description">Join millions of players in this ultimate gaming platform.</div>
+          <div class="flip-card-play">Play Now</div>
+        </div>
+      </div>
+    </a>
+    <a href="https://example3.com" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://images.ctfassets.net/w5r1fvmogo3f/1Z1YaSuHeVxl3TmOIXDHQU/43900d53ebcd67174a218c8347ce146f/fortnite-main-banner_bc195a6e28dc43f7b6a2f149e73c7908.jpg?fm=webp&q=90&fit=scale&w=1920" alt="Game 3">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://images.ctfassets.net/w5r1fvmogo3f/1Z1YaSuHeVxl3TmOIXDHQU/43900d53ebcd67174a218c8347ce146f/fortnite-main-banner_bc195a6e28dc43f7b6a2f149e73c7908.jpg?fm=webp&q=90&fit=scale&w=1920" class="flip-card-back-image" alt="Game 3 Background">
+          <div class="flip-card-title">fortnite</div>
+          <div class="flip-card-description">Battle royale action with unique building mechanics.</div>
+          <div class="flip-card-play">Play Now</div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+<!-- Replace the zoom-container with this -->
+<div class="flip-container">
+  <a href="https://example4.com" class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="https://wallpapers.com/images/featured/among-us-cb21ldue3llceiua.jpg" alt="Game 4">
+      </div>
+      <div class="flip-card-back">
+        <img src="https://wallpapers.com/images/featured/among-us-cb21ldue3llceiua.jpg" class="flip-card-back-image" alt="Game 4 Background">
+        <div class="flip-card-title">among us</div>
+        <div class="flip-card-description">Work together or deceive others in this multiplayer party game.</div>
+        <div class="flip-card-play">Play Now</div>
+      </div>
+    </div>
+  </a>
+  <a href="https://example5.com" class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="https://i.ytimg.com/vi/_EgqV3ECxjs/hq720.jpg" alt="Game 5">
+      </div>
+      <div class="flip-card-back">
+        <img src="https://i.ytimg.com/vi/_EgqV3ECxjs/hq720.jpg" class="flip-card-back-image" alt="Game 5 Background">
+        <div class="flip-card-title">geometry dash</div>
+        <div class="flip-card-description">Test your reflexes in this rhythm-based platformer.</div>
+        <div class="flip-card-play">Play Now</div>
+      </div>
+    </div>
+  </a>
+  <a href="https://example6.com" class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="https://9to5mac.com/wp-content/uploads/sites/6/2023/03/subway-surfers-4-billion-downloads.jpg" alt="Game 6">
+      </div>
+      <div class="flip-card-back">
+        <img src="https://9to5mac.com/wp-content/uploads/sites/6/2023/03/subway-surfers-4-billion-downloads.jpg" class="flip-card-back-image" alt="Game 6 Background">
+        <div class="flip-card-title">subway surfers</div>
+        <div class="flip-card-description">Endless running action in this classic mobile game.</div>
+        <div class="flip-card-play">Play Now</div>
+      </div>
+    </div>
+  </a>
+</div>
+
+
+  <div id="particles-js"></div>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <div class="particles-container" id="particles-container"></div>
+
+<script>
+  const urlBar = document.getElementById('url-bar');
+  const mainFrame = document.getElementById('main-frame');
+  const homeScreen = document.getElementById('home-screen');
+  const bookmarkIcon = document.getElementById('bookmark-icon');
+
+  let iframeHistory = [];
+  let currentIndex = -1;
+  let currentUrl = '';
+  let activePopup = null;
+
+  // Bookmarks
+  let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+  const bookmarksList = document.getElementById('bookmarks-list');
+
+  // History
+  let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+  const historyList = document.getElementById('history-list');
+
+  // Extension States
+  const extensionStates = {
+      'dark-mode': false,
+      'incognito': false,
+      'download-manager': false,
+      'ad-blocker': false,
+      'light-mode': false
+  };
+
+  function updateIframe(originalUrl) {
+    const cleanedUrl = originalUrl.replace(/^https?:\/\//, '');
+    const proxiedUrl = "https://blockzone.github.io/active/iframe.html#https://" + cleanedUrl;
+
+    mainFrame.src = proxiedUrl;
+    mainFrame.style.display = "block";
+    homeScreen.style.display = "none";
+
+    urlBar.value = originalUrl;
+    currentUrl = originalUrl;
+
+    if (bookmarks.some(bookmark => bookmark.url === currentUrl)) {
+        bookmarkIcon.classList.add('bookmarked');
+    } else {
+        bookmarkIcon.classList.remove('bookmarked');
+    }
+  }
+
+  function navigateToUrl(input) {
+    if (!input.trim()) return;
+
+    let formattedUrl = input.trim();
+
+    if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
+      if (formattedUrl.includes(".")) {
+        formattedUrl = "https://" + formattedUrl;
+      } else {
+        formattedUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(formattedUrl);
+      }
+    }
+
+    iframeHistory = iframeHistory.slice(0, currentIndex + 1);
+    iframeHistory.push(formattedUrl);
+    currentIndex++;
+    updateIframe(formattedUrl);
+
+    addSearchToHistory(formattedUrl);
+  }
+
+  urlBar.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      navigateToUrl(urlBar.value);
+    }
+  });
+
+  document.getElementById("back-btn").onclick = () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateIframe(iframeHistory[currentIndex]);
+    }
+  };
+
+  document.getElementById("forward-btn").onclick = () => {
+    if (currentIndex < iframeHistory.length - 1) {
+      currentIndex++;
+      updateIframe(iframeHistory[currentIndex]);
+    }
+  };
+
+  document.getElementById("reload-btn").onclick = () => {
+    if (currentIndex >= 0) {
+      updateIframe(iframeHistory[currentIndex]);
+    }
+  };
+
+  function bookmarkCurrentPage() {
+    if (!currentUrl) return;
+
+    const pageTitle = currentUrl;
+    const bookmark = { url: currentUrl, title: pageTitle };
+
+    const isBookmarked = bookmarks.some(b => b.url === currentUrl);
+
+    if (isBookmarked) {
+      bookmarks = bookmarks.filter(b => b.url !== currentUrl);
+      bookmarkIcon.classList.remove('bookmarked');
+    } else {
+      bookmarks.push(bookmark);
+      bookmarkIcon.classList.add('bookmarked');
+    }
+
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  }
+
+  function addSearchToHistory(url) {
+    searchHistory.unshift(url);
+    searchHistory = searchHistory.slice(0, 10);
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+  }
+
+  function toggleExtension(extensionName) {
+    extensionStates[extensionName] = !extensionStates[extensionName];
+    const toggleElement = document.querySelector(`.extension-toggle[data-extension="${extensionName}"] i`);
+
+    if (extensionStates[extensionName]) {
+      if (extensionName === 'dark-mode') {
+        document.body.classList.add('dark-mode');
+      } else if (extensionName === 'incognito') {
+        document.body.classList.add('incognito');
+      } else if (extensionName === 'light-mode') {
+        document.body.classList.add('light-mode');
+        localStorage.setItem('lightMode', 'enabled');
+      }
+    } else {
+      if (extensionName === 'dark-mode') {
+        document.body.classList.remove('dark-mode');
+      } else if (extensionName === 'incognito') {
+        document.body.classList.remove('incognito');
+      } else if (extensionName === 'light-mode') {
+        document.body.classList.remove('light-mode');
+        localStorage.setItem('lightMode', 'disabled');
+      }
+    }
+  }
+
+  if (localStorage.getItem('lightMode') === 'enabled') {
+    document.body.classList.add('light-mode');
+    extensionStates['light-mode'] = true;
+  }
+
+  function loadSavedExtensionStates() {
+    const savedStates = JSON.parse(localStorage.getItem('extensionStates')) || {};
+    Object.keys(savedStates).forEach(extension => {
+      if (savedStates[extension]) {
+        extensionStates[extension] = true;
+        applyExtensionState(extension, true);
+      }
+    });
+  }
+
+  function applyExtensionState(extensionName, state) {
+    switch (extensionName) {
+      case 'dark-mode':
+        document.body.classList.toggle('dark-mode', state);
+        break;
+      case 'incognito':
+        document.body.classList.toggle('incognito', state);
+        break;
+      case 'ad-blocker':
+        state ? enableAdBlocker() : disableAdBlocker();
+        break;
+      case 'light-mode':
+        document.body.classList.toggle('light-mode', state);
+        break;
+    }
+  }
+
+  function enableAdBlocker() {
+    const adPatterns = [
+      'ads', 'advertisement', 'banner', 'sponsor', 'advertising',
+      'google_ads', 'adsense', 'advert', 'promotions', 'sponsored'
+    ];
+    setInterval(() => {
+      if (extensionStates['ad-blocker']) {
+        const elements = document.querySelectorAll('iframe, div, img, a');
+        elements.forEach(el => {
+          const str = (el.id + ' ' + el.className + ' ' + el.src + ' ' + el.href).toLowerCase();
+          if (adPatterns.some(pattern => str.includes(pattern))) {
+            el.style.display = 'none';
+          }
+        });
+      }
+    }, 1000);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadSavedExtensionStates();
+
+    const theme = window.theme || {};
+
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 20, "density": { "enable": false } },
+        "color": { "value": theme.particleColor || "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.7, "random": true },
+        "size": { "value": 3, "random": true },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": theme.particleLinks || "#ffffff",
+          "opacity": 0.6,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": false },
+          "onclick": { "enable": false },
+          "resize": true
+        }
+      },
+      "retina_detect": false
+    });
+  });
+  
+document.querySelectorAll('.zoom-card').forEach(card => {
+  let rafId;
+  
+  card.addEventListener('mousemove', (e) => {
+    if (rafId) cancelAnimationFrame(rafId);
+    
+    rafId = requestAnimationFrame(() => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const moveX = (x - centerX) / 15; // Reduced divisor for more pronounced movement
+      const moveY = (y - centerY) / 15;
+      
+      const img = card.querySelector('img');
+      img.style.transform = `scale(1.2) translate(${moveX}px, ${moveY}px)`;
+    });
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    if (rafId) cancelAnimationFrame(rafId);
+    const img = card.querySelector('img');
+    img.style.transform = 'scale(1.1)'; // Return to initial zoom level
+  });
+});
+
+// Quick Access Panel functionality
+document.addEventListener('DOMContentLoaded', () => {
+  const quickAccessBtns = document.querySelectorAll('.quick-access-btn');
+  const gameSections = document.querySelectorAll('.game-section');
+  
+  // Store game data
+  const gameData = {
+    recent: [],
+    favorites: [],
+    popular: [
+      {
+        title: 'Minecraft',
+        image: 'minecraft.jpg',
+        description: 'Popular sandbox game',
+        plays: 1000000
+      },
+      // Add more popular games
+    ],
+    all: [] // All games
+  };
+
+  // Handle quick access button clicks
+  quickAccessBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const section = btn.dataset.section;
+      
+      // Hide all sections
+      gameSections.forEach(s => s.style.display = 'none');
+      
+      // Show selected section
+      document.getElementById(section).style.display = 'block';
+      
+      // Update active button state
+      quickAccessBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Smooth scroll to section
+      document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Track recently played games
+  function addToRecent(game) {
+    const recent = JSON.parse(localStorage.getItem('recentGames') || '[]');
+    const exists = recent.findIndex(g => g.id === game.id);
+    
+    if (exists !== -1) {
+      recent.splice(exists, 1);
+    }
+    
+    recent.unshift(game);
+    recent.splice(10); // Keep only last 10 games
+    
+    localStorage.setItem('recentGames', JSON.stringify(recent));
+    updateRecentSection();
+  }
+
+  // Handle favorites
+  function toggleFavorite(gameId) {
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const index = favorites.indexOf(gameId);
+    
+    if (index === -1) {
+      favorites.push(gameId);
+    } else {
+      favorites.splice(index, 1);
+    }
+    
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    updateFavoritesSection();
+  }
+
+  // Update sections
+  function updateRecentSection() {
+    const recent = JSON.parse(localStorage.getItem('recentGames') || '[]');
+    const recentSection = document.getElementById('recent');
+    // Update recent games display
+  }
+
+  function updateFavoritesSection() {
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const favSection = document.getElementById('favorites');
+    // Update favorites display
+  }
+
+  // Initialize sections
+  updateRecentSection();
+  updateFavoritesSection();
+});
+
+// Add to your existing JavaScript
+const recentlyPlayed = {
+  games: JSON.parse(localStorage.getItem('recentlyPlayed')) || [],
+  maxItems: 12,
+
+  add(game) {
+    // Remove if already exists
+    this.games = this.games.filter(g => g.id !== game.id);
+    
+    // Add to front
+    this.games.unshift(game);
+    
+    // Keep only max items
+    if (this.games.length > this.maxItems) {
+      this.games.pop();
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('recentlyPlayed', JSON.stringify(this.games));
+    this.updateDisplay();
+  },
+
+  updateDisplay() {
+    const recentSection = document.querySelector('.recently-played');
+    if (!recentSection) return;
+
+    recentSection.innerHTML = this.games.map(game => `
+      <div class="flip-card">
+        <!-- Game card content -->
+      </div>
+    `).join('');
+  }
+};
+
+// Add click handlers to game cards
+document.querySelectorAll('.flip-card').forEach(card => {
+  // Favorite button handler
+  const favBtn = card.querySelector('.favorite-btn');
+  favBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    favBtn.classList.toggle('active');
+    updateFavorites();
+  });
+
+  // Play button handler
+  const playBtn = card.querySelector('.flip-card-play');
+  playBtn.addEventListener('click', () => {
+    const gameData = {
+      id: card.dataset.gameId,
+      title: card.querySelector('.flip-card-title').textContent,
+      image: card.querySelector('img').src,
+      description: card.querySelector('.flip-card-description').textContent
+    };
+    recentlyPlayed.add(gameData);
+  });
+});
+
+function updateFavorites() {
+  const favorites = Array.from(document.querySelectorAll('.favorite-btn.active'))
+    .map(btn => btn.closest('.flip-card'));
+  
+  const favoriteSection = document.querySelector('.favorite-games');
+  favoriteSection.classList.toggle('has-favorites', favorites.length > 0);
+  
+  // Move favorites to top
+  const gamesContainer = document.querySelector('.games-container');
+  favorites.forEach(card => {
+    const clone = card.cloneNode(true);
+    favoriteSection.appendChild(clone);
+    card.style.display = 'none';
+  });
+}
+
+
+</script>
+
+</body>
+</html>
