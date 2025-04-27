@@ -76,16 +76,54 @@ function applyTheme(themeName) {
 
   const sidebar = document.querySelector('.sidebar');
   const header = document.querySelector('.browser-header');
+  const themeContainers = document.querySelectorAll('.theme-container');
+  const tabsContainer = document.querySelector('.tabs-container');
 
+  // Calculate darker shade for hover effects
+  const darkenColor = (color) => {
+    const rgb = color.match(/\d+/g);
+    if (rgb) {
+      const darker = rgb.map(c => Math.max(0, parseInt(c) - 30));
+      return `rgb(${darker.join(',')})`;
+    }
+    return color;
+  };
+
+  const hoverColor = darkenColor(theme.sidebar);
+
+  // Apply styles
   requestAnimationFrame(() => {
     if (sidebar) sidebar.style.backgroundColor = theme.sidebar;
     if (header) header.style.backgroundColor = theme.header;
+    if (tabsContainer) tabsContainer.style.backgroundColor = theme.sidebar;
 
-    const currentBg = document.body.style.backgroundImage;
+    themeContainers.forEach(container => {
+      container.style.backgroundColor = theme.sidebar;
+      container.style.borderColor = themeName === 'white' ? '#000000' : '#ffffff';
+    });
+
+    // Update hover styles
+    const style = document.createElement('style');
+    style.textContent = `
+      .sidebar a:hover {
+        background: ${hoverColor} !important;
+      }
+      .tab:hover {
+        background: ${hoverColor} !important;
+      }
+    `;
+    document.head.appendChild(style);
+
     const newBg = `url(${theme.background})`;
-    if (currentBg !== newBg) {
+    if (document.body.style.backgroundImage !== newBg) {
       document.body.style.backgroundImage = newBg;
     }
+  });
+
+  // Handle text colors
+  const textColor = themeName === 'white' ? '#000000' : '#ffffff';
+  document.querySelectorAll('.theme-title, .particle-label, .blank-button').forEach(element => {
+    element.style.color = textColor;
   });
 
   document.body.className = ''; // Reset classes
@@ -102,115 +140,6 @@ function initializeThemeSystem() {
     applyTheme(savedTheme);
   }
 }
-
-function applyTheme(themeName) {
-  const theme = themes[themeName];
-  if (!theme) return;
-
-  const sidebar = document.querySelector('.sidebar');
-  const header = document.querySelector('.browser-header');
-  const themeContainers = document.querySelectorAll('.theme-container'); // Add this line
-
-  requestAnimationFrame(() => {
-    sidebar.style.backgroundColor = theme.sidebar;
-    header.style.backgroundColor = theme.header;
-    
-    // Apply theme color to all theme containers
-    themeContainers.forEach(container => {
-      container.style.backgroundColor = theme.sidebar;
-    });
-
-    const currentBg = document.body.style.backgroundImage;
-    const newBg = `url(${theme.background})`;
-    if (currentBg !== newBg) {
-      document.body.style.backgroundImage = newBg;
-    }
-  });
-
-  // Enhanced theme application with hover color calculation
-function applyTheme(themeName) {
-    const theme = themes[themeName];
-    if (!theme) return;
-
-    const sidebar = document.querySelector('.sidebar');
-    const header = document.querySelector('.browser-header');
-    const themeContainers = document.querySelectorAll('.theme-container');
-    const tabsContainer = document.querySelector('.tabs-container');
-
-    // Calculate darker shade for hover effects
-    const darkenColor = (color) => {
-        const rgb = color.match(/\d+/g);
-        if (rgb) {
-            const darker = rgb.map(c => Math.max(0, parseInt(c) - 30));
-            return `rgb(${darker.join(',')})`;
-        }
-        return color;
-    };
-
-    const hoverColor = darkenColor(theme.sidebar);
-
-    // Apply styles with requestAnimationFrame for better performance
-    requestAnimationFrame(() => {
-        // Update sidebar and header
-        sidebar.style.backgroundColor = theme.sidebar;
-        header.style.backgroundColor = theme.header;
-        
-        // Update tabs container
-        if (tabsContainer) {
-            tabsContainer.style.backgroundColor = theme.sidebar;
-        }
-
-        // Update theme containers
-        themeContainers.forEach(container => {
-            container.style.backgroundColor = theme.sidebar;
-            container.style.borderColor = themeName === 'white' ? '#000000' : '#ffffff';
-        });
-
-        // Update hover styles
-        const style = document.createElement('style');
-        style.textContent = `
-            .sidebar a:hover {
-                background: ${hoverColor} !important;
-            }
-            .tab:hover {
-                background: ${hoverColor} !important;
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Update background
-        const newBg = `url(${theme.background})`;
-        if (document.body.style.backgroundImage !== newBg) {
-            document.body.style.backgroundImage = newBg;
-        }
-    });
-
-    // Handle text colors
-    const textColor = themeName === 'white' ? '#000000' : '#ffffff';
-    document.querySelectorAll('.theme-title, .particle-label, .blank-button').forEach(element => {
-        element.style.color = textColor;
-    });
-
-    localStorage.setItem('currentTheme', themeName);
-}
-
-
-  // Handle text color for white theme
-  if (themeName === 'white') {
-    document.body.classList.add('white-theme');
-    document.querySelectorAll('.theme-title, .particle-label, .blank-button').forEach(element => {
-      element.style.color = '#000000';
-    });
-  } else {
-    document.body.classList.remove('white-theme');
-    document.querySelectorAll('.theme-title, .particle-label, .blank-button').forEach(element => {
-      element.style.color = '#ffffff';
-    });
-  }
-
-  localStorage.setItem('currentTheme', themeName);
-}
-
 
 // ========== Tab Cloaking Management ==========
 function applyTabCloak(name, icon) {
