@@ -1,71 +1,189 @@
 // settings.js
 
-// Theme Management
-function initializeThemeSystem() {
-    const savedTheme = localStorage.getItem('currentTheme');
-    if (savedTheme) {
-        applyTheme(savedTheme);
-    }
-}
+// ========== Theme Configuration ==========
+const themes = {
+  default: {
+    sidebar: '#343a40',
+    header: '#343a40',
+    background: 'https://images.unsplash.com/photo-1707924962886-12ad20367315'
+  },
+  black: {
+    sidebar: '#000000',
+    header: '#000000',
+    background: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDVYJojRxO5cWsb5Y5pcnSqnNyHpPb8TeELw&s'
+  },
+  white: {
+    sidebar: '#ffffff',
+    header: '#ffffff',
+    background: 'https://img.freepik.com/free-vector/white-gray-abstract-gradient-background_69286-550.jpg?semt=ais_hybrid&w=740'
+  },
+  orange: {
+    sidebar: '#ffcf7b',
+    header: '#ffcf7b',
+    background: 'https://img.freepik.com/free-photo/background-gradient-lights_23-2149304997.jpg'
+  },
+  tan: {
+    sidebar: '#d2b48c',
+    header: '#d2b48c',
+    background: 'https://t3.ftcdn.net/jpg/09/14/74/04/360_F_914740449_kGiQ9SryhURbePRwE53Nvh4DK6R3WS40.jpg'
+  },
+  'light-purple': {
+    sidebar: '#b39ddb',
+    header: '#b39ddb',
+    background: 'https://images.unsplash.com/photo-1617957689233-207e3cd3c610?fm=jpg&q=60&w=3000'
+  },
+  brown: {
+    sidebar: '#795548',
+    header: '#795548',
+    background: 'https://media.istockphoto.com/id/675719502/photo/abstract-luxury-brown-background-border-frame-with-copy-space-blank-web-or-template-brochure.jpg'
+  },
+  'light-green': {
+    sidebar: '#3d704f',
+    header: '#3d704f',
+    background: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d'
+  },
+  pink: {
+    sidebar: '#f48fb1',
+    header: '#f48fb1',
+    background: 'https://img.freepik.com/premium-vector/pink-gradient-color-background-illustration-pink-radial-gradient-background-wallpapers_1199668-67.jpg'
+  },
+  'light-blue': {
+    sidebar: '#81d4fa',
+    header: '#81d4fa',
+    background: 'https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3773.jpg'
+  }
+};
 
+const customThemes = {
+  custom1: {
+    sidebar: '#4a148c',
+    header: '#4a148c',
+    background: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809'
+  }
+};
+
+// ========== Theme Management ==========
 function applyTheme(themeName) {
-    const theme = themes[themeName];
-    if (!theme) return;
+  let theme;
 
-    document.body.style.backgroundImage = `url(${theme.background})`;
-    document.querySelector('.sidebar').style.backgroundColor = theme.sidebar;
-    document.querySelector('.browser-header').style.backgroundColor = theme.header;
+  if (themeName === 'user-custom') {
+    theme = JSON.parse(localStorage.getItem('userCustomTheme'));
+  } else {
+    theme = themes[themeName] || customThemes[themeName];
+  }
 
-    if (themeName === 'white') {
-        document.body.classList.add('white-theme');
-    } else {
-        document.body.classList.remove('white-theme');
+  if (!theme) return;
+
+  const sidebar = document.querySelector('.sidebar');
+  const header = document.querySelector('.browser-header');
+
+  requestAnimationFrame(() => {
+    if (sidebar) sidebar.style.backgroundColor = theme.sidebar;
+    if (header) header.style.backgroundColor = theme.header;
+
+    const currentBg = document.body.style.backgroundImage;
+    const newBg = `url(${theme.background})`;
+    if (currentBg !== newBg) {
+      document.body.style.backgroundImage = newBg;
     }
+  });
 
-    localStorage.setItem('currentTheme', themeName);
+  document.body.className = ''; // Reset classes
+  if (themeName === 'white') {
+    document.body.classList.add('white-theme');
+  }
+
+  localStorage.setItem('currentTheme', themeName);
 }
 
-// Tab Cloaking System
-function initializeTabCloaking() {
-    const savedCloak = localStorage.getItem('tabCloak');
-    if (savedCloak) {
-        const {name, icon} = JSON.parse(savedCloak);
-        applyTabCloak(name, icon);
-    }
+function initializeThemeSystem() {
+  const savedTheme = localStorage.getItem('currentTheme');
+  if (savedTheme) {
+    applyTheme(savedTheme);
+  }
 }
 
+// ========== Tab Cloaking Management ==========
 function applyTabCloak(name, icon) {
-    document.title = name;
-    
-    let favicon = document.querySelector('link[rel="icon"]');
-    if (!favicon) {
-        favicon = document.createElement('link');
-        favicon.rel = 'icon';
-        document.head.appendChild(favicon);
-    }
-    favicon.href = icon;
+  document.title = name;
 
-    localStorage.setItem('tabCloak', JSON.stringify({name, icon}));
+  let favicon = document.querySelector('link[rel="icon"]');
+  if (!favicon) {
+    favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    document.head.appendChild(favicon);
+  }
+  favicon.href = icon;
+
+  localStorage.setItem('tabCloak', JSON.stringify({ name, icon }));
 }
 
-// Initialize both systems
+function initializeTabCloaking() {
+  const savedCloak = localStorage.getItem('tabCloak');
+  if (savedCloak) {
+    const { name, icon } = JSON.parse(savedCloak);
+    applyTabCloak(name, icon);
+  }
+}
+
+// ========== Custom Theme Upload ==========
+document.querySelector('.custom-upload')?.addEventListener('click', () => {
+  document.getElementById('theme-upload').click();
+});
+
+document.getElementById('theme-upload')?.addEventListener('change', function (e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      const img = new Image();
+      img.onload = function () {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 1;
+        canvas.height = 1;
+        ctx.drawImage(img, 0, 0, 1, 1);
+        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+        const dominantColor = `rgb(${r},${g},${b})`;
+
+        const customTheme = {
+          sidebar: dominantColor,
+          header: dominantColor,
+          background: event.target.result
+        };
+
+        localStorage.setItem('userCustomTheme', JSON.stringify(customTheme));
+
+        const lastCustomCircle = document.querySelector('.last-custom');
+        if (lastCustomCircle) {
+          lastCustomCircle.style.backgroundImage = `url(${event.target.result})`;
+          lastCustomCircle.innerHTML = '';
+        }
+
+        applyTheme('user-custom');
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+// ========== Event Listeners ==========
 document.addEventListener('DOMContentLoaded', () => {
-    initializeThemeSystem();
-    initializeTabCloaking();
-});
+  initializeThemeSystem();
+  initializeTabCloaking();
 
-// Event Listeners for Theme Circles
-document.querySelectorAll('.theme-circle').forEach(circle => {
+  document.querySelectorAll('.theme-circle').forEach(circle => {
     circle.addEventListener('click', () => {
-        applyTheme(circle.dataset.theme);
+      applyTheme(circle.dataset.theme);
     });
-});
+  });
 
-// Event Listeners for Tab Cloak Circles
-document.querySelectorAll('.cloaker-circle').forEach(circle => {
+  document.querySelectorAll('.cloaker-circle').forEach(circle => {
     circle.addEventListener('click', () => {
-        const name = circle.dataset.name;
-        const icon = circle.dataset.icon;
-        applyTabCloak(name, icon);
+      const name = circle.dataset.name;
+      const icon = circle.dataset.icon;
+      applyTabCloak(name, icon);
     });
+  });
 });
