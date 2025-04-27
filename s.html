@@ -587,6 +587,96 @@ body.white-theme .url-bar-icons i {
     border-color: #3498db;
 }
 
+.blank-launcher {
+    top: 125%;
+}
+
+.blank-button {
+    background: #4a4a4a;
+    border: 2px solid #ffffff;
+    border-radius: 25px;
+    color: #ffffff;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    text-transform: lowercase;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.blank-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+}
+
+/* Make containers scrollable */
+body {
+    overflow-y: auto !important;
+    padding-bottom: 150px;
+}
+
+.container {
+    height: auto !important;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+.tab-cloaker {
+    top: 155%;
+}
+
+.cloaker-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cloaker-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.cloaker-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.cloaker-circle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.cloaker-circle img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+}
+
+/* Adjust spacing for all containers */
+.theme-container {
+    margin-bottom: 30px;
+}
+
+.blank-launcher {
+    margin-bottom: 30px;
+}
+
+
 
   </style>
 </head>
@@ -707,6 +797,87 @@ body.white-theme .url-bar-icons i {
         </div>
     </div>
 </div>
+
+<div class="theme-container blank-launcher">
+    <h2 class="theme-title">Launch about:blank</h2>
+    <div class="theme-divider"></div>
+    <button class="blank-button" onclick="launchBlank()">
+        open about:blank
+    </button>
+</div>
+
+<div class="theme-container tab-cloaker">
+    <h2 class="theme-title">Tab Cloaker</h2>
+    <div class="theme-divider"></div>
+    <div class="cloaker-grid">
+        <div class="cloaker-row">
+            <div class="cloaker-circle" data-name="Google Classroom" data-icon="https://upload.wikimedia.org/wikipedia/commons/5/59/Google_Classroom_Logo.png">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Google_Classroom_Logo.png" alt="classroom">
+            </div>
+            <div class="cloaker-circle" data-name="Google Docs" data-icon="https://upload.wikimedia.org/wikipedia/commons/0/01/Google_Docs_logo_%282014-2020%29.svg">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Google_Docs_logo_%282014-2020%29.svg" alt="docs">
+            </div>
+            <div class="cloaker-circle" data-name="Canvas" data-icon="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Canvas_by_Instructure_logo.svg/1200px-Canvas_by_Instructure_logo.svg.png">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Canvas_by_Instructure_logo.svg/1200px-Canvas_by_Instructure_logo.svg.png" alt="canvas">
+            </div>
+            <div class="cloaker-circle" data-name="Khan Academy" data-icon="https://cdn.kastatic.org/images/favicon.ico">
+                <img src="https://cdn.kastatic.org/images/favicon.ico" alt="khan">
+            </div>
+            <div class="cloaker-circle" data-name="Desmos Calculator" data-icon="https://www.desmos.com/assets/img/favicon.ico">
+                <img src="https://www.desmos.com/assets/img/favicon.ico" alt="desmos">
+            </div>
+            <div class="cloaker-circle" data-name="IXL Learning" data-icon="https://www.ixl.com/favicon.ico">
+                <img src="https://www.ixl.com/favicon.ico" alt="ixl">
+            </div>
+            <div class="cloaker-circle" data-name="Quizlet" data-icon="https://assets.quizlet.com/a/j/dist/app/i/logo/2021/q-twilight.389092a385cb51d.png">
+                <img src="https://assets.quizlet.com/a/j/dist/app/i/logo/2021/q-twilight.389092a385cb51d.png" alt="quizlet">
+            </div>
+            <div class="cloaker-circle" data-name="Kahoot!" data-icon="https://kahoot.com/favicon.ico">
+                <img src="https://kahoot.com/favicon.ico" alt="kahoot">
+            </div>
+            <div class="cloaker-circle" data-name="Microsoft Teams" data-icon="https://teams.microsoft.com/_favicon/favicon.ico">
+                <img src="https://teams.microsoft.com/_favicon/favicon.ico" alt="teams">
+            </div>
+            <div class="cloaker-circle" data-name="PowerSchool" data-icon="https://www.powerschool.com/favicon.ico">
+                <img src="https://www.powerschool.com/favicon.ico" alt="powerschool">
+            </div>
+        </div>
+        <div class="cloaker-row">
+            <div class="cloaker-circle" data-name="Britannica" data-icon="https://cdn.britannica.com/favicon.ico">
+                <img src="https://cdn.britannica.com/favicon.ico" alt="britannica">
+            </div>
+            <div class="cloaker-circle" data-name="Dictionary" data-icon="https://www.dictionary.com/favicon.ico">
+                <img src="https://www.dictionary.com/favicon.ico" alt="dictionary">
+            </div>
+            <div class="cloaker-circle" data-name="Duolingo" data-icon="https://d35aaqx5ub95lt.cloudfront.net/favicon.ico">
+                <img src="https://d35aaqx5ub95lt.cloudfront.net/favicon.ico" alt="duolingo">
+            </div>
+            <div class="cloaker-circle" data-name="Mathway" data-icon="https://www.mathway.com/favicon.ico">
+                <img src="https://www.mathway.com/favicon.ico" alt="mathway">
+            </div>
+            <div class="cloaker-circle" data-name="Google Drive" data-icon="https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png">
+                <img src="https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png" alt="drive">
+            </div>
+            <div class="cloaker-circle" data-name="Google Slides" data-icon="https://ssl.gstatic.com/docs/presentations/images/favicon5.ico">
+                <img src="https://ssl.gstatic.com/docs/presentations/images/favicon5.ico" alt="slides">
+            </div>
+            <div class="cloaker-circle" data-name="Google Forms" data-icon="https://ssl.gstatic.com/docs/forms/device_home/favicon_v2014_x128.png">
+                <img src="https://ssl.gstatic.com/docs/forms/device_home/favicon_v2014_x128.png" alt="forms">
+            </div>
+            <div class="cloaker-circle" data-name="Google Meet" data-icon="https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v1/web-96dp/logo_meet_2020q4_color_2x_web_96dp.png">
+                <img src="https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v1/web-96dp/logo_meet_2020q4_color_2x_web_96dp.png" alt="meet">
+            </div>
+            <div class="cloaker-circle" data-name="Clever" data-icon="https://clever.com/favicon.ico">
+                <img src="https://clever.com/favicon.ico" alt="clever">
+            </div>
+            <div class="cloaker-circle" data-name="Schoology" data-icon="https://app.schoology.com/favicon.ico">
+                <img src="https://app.schoology.com/favicon.ico" alt="schoology">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
   <div id="particles-js"></div>
@@ -1144,7 +1315,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     preloader.style.backgroundImage = `url(${savedBg})`;
 
-    // Load essential resources first
+     // Load essential resources first
     Promise.all([
         loadParticlesJS(),
         loadThemeAssets()
@@ -1263,6 +1434,65 @@ document.querySelectorAll('.particle-option').forEach(option => {
 const savedParticleType = localStorage.getItem('particlePreference') || 'default';
 document.querySelector(`[data-particle="${savedParticleType}"]`).classList.add('active');
 initParticles(savedParticleType);
+
+function launchBlank() {
+    const win = window.open('about:blank', '_blank');
+    win.document.write(`
+        <html>
+            <head>
+                <title>about:blank</title>
+            </head>
+            <body>
+                <iframe src="${window.location.href}" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
+                </iframe>
+            </body>
+        </html>
+    `);
+}
+
+// Tab Cloaking functionality
+document.querySelectorAll('.cloaker-circle').forEach(circle => {
+    circle.addEventListener('click', () => {
+        const name = circle.dataset.name;
+        const icon = circle.dataset.icon;
+        
+        // Change tab title
+        document.title = name;
+        
+        // Change favicon
+        let favicon = document.querySelector('link[rel="icon"]');
+        if (!favicon) {
+            favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            document.head.appendChild(favicon);
+        }
+        favicon.href = icon;
+        
+        // Save preferences
+        localStorage.setItem('tabCloak', JSON.stringify({
+            name: name,
+            icon: icon
+        }));
+    });
+});
+
+// Load saved tab cloak settings
+document.addEventListener('DOMContentLoaded', () => {
+    const savedCloak = localStorage.getItem('tabCloak');
+    if (savedCloak) {
+        const {name, icon} = JSON.parse(savedCloak);
+        document.title = name;
+        
+        let favicon = document.querySelector('link[rel="icon"]');
+        if (!favicon) {
+            favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            document.head.appendChild(favicon);
+        }
+        favicon.href = icon;
+    }
+});
+
 
 
 </script>
