@@ -532,6 +532,61 @@ body.light-mode .url-bar-icons i {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }
 
+/* White theme specific styles */
+body.white-theme {
+  color: #000 !important;
+}
+
+body.white-theme .sidebar a,
+body.white-theme .url-bar,
+body.white-theme .browser-header,
+body.white-theme .action-btn,
+body.white-theme .url-bar-icons i {
+  color: #000 !important;
+}
+
+.particles-container {
+    top: 95%;
+}
+
+.particle-options {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.particle-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.particle-option:hover {
+    transform: scale(1.1);
+}
+
+.particle-preview {
+    width: 100px;
+    height: 60px;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    margin-bottom: 10px;
+    background: #343a40;
+    position: relative;
+    overflow: hidden;
+}
+
+.particle-label {
+    color: #fff;
+    font-size: 14px;
+}
+
+.particle-option.active .particle-preview {
+    border-color: #3498db;
+}
+
 
   </style>
 </head>
@@ -634,6 +689,24 @@ body.light-mode .url-bar-icons i {
   </div>
 </div>
 
+<div class="theme-container particles-container">
+    <h2 class="theme-title">Particle Effects</h2>
+    <div class="theme-divider"></div>
+    <div class="particle-options">
+        <div class="particle-option" data-particle="default">
+            <span class="particle-preview default"></span>
+            <span class="particle-label">Default</span>
+        </div>
+        <div class="particle-option" data-particle="floating">
+            <span class="particle-preview floating"></span>
+            <span class="particle-label">Floating Dots</span>
+        </div>
+        <div class="particle-option" data-particle="none">
+            <span class="particle-preview none"></span>
+            <span class="particle-label">No Particles</span>
+        </div>
+    </div>
+</div>
 
 
   <div id="particles-js"></div>
@@ -979,6 +1052,217 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSavedTheme();
 });
 
+// Add to your existing themes object
+const customThemes = {
+  custom1: {
+    sidebar: '#4a148c',
+    header: '#4a148c',
+    background: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809'
+  },
+  // Add similar entries for custom2 through custom8
+};
+
+// Handle custom theme upload
+document.querySelector('.custom-upload').addEventListener('click', () => {
+  document.getElementById('theme-upload').click();
+});
+
+document.getElementById('theme-upload').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        // Get dominant color from image
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 1;
+        canvas.height = 1;
+        ctx.drawImage(img, 0, 0, 1, 1);
+        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+        const dominantColor = `rgb(${r},${g},${b})`;
+
+        // Save custom theme
+        const customTheme = {
+          sidebar: dominantColor,
+          header: dominantColor,
+          background: e.target.result
+        };
+        
+        localStorage.setItem('userCustomTheme', JSON.stringify(customTheme));
+        
+        // Update last custom theme circle
+        const lastCustomCircle = document.querySelector('.last-custom');
+        lastCustomCircle.style.backgroundImage = `url(${e.target.result})`;
+        lastCustomCircle.innerHTML = '';
+        
+        // Apply theme
+        applyTheme('user-custom');
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+// Modify applyTheme function to handle custom themes
+function applyTheme(themeName) {
+  let theme;
+  if (themeName === 'user-custom') {
+    theme = JSON.parse(localStorage.getItem('userCustomTheme'));
+  } else {
+    theme = themes[themeName] || customThemes[themeName];
+  }
+  if (!theme) return;
+
+  // Apply theme colors
+  document.body.className = ''; // Reset classes
+  if (themeName === 'white') {
+    document.body.classList.add('white-theme');
+  }
+  
+  // Rest of your existing applyTheme code...
+}
+
+// Load saved custom theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedCustomTheme = localStorage.getItem('userCustomTheme');
+  if (savedCustomTheme) {
+    const lastCustomCircle = document.querySelector('.last-custom');
+    const theme = JSON.parse(savedCustomTheme);
+    lastCustomCircle.style.backgroundImage = `url(${theme.background})`;
+    lastCustomCircle.innerHTML = '';
+  }
+});
+
+// Preloader
+document.addEventListener('DOMContentLoaded', () => {
+    const preloader = document.getElementById('preloader');
+    const savedTheme = localStorage.getItem('currentTheme');
+    const savedBg = savedTheme ? themes[savedTheme]?.background : themes.default.background;
+    
+    preloader.style.backgroundImage = `url(${savedBg})`;
+
+    // Load essential resources first
+    Promise.all([
+        loadParticlesJS(),
+        loadThemeAssets()
+    ]).then(() => {
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                initializePage();
+            }, 500);
+        }, 1000);
+    });
+});
+
+// Optimized theme handling
+function applyTheme(themeName, customBg = null) {
+    requestAnimationFrame(() => {
+        const theme = themes[themeName] || customThemes[themeName];
+        if (!theme && !customBg) return;
+
+        const sidebar = document.querySelector('.sidebar');
+        const header = document.querySelector('.browser-header');
+        
+        if (customBg) {
+            document.body.style.backgroundImage = `url(${customBg})`;
+            sidebar.style.backgroundColor = theme?.sidebar || '#343a40';
+            header.style.backgroundColor = theme?.header || '#343a40';
+        } else {
+            document.body.style.backgroundImage = `url(${theme.background})`;
+            sidebar.style.backgroundColor = theme.sidebar;
+            header.style.backgroundColor = theme.header;
+        }
+
+        document.body.className = themeName === 'white' ? 'white-theme' : '';
+        localStorage.setItem('currentTheme', themeName);
+    });
+}
+
+// Optimized custom theme upload
+document.querySelector('.custom-upload').addEventListener('click', () => {
+    const input = document.getElementById('theme-upload');
+    input.click();
+    
+    input.onchange = function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const customBg = e.target.result;
+            localStorage.setItem('userCustomTheme', customBg);
+            applyTheme('custom', customBg);
+            
+            const lastCustomCircle = document.querySelector('.last-custom');
+            lastCustomCircle.style.backgroundImage = `url(${customBg})`;
+            lastCustomCircle.innerHTML = '';
+        };
+        reader.readAsDataURL(file);
+    };
+});
+
+// Particle effects
+const particleConfigs = {
+    default: {
+        particles: {
+            number: { value: 20, density: { enable: false } },
+            color: { value: "#ffffff" },
+            size: { value: 3 },
+            line_linked: { enable: true },
+            move: { speed: 2 }
+        }
+    },
+    floating: {
+        particles: {
+            number: { value: 50 },
+            color: { value: "#ffffff" },
+            size: { value: 2 },
+            line_linked: { enable: false },
+            move: {
+                direction: "top",
+                speed: 1,
+                random: true
+            }
+        }
+    },
+    none: {
+        particles: {
+            number: { value: 0 }
+        }
+    }
+};
+
+// Initialize particle effects
+function initParticles(type) {
+    const config = particleConfigs[type];
+    if (type === 'none') {
+        const particlesContainer = document.getElementById('particles-js');
+        particlesContainer.innerHTML = '';
+        return;
+    }
+    
+    particlesJS('particles-js', config);
+    localStorage.setItem('particlePreference', type);
+}
+
+// Particle option selection
+document.querySelectorAll('.particle-option').forEach(option => {
+    option.addEventListener('click', () => {
+        document.querySelectorAll('.particle-option').forEach(opt => opt.classList.remove('active'));
+        option.classList.add('active');
+        initParticles(option.dataset.particle);
+    });
+});
+
+// Load saved particle preference
+const savedParticleType = localStorage.getItem('particlePreference') || 'default';
+document.querySelector(`[data-particle="${savedParticleType}"]`).classList.add('active');
+initParticles(savedParticleType);
 
 
 </script>
