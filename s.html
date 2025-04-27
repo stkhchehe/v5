@@ -673,6 +673,542 @@ html {
     margin-bottom: 30px;
 }
 
+/* Add to your existing CSS */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Enhanced sidebar animations */
+.sidebar {
+    animation: slideInFromLeft 0.5s ease-out;
+}
+
+.sidebar a {
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.3s ease;
+}
+
+.sidebar a:hover::after {
+    width: 100%;
+}
+
+/* Theme container animations */
+.theme-container {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Theme circle animations */
+.theme-circle {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.3s ease;
+}
+
+.theme-circle:hover {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* Particle option animations */
+.particle-option {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.particle-option:hover {
+    transform: translateY(-5px);
+}
+
+/* Notification badge */
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4757;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Hover effects for sidebar icons */
+.sidebar .icon i {
+    transition: transform 0.3s ease;
+}
+
+.sidebar a:hover .icon i {
+    transform: scale(1.2);
+}
+
+/* Active indicator */
+.sidebar a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 70%;
+    background: #007bff;
+    border-radius: 0 2px 2px 0;
+}
+
+/* Tooltip */
+.sidebar a {
+    position: relative;
+}
+
+.sidebar a::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    margin-left: 10px;
+}
+
+.sidebar a:hover::before {
+    opacity: 1;
+}
+
+/* Add to your existing CSS */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Enhanced sidebar animations */
+.sidebar {
+    animation: slideInFromLeft 0.5s ease-out;
+}
+
+.sidebar a {
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.3s ease;
+}
+
+.sidebar a:hover::after {
+    width: 100%;
+}
+
+/* Theme container animations */
+.theme-container {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Theme circle animations */
+.theme-circle {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.3s ease;
+}
+
+.theme-circle:hover {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* Particle option animations */
+.particle-option {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.particle-option:hover {
+    transform: translateY(-5px);
+}
+
+/* Notification badge */
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4757;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Hover effects for sidebar icons */
+.sidebar .icon i {
+    transition: transform 0.3s ease;
+}
+
+.sidebar a:hover .icon i {
+    transform: scale(1.2);
+}
+
+/* Active indicator */
+.sidebar a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 70%;
+    background: #007bff;
+    border-radius: 0 2px 2px 0;
+}
+
+/* Tooltip */
+.sidebar a {
+    position: relative;
+}
+
+.sidebar a::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    margin-left: 10px;
+}
+
+.sidebar a:hover::before {
+    opacity: 1;
+}
+
+/* Sidebar Bottom Buttons */
+.sidebar-bottom-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 6vw;
+    background: inherit;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transition: width 0.3s ease;
+}
+
+.sidebar:hover .sidebar-bottom-buttons {
+    width: 15vw;
+}
+
+.sidebar-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.sidebar-btn i {
+    font-size: 1.2rem;
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-btn:hover i {
+    transform: scale(1.1);
+}
+
+/* Quick Panels */
+.quick-search-panel,
+.quick-tools-panel,
+.quick-settings-panel,
+.quick-actions-panel {
+    position: absolute;
+    left: calc(100% + 10px);
+    bottom: 0;
+    width: 250px;
+    background: #343a40;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-btn:hover > div {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* Quick Search Panel */
+.quick-search-panel input {
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.search-engines {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.search-engines button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.search-engines button:hover {
+    transform: scale(1.1);
+}
+
+/* Quick Tools Panel */
+.tool-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.tool-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+/* Quick Settings Panel */
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: .4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* Quick Actions Panel */
+.action-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(5px);
+}
+
+/* Tooltips */
+[data-tooltip]:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+[data-tooltip]:hover:before {
+    opacity: 1;
+    visibility: visible;
+}
 
 
   </style>
@@ -730,8 +1266,105 @@ html {
             </div>
           </a>
         </li>
-      </ul>
+        <!-- Add these to your sidebar ul in both HTML files -->
+<li>
+    <a href="#" class="notifications-link">
+        <div class="nav-container">
+            <div class="icon"><i class="fa-solid fa-bell"></i></div>
+            <div class="text">updates</div>
+            <span class="notification-badge">3</span>
+        </div>
+    </a>
+</li>
+   </ul>
     </div>
+    
+    <!-- Add this to the bottom of your sidebar, before closing </div> -->
+<div class="sidebar-bottom-buttons">
+    <div class="sidebar-btn" data-tooltip="Quick Search">
+        <i class="fas fa-search-plus"></i>
+        <div class="quick-search-panel">
+            <input type="text" placeholder="Quick search...">
+            <div class="search-engines">
+                <button data-engine="google"><img src="google-icon.png" alt="Google"></button>
+                <button data-engine="ddg"><img src="ddg-icon.png" alt="DuckDuckGo"></button>
+                <button data-engine="brave"><img src="brave-icon.png" alt="Brave"></button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sidebar-btn" data-tooltip="Quick Tools">
+        <i class="fas fa-toolbox"></i>
+        <div class="quick-tools-panel">
+            <button class="tool-btn" data-tool="calculator">
+                <i class="fas fa-calculator"></i>
+                <span>Calculator</span>
+            </button>
+            <button class="tool-btn" data-tool="notepad">
+                <i class="fas fa-sticky-note"></i>
+                <span>Quick Note</span>
+            </button>
+            <button class="tool-btn" data-tool="screenshot">
+                <i class="fas fa-camera"></i>
+                <span>Screenshot</span>
+            </button>
+            <button class="tool-btn" data-tool="translate">
+                <i class="fas fa-language"></i>
+                <span>Translate</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="sidebar-btn" data-tooltip="Quick Settings">
+        <i class="fas fa-sliders-h"></i>
+        <div class="quick-settings-panel">
+            <div class="setting-item">
+                <span>Dark Mode</span>
+                <label class="switch">
+                    <input type="checkbox" id="darkMode">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <span>Focus Mode</span>
+                <label class="switch">
+                    <input type="checkbox" id="focusMode">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <span>Speed Dial</span>
+                <label class="switch">
+                    <input type="checkbox" id="speedDial">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sidebar-btn" data-tooltip="Quick Actions">
+        <i class="fas fa-bolt"></i>
+        <div class="quick-actions-panel">
+            <button class="action-btn" data-action="tab-cloak">
+                <i class="fas fa-mask"></i>
+                <span>Tab Cloak</span>
+            </button>
+            <button class="action-btn" data-action="proxy">
+                <i class="fas fa-globe"></i>
+                <span>Proxy Toggle</span>
+            </button>
+            <button class="action-btn" data-action="panic">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Panic Button</span>
+            </button>
+            <button class="action-btn" data-action="history">
+                <i class="fas fa-history"></i>
+                <span>Clear History</span>
+            </button>
+        </div>
+    </div>
+</div>
+
   
     <div class="main-content">
       <div class="browser-header">
