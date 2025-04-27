@@ -127,6 +127,74 @@ function applyTheme(themeName) {
     }
   });
 
+  // Enhanced theme application with hover color calculation
+function applyTheme(themeName) {
+    const theme = themes[themeName];
+    if (!theme) return;
+
+    const sidebar = document.querySelector('.sidebar');
+    const header = document.querySelector('.browser-header');
+    const themeContainers = document.querySelectorAll('.theme-container');
+    const tabsContainer = document.querySelector('.tabs-container');
+
+    // Calculate darker shade for hover effects
+    const darkenColor = (color) => {
+        const rgb = color.match(/\d+/g);
+        if (rgb) {
+            const darker = rgb.map(c => Math.max(0, parseInt(c) - 30));
+            return `rgb(${darker.join(',')})`;
+        }
+        return color;
+    };
+
+    const hoverColor = darkenColor(theme.sidebar);
+
+    // Apply styles with requestAnimationFrame for better performance
+    requestAnimationFrame(() => {
+        // Update sidebar and header
+        sidebar.style.backgroundColor = theme.sidebar;
+        header.style.backgroundColor = theme.header;
+        
+        // Update tabs container
+        if (tabsContainer) {
+            tabsContainer.style.backgroundColor = theme.sidebar;
+        }
+
+        // Update theme containers
+        themeContainers.forEach(container => {
+            container.style.backgroundColor = theme.sidebar;
+            container.style.borderColor = themeName === 'white' ? '#000000' : '#ffffff';
+        });
+
+        // Update hover styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .sidebar a:hover {
+                background: ${hoverColor} !important;
+            }
+            .tab:hover {
+                background: ${hoverColor} !important;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Update background
+        const newBg = `url(${theme.background})`;
+        if (document.body.style.backgroundImage !== newBg) {
+            document.body.style.backgroundImage = newBg;
+        }
+    });
+
+    // Handle text colors
+    const textColor = themeName === 'white' ? '#000000' : '#ffffff';
+    document.querySelectorAll('.theme-title, .particle-label, .blank-button').forEach(element => {
+        element.style.color = textColor;
+    });
+
+    localStorage.setItem('currentTheme', themeName);
+}
+
+
   // Handle text color for white theme
   if (themeName === 'white') {
     document.body.classList.add('white-theme');
