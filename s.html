@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -476,6 +477,61 @@ body.light-mode .url-bar-icons i {
   }
 }
 
+.theme-container {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #343a40;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  padding: 30px;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+.theme-options {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+}
+
+.theme-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 2px solid #fff;
+  flex-shrink: 0;
+}
+
+.theme-circle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.theme-title {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  margin-bottom: 15px;
+}
+
+.theme-divider {
+  width: 100%;
+  height: 2px;
+  background: #ffffff;
+  margin: 15px 0 25px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
 
   </style>
 </head>
@@ -565,15 +621,19 @@ body.light-mode .url-bar-icons i {
   <h2 class="theme-title">Theme Changer</h2>
   <div class="theme-divider"></div>
   <div class="theme-options">
-    <div class="theme-circle" style="background: #343a40" data-theme="default"></div>
-    <div class="theme-circle" style="background: #1a237e" data-theme="blue"></div>
-    <div class="theme-circle" style="background: #1b5e20" data-theme="green"></div>
-    <div class="theme-circle" style="background: #b71c1c" data-theme="red"></div>
-    <div class="theme-circle" style="background: #4a148c" data-theme="purple"></div>
-    <div class="theme-circle" style="background: #f57f17" data-theme="orange"></div>
-    <div class="theme-circle" style="background: #263238" data-theme="dark"></div>
+    <div class="theme-circle" data-theme="default" style="background: #343a40" title="Default"></div>
+    <div class="theme-circle" data-theme="black" style="background: #000000" title="Black"></div>
+    <div class="theme-circle" data-theme="white" style="background: #ffffff" title="White"></div>
+    <div class="theme-circle" data-theme="orange" style="background: #ff5722" title="Orange"></div>
+    <div class="theme-circle" data-theme="tan" style="background: #d2b48c" title="Tan"></div>
+    <div class="theme-circle" data-theme="light-purple" style="background: #b39ddb" title="Light Purple"></div>
+    <div class="theme-circle" data-theme="brown" style="background: #795548" title="Brown"></div>
+    <div class="theme-circle" data-theme="light-green" style="background: #81c784" title="Light Green"></div>
+    <div class="theme-circle" data-theme="pink" style="background: #f48fb1" title="Pink"></div>
+    <div class="theme-circle" data-theme="light-blue" style="background: #81d4fa" title="Light Blue"></div>
   </div>
 </div>
+
 
 
   <div id="particles-js"></div>
@@ -821,251 +881,104 @@ body.light-mode .url-bar-icons i {
 const themeCircles = document.querySelectorAll('.theme-circle');
 const root = document.documentElement;
 
+// Theme configuration with optimized settings
 const themes = {
   default: {
     sidebar: '#343a40',
     header: '#343a40',
-    background: '#212529'
+    background: 'https://images.unsplash.com/photo-1707924962886-12ad20367315'
   },
-  blue: {
-    sidebar: '#1a237e',
-    header: '#1a237e',
-    background: '#e8eaf6'
+  black: {
+    sidebar: '#000000',
+    header: '#000000',
+    background: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDVYJojRxO5cWsb5Y5pcnSqnNyHpPb8TeELw&s'
   },
-  green: {
-    sidebar: '#1b5e20',
-    header: '#1b5e20',
-    background: '#e8f5e9'
-  },
-  red: {
-    sidebar: '#b71c1c',
-    header: '#b71c1c',
-    background: '#ffebee'
-  },
-  purple: {
-    sidebar: '#4a148c',
-    header: '#4a148c',
-    background: '#f3e5f5'
+  white: {
+    sidebar: '#ffffff',
+    header: '#ffffff',
+    background: 'https://img.freepik.com/free-vector/white-gray-abstract-gradient-background_69286-550.jpg?semt=ais_hybrid&w=740'
   },
   orange: {
-    sidebar: '#f57f17',
-    header: '#f57f17',
-    background: '#fff3e0'
+    sidebar: '#ffcf7b',
+    header: '#ffcf7b',
+    background: 'https://img.freepik.com/free-photo/background-gradient-lights_23-2149304997.jpg'
   },
-  dark: {
-    sidebar: '#263238',
-    header: '#263238',
-    background: '#37474f'
+  tan: {
+    sidebar: '#d2b48c',
+    header: '#d2b48c',
+    background: 'https://t3.ftcdn.net/jpg/09/14/74/04/360_F_914740449_kGiQ9SryhURbePRwE53Nvh4DK6R3WS40.jpg'
+  },
+  'light-purple': {
+    sidebar: '#b39ddb',
+    header: '#b39ddb',
+    background: 'https://images.unsplash.com/photo-1617957689233-207e3cd3c610?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHVycGxlJTIwZ3JhZGllbnR8ZW58MHx8MHx8fDA%3D'
+  },
+  brown: {
+    sidebar: '#795548',
+    header: '#795548',
+    background: 'https://media.istockphoto.com/id/675719502/photo/abstract-luxury-brown-background-border-frame-with-copy-space-blank-web-or-template-brochure.jpg?s=612x612&w=0&k=20&c=nP7A1JiiFLX65eLjdkfHZdJpc0wFoC2zE2ht7IBfVW4='
+  },
+  'light-green': {
+    sidebar: '#3d704f',
+    header: '#3d704f',
+    background: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d'
+  },
+  pink: {
+    sidebar: '#f48fb1',
+    header: '#f48fb1',
+    background: 'https://img.freepik.com/premium-vector/pink-gradient-color-background-illustration-pink-radial-gradient-background-wallpapers_1199668-67.jpg?w=360'
+  },
+  'light-blue': {
+    sidebar: '#81d4fa',
+    header: '#81d4fa',
+    background: 'https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3773.jpg?t=st=1745442430~exp=1745446030~hmac=0b0c8cd4f69822a7a4fc582a51994afe0ffb278f6ccdd5069e5f90ddf647e146'
   }
 };
 
 function applyTheme(themeName) {
   const theme = themes[themeName];
-  document.querySelector('.sidebar').style.backgroundColor = theme.sidebar;
-  document.querySelector('.browser-header').style.backgroundColor = theme.header;
-  document.body.style.backgroundColor = theme.background;
-  
-  // Save theme preference
-  localStorage.setItem('selectedTheme', themeName);
+  if (!theme) return;
+
+  const sidebar = document.querySelector('.sidebar');
+  const header = document.querySelector('.browser-header');
+
+  requestAnimationFrame(() => {
+    sidebar.style.backgroundColor = theme.sidebar;
+    header.style.backgroundColor = theme.header;
+    
+    // Only update background if it's different
+    const currentBg = document.body.style.backgroundImage;
+    const newBg = `url(${theme.background})`;
+    if (currentBg !== newBg) {
+      document.body.style.backgroundImage = newBg;
+    }
+  });
+
+  localStorage.setItem('currentTheme', themeName);
 }
 
-// Apply theme on click
-themeCircles.forEach(circle => {
+// Add click handlers to theme circles
+document.querySelectorAll('.theme-circle').forEach(circle => {
   circle.addEventListener('click', () => {
-    const themeName = circle.dataset.theme;
-    applyTheme(themeName);
+    applyTheme(circle.dataset.theme);
   });
 });
 
 // Load saved theme on page load
 document.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('selectedTheme');
-  if (savedTheme) {
-    applyTheme(savedTheme);
-  }
-});
-
-// Theme configuration
-const themes = {
-  default: {
-    sidebar: '#343a40',
-    header: '#343a40',
-    backgroundImage: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809'
-  },
-  blue: {
-    sidebar: '#1a237e',
-    header: '#1a237e',
-    backgroundImage: 'https://images.unsplash.com/photo-1579547621113-e4bb2a19bdd6'
-  },
-  // Add more themes...
-};
-
-// Tab cloaker configuration
-const cloakOptions = [
-  { name: 'Google', icon: 'https://www.google.com/favicon.ico', title: 'Google' },
-  { name: 'Drive', icon: 'https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png', title: 'Google Drive' },
-  { name: 'Classroom', icon: 'https://www.gstatic.com/classroom/favicon.png', title: 'Google Classroom' },
-  // Add more options...
-];
-
-// Optimized theme application
-function applyTheme(themeName) {
-  const theme = themes[themeName];
-  
-  requestAnimationFrame(() => {
-    document.documentElement.style.setProperty('--sidebar-color', theme.sidebar);
-    document.documentElement.style.setProperty('--header-color', theme.header);
-    
-    const body = document.body;
-    if (body.style.backgroundImage !== `url(${theme.backgroundImage})`) {
-      body.style.backgroundImage = `url(${theme.backgroundImage})`;
-    }
-  });
-  
-  localStorage.setItem('selectedTheme', themeName);
-}
-
-// Tab cloaking function
-function applyCloak(cloak) {
-  const favicon = document.querySelector('link[rel="icon"]') || document.createElement('link');
-  favicon.type = 'image/x-icon';
-  favicon.rel = 'icon';
-  favicon.href = cloak.icon;
-  document.head.appendChild(favicon);
-  
-  document.title = cloak.title;
-  localStorage.setItem('selectedCloak', JSON.stringify(cloak));
-}
-
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-  // Load saved theme
-  const savedTheme = localStorage.getItem('selectedTheme');
+  const savedTheme = localStorage.getItem('currentTheme');
   if (savedTheme && themes[savedTheme]) {
     applyTheme(savedTheme);
   }
-  
-  // Load saved cloak
-  const savedCloak = JSON.parse(localStorage.getItem('selectedCloak'));
-  if (savedCloak) {
-    applyCloak(savedCloak);
-  }
-  
-  // Preload images
-  Object.values(themes).forEach(theme => {
-    const img = new Image();
-    img.src = theme.backgroundImage;
-  });
 });
 
-// Create theme circles
-const themeOptions = document.querySelector('.theme-options');
-Object.entries(themes).forEach(([name, theme]) => {
-  const circle = document.createElement('div');
-  circle.className = 'theme-circle';
-  circle.style.backgroundImage = `url(${theme.backgroundImage})`;
-  circle.addEventListener('click', () => applyTheme(name));
-  themeOptions.appendChild(circle);
+
+// Initialize themes
+document.addEventListener('DOMContentLoaded', () => {
+  createThemeCircles();
+  loadSavedTheme();
 });
 
-// Create cloak circles
-const cloakerOptions = document.querySelector('.cloaker-options');
-cloakOptions.forEach(cloak => {
-  const circle = document.createElement('div');
-  circle.className = 'cloaker-circle';
-  circle.style.backgroundImage = `url(${cloak.icon})`;
-  circle.addEventListener('click', () => applyCloak(cloak));
-  cloakerOptions.appendChild(circle);
-});
-
-// Complete theme configuration
-const themes = {
-  default: {
-    sidebar: '#343a40',
-    header: '#343a40',
-    backgroundImage: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809'
-  },
-  ocean: {
-    sidebar: '#006064',
-    header: '#006064',
-    backgroundImage: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b'
-  },
-  forest: {
-    sidebar: '#1b5e20',
-    header: '#1b5e20',
-    backgroundImage: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d'
-  },
-  sunset: {
-    sidebar: '#bf360c',
-    header: '#bf360c',
-    backgroundImage: 'https://images.unsplash.com/photo-1494548162494-384bba4ab999'
-  },
-  galaxy: {
-    sidebar: '#311b92',
-    header: '#311b92',
-    backgroundImage: 'https://images.unsplash.com/photo-1539721972319-f943342fa4b9'
-  },
-  cyber: {
-    sidebar: '#1a237e',
-    header: '#1a237e',
-    backgroundImage: 'https://images.unsplash.com/photo-1515630278258-407f66498911'
-  },
-  minimal: {
-    sidebar: '#212121',
-    header: '#212121',
-    backgroundImage: 'https://images.unsplash.com/photo-1518655048521-f130df041f66'
-  },
-  neon: {
-    sidebar: '#000000',
-    header: '#000000',
-    backgroundImage: 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031'
-  },
-  aurora: {
-    sidebar: '#004d40',
-    header: '#004d40',
-    backgroundImage: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7'
-  },
-  desert: {
-    sidebar: '#bf360c',
-    header: '#bf360c',
-    backgroundImage: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35'
-  },
-  matrix: {
-    sidebar: '#003300',
-    header: '#003300',
-    backgroundImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5'
-  },
-  synthwave: {
-    sidebar: '#6a1b9a',
-    header: '#6a1b9a',
-    backgroundImage: 'https://images.unsplash.com/photo-1558470598-a5dda9640f68'
-  },
-  midnight: {
-    sidebar: '#000051',
-    header: '#000051',
-    backgroundImage: 'https://images.unsplash.com/photo-1519681393784-d120267933ba'
-  },
-  abstract: {
-    sidebar: '#4a148c',
-    header: '#4a148c',
-    backgroundImage: 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031'
-  }
-};
-
-// Complete tab cloaker configuration
-const cloakOptions = [
-  { name: 'Google', icon: 'https://www.google.com/favicon.ico', title: 'Google' },
-  { name: 'Drive', icon: 'https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png', title: 'Google Drive' },
-  { name: 'Docs', icon: 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico', title: 'Google Docs' },
-  { name: 'Classroom', icon: 'https://www.gstatic.com/classroom/favicon.png', title: 'Google Classroom' },
-  { name: 'Gmail', icon: 'https://www.google.com/gmail/about/static/images/favicon.ico', title: 'Gmail' },
-  { name: 'Calendar', icon: 'https://calendar.google.com/googlecalendar/images/favicon_v2018_256.png', title: 'Google Calendar' },
-  { name: 'Meet', icon: 'https://www.gstatic.com/meet/google_meet_favicon_2020q4_192x192.png', title: 'Google Meet' },
-  { name: 'Canvas', icon: 'https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico', title: 'Canvas' },
-  { name: 'Zoom', icon: 'https://st1.zoom.us/zoom.ico', title: 'Zoom Meeting' },
-  { name: 'Office', icon: 'https://www.office.com/favicon.ico', title: 'Microsoft Office' },
-  { name: 'Teams', icon: 'https://teams.microsoft.com/favicon.ico', title: 'Microsoft Teams' },
-  { 
 
 
 </script>
