@@ -1352,6 +1352,47 @@ function applyTheme(themeName, customBg = null) {
     });
 }
 
+  function applyTheme(themeName) {
+  const theme = themes[themeName];
+  if (!theme) return;
+
+  const sidebar = document.querySelector('.sidebar');
+  const header = document.querySelector('.browser-header');
+  const themeContainers = document.querySelectorAll('.theme-container'); // Add this line
+
+  requestAnimationFrame(() => {
+    sidebar.style.backgroundColor = theme.sidebar;
+    header.style.backgroundColor = theme.header;
+    
+    // Apply theme color to all theme containers
+    themeContainers.forEach(container => {
+      container.style.backgroundColor = theme.sidebar;
+    });
+
+    const currentBg = document.body.style.backgroundImage;
+    const newBg = `url(${theme.background})`;
+    if (currentBg !== newBg) {
+      document.body.style.backgroundImage = newBg;
+    }
+  });
+
+  // Handle text color for white theme
+  if (themeName === 'white') {
+    document.body.classList.add('white-theme');
+    document.querySelectorAll('.theme-title, .particle-label, .blank-button').forEach(element => {
+      element.style.color = '#000000';
+    });
+  } else {
+    document.body.classList.remove('white-theme');
+    document.querySelectorAll('.theme-title, .particle-label, .blank-button').forEach(element => {
+      element.style.color = '#ffffff';
+    });
+  }
+
+  localStorage.setItem('currentTheme', themeName);
+}
+
+
 // Optimized custom theme upload
 document.querySelector('.custom-upload').addEventListener('click', () => {
     const input = document.getElementById('theme-upload');
