@@ -13,7 +13,7 @@ const themes = {
   white: {
     sidebar: '#ffffff',
     header: '#ffffff',
-    background: 'https://img.freepik.com/free-vector/white-gray-abstract-gradient-background_69286-550.jpg?semt=ais_hybrid&w=740'
+    background: 'https://img.freepik.com/free-vector/white-gray-abstract-gradient-background_69286-550.jpg'
   },
   orange: {
     sidebar: '#ffcf7b',
@@ -28,7 +28,7 @@ const themes = {
   'light-purple': {
     sidebar: '#b39ddb',
     header: '#b39ddb',
-    background: 'https://images.unsplash.com/photo-1617957689233-207e3cd3c610?fm=jpg&q=60&w=3000'
+    background: 'https://images.unsplash.com/photo-1617957689233-207e3cd3c610'
   },
   brown: {
     sidebar: '#795548',
@@ -70,6 +70,22 @@ function applyTheme(themeName) {
   const tabsContainer = document.querySelector('.tabs-container');
   const updatesPopup = document.querySelector('.updates-popup');
   const themeContainers = document.querySelectorAll('.theme-container');
+
+  // Set CSS variables for theme shades
+  const darkerShade = getDarkerColor(theme.sidebar);
+  const evenDarkerShade = getDarkerColor(theme.sidebar, 60);
+
+  document.documentElement.style.setProperty('--theme-color', theme.sidebar);
+  document.documentElement.style.setProperty('--theme-darker', darkerShade);
+  document.documentElement.style.setProperty('--theme-darkest', evenDarkerShade);
+
+  // Inject tab color styles
+  const tabStyle = document.createElement('style');
+  tabStyle.textContent = `
+    .tab { background: var(--theme-darker); }
+    .tab.active { background: var(--theme-darkest); }
+  `;
+  document.head.appendChild(tabStyle);
 
   // Add particle color control
   const particleColor = themeName === 'white' ? '#000000' : '#ffffff';
@@ -132,6 +148,16 @@ function darkenColor(color, amount = 30) {
     return `rgb(${darker.join(',')})`;
   }
   return color;
+}
+
+function getDarkerColor(color, amount = 40) {
+  if (color.startsWith('#')) {
+    color = hexToRgb(color);
+  }
+  const rgb = color.match(/\d+/g);
+  if (!rgb) return color;
+  const darker = rgb.map(c => Math.max(0, parseInt(c) - amount));
+  return `rgb(${darker.join(',')})`;
 }
 
 function hexToRgb(hex) {
