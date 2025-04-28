@@ -54,97 +54,86 @@ const themes = {
   }
 };
 
-const customThemes = {
-  custom1: {
-    sidebar: '#4a148c',
-    header: '#4a148c',
-    background: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809'
-  }
-};
+// ========== Helper Functions ==========
+function darkenColor(color, amount = 30) {
+  if (color.startsWith('#')) color = hexToRgb(color);
+  const rgb = color.match(/\d+/g);
+  if (!rgb) return color;
+  const darker = rgb.map(c => Math.max(0, parseInt(c) - amount));
+  return `rgb(${darker.join(',')})`;
+}
+
+function hexToRgb(hex) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? `rgb(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)})` : null;
+}
 
 // ========== Theme Management ==========
-function applyTheme(themeName) {
-  let theme;
-
-  if (themeName === 'user-custom') {
-    theme = JSON.parse(localStorage.getItem('userCustomTheme'));
-  } else {
-    theme = themes[themeName] || customThemes[themeName];
+function applyTheme(themeName, customBg = null) {
+  let theme = themes[themeName];
+  if (!theme && themeName === 'user-custom') {
+    const userTheme = JSON.parse(localStorage.getItem('userCustomTheme'));
+    if (userTheme) {
+      theme = userTheme;
+    }
   }
-
   if (!theme) return;
 
   const sidebar = document.querySelector('.sidebar');
   const header = document.querySelector('.browser-header');
-  const themeContainers = document.querySelectorAll('.theme-container');
   const tabsContainer = document.querySelector('.tabs-container');
-
-  // Calculate darker shade for hover effects
-  const darkenColor = (color) => {
-    const rgb = color.match(/\d+/g);
-    if (rgb) {
-      const darker = rgb.map(c => Math.max(0, parseInt(c) - 30));
-      return `rgb(${darker.join(',')})`;
-    }
-    return color;
-  };
+  const updatesPopup = document.querySelector('.updates-popup');
+  const themeContainers = document.querySelectorAll('.theme-container');
 
   const hoverColor = darkenColor(theme.sidebar);
 
-  // Apply styles
   requestAnimationFrame(() => {
     if (sidebar) sidebar.style.backgroundColor = theme.sidebar;
-    if (header) header.style.backgroundColor = theme.header;
+    if (header) header.style.backgroundColor = theme.sidebar;
     if (tabsContainer) tabsContainer.style.backgroundColor = theme.sidebar;
+    if (updatesPopup) updatesPopup.style.backgroundColor = theme.sidebar;
 
     themeContainers.forEach(container => {
       container.style.backgroundColor = theme.sidebar;
-      container.style.borderColor = themeName === 'white' ? '#000000' : '#ffffff';
     });
 
-    // Update hover styles
+    // Remove existing style if already injected
+    const oldStyle = document.getElementById('dynamic-theme-style');
+    if (oldStyle) oldStyle.remove();
+
     const style = document.createElement('style');
+    style.id = 'dynamic-theme-style';
     style.textContent = `
-      .sidebar a:hover {
-        background: ${hoverColor} !important;
-      }
-      .tab:hover {
+      .sidebar a:hover, .tab:hover {
         background: ${hoverColor} !important;
       }
     `;
     document.head.appendChild(style);
 
-    const newBg = `url(${theme.background})`;
-    if (document.body.style.backgroundImage !== newBg) {
-      document.body.style.backgroundImage = newBg;
+    const textColor = themeName === 'white' ? '#000000' : '#ffffff';
+    document.querySelectorAll('.theme-title, .particle-label, .blank-button, .tab-title, .updates-popup').forEach(el => {
+      el.style.color = textColor;
+    });
+
+    document.body.style.backgroundImage = `url(${theme.background})`;
+
+    document.body.className = '';
+    if (themeName === 'white') {
+      document.body.classList.add('white-theme');
     }
+
+    localStorage.setItem('currentTheme', themeName);
   });
-
-  // Handle text colors
-  const textColor = themeName === 'white' ? '#000000' : '#ffffff';
-  document.querySelectorAll('.theme-title, .particle-label, .blank-button').forEach(element => {
-    element.style.color = textColor;
-  });
-
-  document.body.className = ''; // Reset classes
-  if (themeName === 'white') {
-    document.body.classList.add('white-theme');
-  }
-
-  localStorage.setItem('currentTheme', themeName);
 }
 
 function initializeThemeSystem() {
   const savedTheme = localStorage.getItem('currentTheme');
-  if (savedTheme) {
-    applyTheme(savedTheme);
-  }
+  if (savedTheme) applyTheme(savedTheme);
 }
 
 // ========== Tab Cloaking Management ==========
 function applyTabCloak(name, icon) {
   document.title = name;
-
   let favicon = document.querySelector('link[rel="icon"]');
   if (!favicon) {
     favicon = document.createElement('link');
@@ -152,7 +141,6 @@ function applyTabCloak(name, icon) {
     document.head.appendChild(favicon);
   }
   favicon.href = icon;
-
   localStorage.setItem('tabCloak', JSON.stringify({ name, icon }));
 }
 
@@ -226,110 +214,24 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Add to your existing settings.js
+// ========== Updates Popup ==========
 function showUpdatesPopup() {
-    const popup = document.getElementById('updates-popup');
-    popup.classList.add('show');
-    
-    // Remove notification badge
-    const badge = document.querySelector('.notification-badge');
-    if (badge) {
-        badge.style.animation = 'fadeOut 0.3s forwards';
-        setTimeout(() => badge.remove(), 300);
-    }
-    
-    // Animate update items
-    const items = document.querySelectorAll('.update-item');
-    items.forEach((item, index) => {
-        setTimeout(() => {
-            item.style.animation = 'slideInUp 0.3s ease forwards';
-        }, index * 100);
-    });
+  const popup = document.getElementById('updates-popup');
+  popup?.classList.add('show');
+  const badge = document.querySelector('.notification-badge');
+  if (badge) {
+    badge.style.animation = 'fadeOut 0.3s forwards';
+    setTimeout(() => badge.remove(), 300);
+  }
+  const items = document.querySelectorAll('.update-item');
+  items.forEach((item, index) => {
+    setTimeout(() => {
+      item.style.animation = 'slideInUp 0.3s ease forwards';
+    }, index * 100);
+  });
 }
 
 function closeUpdatesPopup() {
-    const popup = document.getElementById('updates-popup');
-    popup.classList.remove('show');
+  const popup = document.getElementById('updates-popup');
+  popup?.classList.remove('show');
 }
-
-// Modified theme application function
-function applyTheme(themeName) {
-    const theme = themes[themeName];
-    if (!theme) return;
-
-    const sidebar = document.querySelector('.sidebar');
-    const header = document.querySelector('.browser-header');
-    const tabsContainer = document.querySelector('.tabs-container');
-    const updatesPopup = document.querySelector('.updates-popup');
-    const themeContainers = document.querySelectorAll('.theme-container');
-
-    // Calculate darker shade for hover effects
-    const darkenColor = (color) => {
-        const rgb = color.match(/\d+/g);
-        if (rgb) {
-            const darker = rgb.map(c => Math.max(0, parseInt(c) - 30));
-            return `rgb(${darker.join(',')})`;
-        }
-        return color;
-    };
-
-    const hoverColor = darkenColor(theme.sidebar);
-
-    requestAnimationFrame(() => {
-        // Update all elements
-        sidebar.style.backgroundColor = theme.sidebar;
-        header.style.backgroundColor = theme.sidebar;
-        tabsContainer.style.backgroundColor = theme.sidebar;
-        updatesPopup.style.backgroundColor = theme.sidebar;
-        
-        // Update theme containers
-        themeContainers.forEach(container => {
-            container.style.backgroundColor = theme.sidebar;
-        });
-
-        // Update hover styles
-        const style = document.createElement('style');
-        style.textContent = `
-            .sidebar a:hover {
-                background: ${hoverColor} !important;
-            }
-            .tab:hover {
-                background: ${hoverColor} !important;
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Handle text colors
-        const textColor = themeName === 'white' ? '#000000' : '#ffffff';
-        document.querySelectorAll('.theme-title, .particle-label, .blank-button, .updates-popup, .tab-title').forEach(element => {
-            element.style.color = textColor;
-        });
-
-        // Update background
-        document.body.style.backgroundImage = `url(${theme.background})`;
-    });
-
-    localStorage.setItem('currentTheme', themeName);
-}
-
-function darkenColor(color, amount = 30) {
-  // Convert hex to RGB if needed
-  if (color.startsWith('#')) {
-    color = hexToRgb(color);
-  }
-  
-  // Parse RGB values
-  const rgb = color.match(/\d+/g);
-  if (rgb) {
-    const darker = rgb.map(c => Math.max(0, parseInt(c) - amount));
-    return `rgb(${darker.join(',')})`;
-  }
-  return color;
-}
-
-function hexToRgb(hex) {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? `rgb(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)})` : null;
-}
-
-
