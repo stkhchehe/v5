@@ -71,32 +71,53 @@ function applyTheme(themeName) {
   const updatesPopup = document.querySelector('.updates-popup');
   const themeContainers = document.querySelectorAll('.theme-container');
 
-  // Set CSS variables for theme shades
-  const darkerShade = getDarkerColor(theme.sidebar);
-  const evenDarkerShade = getDarkerColor(theme.sidebar, 60);
+  const darkerShade = getDarkerShade(theme.sidebar);
+  const evenDarkerShade = getDarkerShade(theme.sidebar, 60);
 
-  document.documentElement.style.setProperty('--theme-color', theme.sidebar);
-  document.documentElement.style.setProperty('--theme-darker', darkerShade);
-  document.documentElement.style.setProperty('--theme-darkest', evenDarkerShade);
-
-  // Inject tab color styles
-  const tabStyle = document.createElement('style');
-  tabStyle.textContent = `
-    .tab { background: var(--theme-darker); }
-    .tab.active { background: var(--theme-darkest); }
-  `;
-  document.head.appendChild(tabStyle);
-
-  // Add particle color control
-  const particleColor = themeName === 'white' ? '#000000' : '#ffffff';
+  // Particle color
   if (window.pJSDom && window.pJSDom[0]) {
+    const particleColor = themeName === 'white' ? '#000000' : '#ffffff';
     window.pJSDom[0].pJS.particles.color.value = particleColor;
     window.pJSDom[0].pJS.particles.line_linked.color = particleColor;
     window.pJSDom[0].pJS.fn.particlesRefresh();
   }
 
-  // Calculate darker hover color
-  const hoverColor = darkenColor(theme.sidebar);
+  // Apply theme colors
+  document.documentElement.style.setProperty('--theme-color', theme.sidebar);
+  document.documentElement.style.setProperty('--theme-darker', darkerShade);
+  document.documentElement.style.setProperty('--theme-darkest', evenDarkerShade);
+
+  // Add dynamic styles
+  const oldStyle = document.getElementById('dynamic-theme-style');
+  if (oldStyle) oldStyle.remove();
+
+  const style = document.createElement('style');
+  style.id = 'dynamic-theme-style';
+  style.textContent = `
+    .tab { background: var(--theme-darker); }
+    .tab.active { background: var(--theme-darkest); }
+    .tab:hover { background: var(--theme-darkest); }
+    .sidebar a:hover { background: var(--theme-darker) !important; }
+    .action-btn:hover { background: var(--theme-darker); }
+    .new-tab-btn:hover { background: var(--theme-darker); }
+    .url-bar-wrapper { background: var(--theme-darker); }
+  `;
+
+  if (themeName === 'white') {
+    document.body.classList.add('white-theme');
+    style.textContent += `
+      .tab { color: #000000; }
+      .tab:hover { background: #e9ecef; }
+      .sidebar a:hover { background: #e9ecef !important; }
+      .action-btn:hover { background: #e9ecef; }
+      .new-tab-btn:hover { background: #e9ecef; }
+      .url-bar-wrapper { background: #ffffff; }
+    `;
+  } else {
+    document.body.classList.remove('white-theme');
+  }
+
+  document.head.appendChild(style);
 
   requestAnimationFrame(() => {
     if (sidebar) sidebar.style.backgroundColor = theme.sidebar;
@@ -108,49 +129,19 @@ function applyTheme(themeName) {
       container.style.backgroundColor = theme.sidebar;
     });
 
-    // Inject hover styles
-    const style = document.createElement('style');
-    style.textContent = `
-      .sidebar a:hover, .tab:hover {
-        background: ${hoverColor} !important;
-      }
-    `;
-    document.head.appendChild(style);
-
-    // Handle text color
     const textColor = themeName === 'white' ? '#000000' : '#ffffff';
     document.querySelectorAll('.theme-title, .particle-label, .blank-button, .updates-popup, .tab-title').forEach(element => {
       element.style.color = textColor;
     });
 
-    // Background image
     document.body.style.backgroundImage = `url(${theme.background})`;
-
-    // Special case for white theme
-    if (themeName === 'white') {
-      document.body.classList.add('white-theme');
-    } else {
-      document.body.classList.remove('white-theme');
-    }
   });
 
   localStorage.setItem('currentTheme', themeName);
 }
 
 // ========== Utilities ==========
-function darkenColor(color, amount = 30) {
-  if (color.startsWith('#')) {
-    color = hexToRgb(color);
-  }
-  const rgb = color.match(/\d+/g);
-  if (rgb) {
-    const darker = rgb.map(c => Math.max(0, parseInt(c) - amount));
-    return `rgb(${darker.join(',')})`;
-  }
-  return color;
-}
-
-function getDarkerColor(color, amount = 40) {
+function getDarkerShade(color, amount = 30) {
   if (color.startsWith('#')) {
     color = hexToRgb(color);
   }
