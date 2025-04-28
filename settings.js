@@ -312,3 +312,24 @@ function applyTheme(themeName) {
     localStorage.setItem('currentTheme', themeName);
 }
 
+function darkenColor(color, amount = 30) {
+  // Convert hex to RGB if needed
+  if (color.startsWith('#')) {
+    color = hexToRgb(color);
+  }
+  
+  // Parse RGB values
+  const rgb = color.match(/\d+/g);
+  if (rgb) {
+    const darker = rgb.map(c => Math.max(0, parseInt(c) - amount));
+    return `rgb(${darker.join(',')})`;
+  }
+  return color;
+}
+
+function hexToRgb(hex) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? `rgb(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)})` : null;
+}
+
+
