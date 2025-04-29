@@ -1,3 +1,4 @@
+
 // ========== Theme Configuration ==========
 const themes = {
   default: {
@@ -12,7 +13,7 @@ const themes = {
     header: '#000000',
     tabBg: '#000000',
     tabActiveBg: '#212121',
-    background: 'hhttps://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Solid_black.svg/2048px-Solid_black.svg.png'
+    background: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDVYJojRxO5cWsb5Y5pcnSqnNyHpPb8TeELw&s'
   },
   white: {
     sidebar: '#ffffff',
@@ -47,7 +48,7 @@ const themes = {
     header: '#795548',
     tabBg: '#795548',
     tabActiveBg: '#6d4c41',
-    background: 'https://media.istockphoto.com/id/675719502/photo/abstract-luxury-brown-background-border-frame-with-copy-space-blank-web-or-template-brochure.jpg?s=612x612&w=0&k=20&c=nP7A1JiiFLX65eLjdkfHZdJpc0wFoC2zE2ht7IBfVW4='
+    background: 'https://media.istockphoto.com/id/675719502/photo/abstract-luxury-brown-background-border-frame-with-copy-space-blank-web-or-template-brochure.jpg'
   },
   'light-green': {
     sidebar: '#3d704f',
