@@ -13,7 +13,7 @@ const themes = {
     header: '#000000',
     tabBg: '#000000',
     tabActiveBg: '#212121',
-    background: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDVYJojRxO5cWsb5Y5pcnSqnNyHpPb8TeELw&s'
+    background: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUs55nkjiEFR-2RL9nfedkXcYZCAcWNlfLpg&s'
   },
   white: {
     sidebar: '#ffffff',
@@ -48,7 +48,7 @@ const themes = {
     header: '#795548',
     tabBg: '#795548',
     tabActiveBg: '#6d4c41',
-    background: 'https://media.istockphoto.com/id/675719502/photo/abstract-luxury-brown-background-border-frame-with-copy-space-blank-web-or-template-brochure.jpg'
+    background: 'https://img.freepik.com/free-photo/abstract-smooth-brown-wall-background-layout-design-studio-room-web-template-business-report-with-smooth-circle-gradient-color_1258-55653.jpg?semt=ais_hybrid&w=740'
   },
   'light-green': {
     sidebar: '#3d704f',
