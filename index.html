@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -373,6 +374,34 @@
       z-index: -1;
       pointer-events: none;
     }
+    
+    .fade-in {
+  animation: fadeIn 1.5s ease-in;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.success-message {
+  color: #4BB543;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.content-hidden {
+  opacity: 0;
+}
+
+.content-visible {
+  opacity: 1;
+  transition: opacity 1.5s ease;
+}
+
 </style>
 </head>
 <body>
@@ -463,6 +492,120 @@
     <p><strong>notify - unblockzone</strong></p>
     <p>welcome to unblockzone v5! updates - not released yet</p>
   </div>
+ 
+<!-- Add this in the <head> section -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+
+<style>
+
+</style>
+
+<!-- Add this right after the <body> tag -->
+<div id="password-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+  <div style="background: #343a40; padding: 2rem; border-radius: 10px; text-align: center;">
+    <h2 style="color: #f8f9fa; margin-bottom: 1rem; font-family: 'Inter', sans-serif;">Password Required</h2>
+    <input type="password" id="password-input" style="padding: 0.5rem; margin-bottom: 1rem; border-radius: 5px; border: none; font-family: 'Inter', sans-serif;" placeholder="Enter password">
+    <button onclick="attemptLogin()" id="submit-button" style="padding: 0.5rem 1rem; background: #495057; color: #f8f9fa; border: none; border-radius: 5px; cursor: pointer; font-family: 'Inter', sans-serif;">Submit</button>
+    <div id="error-message" style="color: #ff4444; margin-top: 1rem; font-family: 'Inter', sans-serif; display: none;">
+      Try again in <span id="timer">5</span> seconds
+    </div>
+    <div id="success-message" class="success-message">Correct!</div>
+  </div>
+</div>
+
+<!-- Wrap your existing content in a div -->
+<div id="main-content" class="content-hidden">
+  <!-- Your existing content goes here -->
+</div>
+
+<!-- Add this script right before the closing </body> tag -->
+<script>
+let isTimerRunning = false;
+
+function isAuthenticated() {
+  return localStorage.getItem('unblockzoneAuth') === 'true';
+}
+
+function setAuthenticated(state) {
+  localStorage.setItem('unblockzoneAuth', state);
+}
+
+function startTimer() {
+  if (isTimerRunning) return;
+  isTimerRunning = true;
+  
+  const errorMsg = document.getElementById('error-message');
+  const submitBtn = document.getElementById('submit-button');
+  const timerDisplay = document.getElementById('timer');
+  
+  errorMsg.style.display = 'block';
+  submitBtn.disabled = true;
+  
+  let timeLeft = 5;
+  
+  const countdown = setInterval(() => {
+    timeLeft--;
+    timerDisplay.innerHTML = timeLeft;
+    
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      errorMsg.style.display = 'none';
+      submitBtn.disabled = false;
+      isTimerRunning = false;
+    }
+  }, 1000);
+}
+
+function showSuccessAndFadeIn() {
+  const successMsg = document.getElementById('success-message');
+  const mainContent = document.getElementById('main-content');
+  const overlay = document.getElementById('password-overlay');
+  
+  // Show success message
+  successMsg.style.opacity = '1';
+  
+  // Wait 1 second, then fade out overlay and fade in content
+  setTimeout(() => {
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 1.5s ease';
+    mainContent.classList.remove('content-hidden');
+    mainContent.classList.add('content-visible');
+    
+    // Remove overlay after fade out
+    setTimeout(() => {
+      overlay.style.display = 'none';
+    }, 1500);
+  }, 1000);
+}
+
+function attemptLogin() {
+  const input = document.getElementById('password-input').value;
+  
+  if (input === 'unblockzonebaby') {
+    setAuthenticated(true);
+    showSuccessAndFadeIn();
+  } else {
+    document.getElementById('password-input').value = '';
+    startTimer();
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const mainContent = document.getElementById('main-content');
+  if (isAuthenticated()) {
+    document.getElementById('password-overlay').style.display = 'none';
+    mainContent.classList.remove('content-hidden');
+    mainContent.classList.add('content-visible');
+  }
+});
+
+document.getElementById('password-input').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && !isTimerRunning) {
+    attemptLogin();
+  }
+});
+</script>
+
   
   <script>
     const splashTexts = [
@@ -580,4 +723,3 @@
   </script>
 </body>
 </html>
-
