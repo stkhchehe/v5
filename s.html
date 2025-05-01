@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1269,12 +1270,230 @@ input:checked + .slider:before {
   }
 }
 
+/* Apply animations */
+.tab {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.tab.closing {
+  animation: slideOutLeft 0.3s ease-out;
+}
+
 .url-bar-wrapper:focus-within {
   animation: expandWidth 0.3s forwards;
 }
 
 .sidebar a:hover {
   animation: glowPulse 2s infinite;
+}
+
+/* Add tab container separator */
+.tabs-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.5);
+  animation: separatorGlow 4s infinite;
+}
+
+/* Dark theme adjustments */
+body.dark-mode .tabs-container::after {
+  background: rgba(0,0,0,0.5);
+}
+
+.tab,
+.url-bar-wrapper,
+.sidebar a {
+  transition: all 0.3s ease;
+}
+
+.tabs-container::after {
+  transition: background-color 0.3s ease;
+}
+
+.tabs-container {
+  position: absolute;
+  top: 0;
+  left: 6vw;
+  height: 40px;
+  background: #2b3035;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  z-index: 998;
+  width: calc(100% - 6vw);
+  transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar:hover ~ .main-content .tabs-container {
+  left: 15vw;
+  width: calc(100% - 15vw);
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  background: #343a40;
+  border-radius: 8px;
+  padding: 8px 35px 8px 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  position: relative;
+  max-width: 200px;
+  min-width: 120px;
+  height: 35px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.tab.active {
+  background: #495057;
+}
+
+.tab:hover {
+  background: #444b52;
+}
+
+.tab-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9rem;
+  color: #ced4da;
+  flex-grow: 1;
+}
+
+.tab-close {
+  position: absolute;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.tab-close:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.new-tab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: #ced4da;
+}
+
+.new-tab-btn:hover {
+  background: #495057;
+}
+
+/* Adjust browser header position */
+.browser-header {
+  margin-top: 40px;
+}
+
+/* Light mode adjustments */
+body.light-mode .tabs-container {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+body.light-mode .tab {
+  background: #e9ecef;
+}
+
+body.light-mode .tab.active {
+  background: #dee2e6;
+}
+
+body.light-mode .tab:hover {
+  background: #dee2e6;
+}
+
+body.light-mode .tab-title {
+  color: #495057;
+}
+
+body.light-mode .new-tab-btn {
+  color: #495057;
+}
+
+body.light-mode .new-tab-btn:hover {
+  background: #e9ecef;
+}
+
+/* Tab animations */
+.tab {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.tab.closing {
+  animation: slideOutLeft 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+}
+
+.tab:hover::after {
+  width: 100%;
+}
+
+/* Active tab indicator */
+.tab.active::after {
+  width: 100%;
+  background: #007bff;
+}
+
+/* Tab close button hover effect */
+.tab-close i {
+  transition: transform 0.2s ease;
+}
+
+.tab-close:hover i {
+  transform: scale(1.2);
+}
+
+/* New tab button hover effect */
+.new-tab-btn i {
+  transition: transform 0.2s ease;
+}
+
+.new-tab-btn:hover i {
+  transform: rotate(90deg);
 }
 
 /* Enhanced animations */
@@ -1359,101 +1578,20 @@ body.white-theme .theme-circle:hover {
   transition: transform 0.3s ease;
 }
 
-    :root {
-  --theme-sidebar: #343a40;
-  --theme-header: #343a40;
-  --theme-url-bar: #2b3035;
-  --theme-sidebar-hover: #495057;
+.tab {
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-.url-bar-wrapper {
-  background-color: var(--theme-url-bar);
-  transition: background-color 0.3s ease;
+.tab:hover {
+  transform: translateY(-2px);
 }
 
-.sidebar a:hover {
-  background: var(--theme-sidebar-hover);
-  transition: background-color 0.3s ease;
+.new-tab-btn {
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-    .sidebar {
-  position: fixed;
-  width: 6vw;
-  background: var(--theme-sidebar);
-  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
-  height: 100vh;
-  transition: all 0.3s ease-in-out;
-  overflow: hidden;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  transform: translateZ(0);
-}
-
-.sidebar:hover {
-  width: 15vw;
-}
-
-/* Update tabs container to match sidebar */
-.tabs-container {
-  position: fixed;
-  top: 0;
-  left: 6vw;
-  height: 40px;
-  background: var(--theme-url-bar);
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  z-index: 998;
-  width: calc(100% - 6vw);
-  transition: all 0.3s ease-in-out;
-}
-
-.sidebar:hover ~ .tabs-container {
-  left: 15vw;
-  width: calc(100% - 15vw);
-}
-
-/* Update main content positioning */
-.main-content {
-  margin-top: 40px; /* Height of tabs container */
-  margin-left: 6vw;
-  width: calc(100% - 6vw);
-  transition: all 0.3s ease-in-out;
-}
-
-.sidebar:hover ~ .main-content {
-  margin-left: 15vw;
-  width: calc(100% - 15vw);
-}
-
-/* Add smooth transitions for all theme elements */
-.url-bar-wrapper {
-  background-color: var(--theme-url-bar);
-  transition: all 0.3s ease-in-out;
-}
-
-.sidebar a {
-  transition: all 0.3s ease-in-out;
-}
-
-.sidebar a:hover {
-  background: var(--theme-sidebar-hover);
-}
-
-/* Update browser header positioning */
-.browser-header {
-  position: relative;
-  background-color: var(--theme-header);
-  transition: all 0.3s ease-in-out;
-}
-
-    :root {
-  --theme-sidebar: #343a40;
-  --theme-header: #343a40;
-  --theme-url-bar: #2b3035;
-  --theme-sidebar-hover: #495057;
-  --transition-speed: 0.3s;
+.new-tab-btn:hover {
+  transform: scale(1.1);
 }
 
   </style>
@@ -1609,6 +1747,18 @@ body.white-theme .theme-circle:hover {
         </div>
     </div>
 </div>
+
+<div class="main-content">
+<div class="tabs-container">
+  <div class="tab active" data-tab-id="tab1">
+    <span class="tab-title">New Tab</span>
+    <span class="tab-close"><i class="fas fa-times"></i></span>
+  </div>
+  <div class="new-tab-btn">
+    <i class="fas fa-plus"></i>
+  </div>
+</div>
+
   
       <div class="browser-header">
         <div class="browser-actions">
@@ -2006,73 +2156,107 @@ const themes = {
   default: {
     sidebar: '#343a40',
     header: '#343a40',
-    urlBar: '#2b3035',
-    sidebarHover: '#495057',
     background: 'https://images.unsplash.com/photo-1707924962886-12ad20367315'
   },
   black: {
     sidebar: '#000000',
     header: '#000000',
-    urlBar: '#1a1a1a',
-    sidebarHover: '#333333',
     background: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUs55nkjiEFR-2RL9nfedkXcYZCAcWNlfLpg&s'
   },
   white: {
     sidebar: '#ffffff',
     header: '#ffffff',
-    urlBar: '#f5f5f5',
-    sidebarHover: '#e0e0e0',
-    background: 'https://img.freepik.com/free-vector/white-gray-abstract-gradient-background_69286-550.jpg'
+    background: 'https://img.freepik.com/free-vector/white-gray-abstract-gradient-background_69286-550.jpg?semt=ais_hybrid&w=740'
   },
   orange: {
     sidebar: '#ffcf7b',
     header: '#ffcf7b',
-    urlBar: '#e6b85f',
-    sidebarHover: '#ffd991',
     background: 'https://img.freepik.com/free-photo/background-gradient-lights_23-2149304997.jpg'
   },
   tan: {
     sidebar: '#d2b48c',
     header: '#d2b48c',
-    urlBar: '#bca07c',
-    sidebarHover: '#e0c4a0',
     background: 'https://t3.ftcdn.net/jpg/09/14/74/04/360_F_914740449_kGiQ9SryhURbePRwE53Nvh4DK6R3WS40.jpg'
   },
   'light-purple': {
     sidebar: '#b39ddb',
     header: '#b39ddb',
-    urlBar: '#9c85c9',
-    sidebarHover: '#c4b2e5',
-    background: 'https://images.unsplash.com/photo-1617957689233-207e3cd3c610'
+    background: 'https://images.unsplash.com/photo-1617957689233-207e3cd3c610?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHVycGxlJTIwZ3JhZGllbnR8ZW58MHx8MHx8fDA%3D'
   },
   brown: {
     sidebar: '#795548',
     header: '#795548',
-    urlBar: '#654437',
-    sidebarHover: '#8d6e63',
-    background: 'https://img.freepik.com/free-photo/abstract-smooth-brown-wall-background-layout-design-studio-room-web-template-business-report-with-smooth-circle-gradient-color_1258-55653.jpg'
+    background: 'https://img.freepik.com/free-photo/abstract-smooth-brown-wall-background-layout-design-studio-room-web-template-business-report-with-smooth-circle-gradient-color_1258-55653.jpg?semt=ais_hybrid&w=740'
   },
   'light-green': {
     sidebar: '#3d704f',
     header: '#3d704f',
-    urlBar: '#2f5b3e',
-    sidebarHover: '#4d8761',
     background: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d'
   },
   pink: {
     sidebar: '#f48fb1',
     header: '#f48fb1',
-    urlBar: '#e07a9b',
-    sidebarHover: '#f7a4c1',
-    background: 'https://img.freepik.com/premium-vector/pink-gradient-color-background-illustration-pink-radial-gradient-background-wallpapers_1199668-67.jpg'
+    background: 'https://img.freepik.com/premium-vector/pink-gradient-color-background-illustration-pink-radial-gradient-background-wallpapers_1199668-67.jpg?w=360'
   },
   'light-blue': {
     sidebar: '#81d4fa',
     header: '#81d4fa',
-    urlBar: '#69bfe6',
-    sidebarHover: '#97ddff',
-    background: 'https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3773.jpg'
+    background: 'https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3773.jpg?t=st=1745442430~exp=1745446030~hmac=0b0c8cd4f69822a7a4fc582a51994afe0ffb278f6ccdd5069e5f90ddf647e146'
   }
+};
+
+function applyTheme(themeName) {
+  const theme = themes[themeName];
+  if (!theme) return;
+
+  const sidebar = document.querySelector('.sidebar');
+  const header = document.querySelector('.browser-header');
+
+  requestAnimationFrame(() => {
+    sidebar.style.backgroundColor = theme.sidebar;
+    header.style.backgroundColor = theme.header;
+    
+    // Only update background if it's different
+    const currentBg = document.body.style.backgroundImage;
+    const newBg = `url(${theme.background})`;
+    if (currentBg !== newBg) {
+      document.body.style.backgroundImage = newBg;
+    }
+  });
+
+  localStorage.setItem('currentTheme', themeName);
+}
+
+// Add click handlers to theme circles
+document.querySelectorAll('.theme-circle').forEach(circle => {
+  circle.addEventListener('click', () => {
+    applyTheme(circle.dataset.theme);
+  });
+});
+
+// Load saved theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('currentTheme');
+  if (savedTheme && themes[savedTheme]) {
+    applyTheme(savedTheme);
+  }
+});
+
+
+// Initialize themes
+document.addEventListener('DOMContentLoaded', () => {
+  createThemeCircles();
+  loadSavedTheme();
+});
+
+// Add to your existing themes object
+const customThemes = {
+  custom1: {
+    sidebar: '#4a148c',
+    header: '#4a148c',
+    background: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809'
+  },
+  // Add similar entries for custom2 through custom8
 };
 
 // Handle custom theme upload
