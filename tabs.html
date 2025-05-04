@@ -902,6 +902,7 @@
     </div>
   </div>
 
+
   <div class="center-content" id="center-content">
     <h1>unblockzone v5</h1>
     <input type="text" class="search-bar-small" id="small-search-bar" placeholder="search or enter a url" />
@@ -1262,171 +1263,258 @@
     document.addEventListener('DOMContentLoaded', () => {
       loadSavedExtensionStates();
 
-      particlesJS("particles-js", {
-        "particles": {
-          "number": { "value": 20, "density": { "enable": false } },
-          "color": { "value": window.theme?.particleColor || "#ffffff" },
-          "shape": { "type": "circle" },
-          "opacity": { "value": 0.7, "random": true },
-          "size": { "value": 3, "random": true },
-          "line_linked": {
-            "enable": true,
-            "distance": 150,
-            "color": window.theme?.particleLinks || "#ffffff",
-            "opacity": 0.6,
-            "width": 1
-          },
-          "move": {
-            "enable": true,
-            "speed": 2,
-            "direction": "none",
-            "random": true,
-            "straight": false,
-            "out_mode": "out",
-            "bounce": false
-          }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": { "enable": false },
-            "onclick": { "enable": false },
-            "resize": true
-          }
-        },
-        "retina_detect": false
-      });
+particlesJS("particles-js", {
+  "particles": {
+    "number": { 
+      "value": 20, 
+      "density": { "enable": false } 
+    },
+    "color": { 
+      "value": "#ffffff" 
+    },
+    "shape": { 
+      "type": "circle" 
+    },
+    "opacity": { 
+      "value": 0.7, 
+      "random": true 
+    },
+    "size": { 
+      "value": 3, 
+      "random": true 
+    },
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#ffffff",
+      "opacity": 0.6,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 2,
+      "direction": "none",
+      "random": true,
+      "straight": false,
+      "out_mode": "out",
+      "bounce": false
+    }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": { "enable": false },
+      "onclick": { "enable": false },
+      "resize": true
+    }
+  },
+  "retina_detect": false
+});
+
 
       updateBookmarksList();
       updateHistoryList();
     });
 
-    class TabManager {
-      constructor() {
-        this.tabs = [];
-        this.activeTabId = null;
-        this.tabCounter = 1;
-        
-        this.init();
-      }
+class TabManager {
+  constructor() {
+    this.tabs = [];
+    this.activeTabId = null;
+    this.tabCounter = 1;
+    this.iframeContainer = document.querySelector('.content-area');
+    
+    this.init();
+  }
 
-      init() {
-        this.createNewTab();
-        this.setupEventListeners();
-      }
+  init() {
+    this.createNewTab();
+    this.setupEventListeners();
+  }
 
-      createNewTab() {
-        const tabId = `tab${this.tabCounter++}`;
-        const tab = {
-          id: tabId,
-          title: 'New Tab',
-          url: '',
-          history: [],
-          currentIndex: -1
-        };
+  createNewTab() {
+    const tabId = `tab${this.tabCounter++}`;
+    
+    // Create a new iframe for this tab
+    const iframe = document.createElement('iframe');
+    iframe.id = `iframe-${tabId}`;
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = 'none';
+    iframe.style.display = 'none';
+    this.iframeContainer.appendChild(iframe);
 
-        this.tabs.push(tab);
-        this.activeTabId = tabId;
-        this.renderTabs();
-        return tab;
-      }
+    const tab = {
+      id: tabId,
+      title: 'New Tab',
+      url: '',
+      history: [],
+      currentIndex: -1,
+      iframeId: `iframe-${tabId}`
+    };
 
-      closeTab(tabId) {
-        const index = this.tabs.findIndex(tab => tab.id === tabId);
-        if (index !== -1) {
-          this.tabs.splice(index, 1);
-          
-          if (this.activeTabId === tabId) {
-            if (this.tabs.length === 0) {
-              this.createNewTab();
-            } else {
-              this.activeTabId = this.tabs[Math.max(0, index - 1)].id;
-            }
-          }
-          
-          this.renderTabs();
-        }
-      }
+    this.tabs.push(tab);
+    this.activeTabId = tabId;
+    this.renderTabs();
+    
+    // Show home screen for new tab
+    this.showHomeScreen();
+    urlBar.value = '';
+    
+    return tab;
+  }
 
-      setActiveTab(tabId) {
-        this.activeTabId = tabId;
-        this.renderTabs();
-        
-        const tab = this.getActiveTab();
-        if (tab.url) {
-          updateIframe(tab.url);
+  showHomeScreen() {
+    // Hide all iframes
+    this.tabs.forEach(tab => {
+      const iframe = document.getElementById(tab.iframeId);
+      if (iframe) iframe.style.display = 'none';
+    });
+
+    // Show home screen
+    homeScreen.style.display = "block";
+    centerContent.style.display = "block";
+  }
+
+  closeTab(tabId) {
+    const index = this.tabs.findIndex(tab => tab.id === tabId);
+    if (index !== -1) {
+      // Remove the iframe
+      const iframe = document.getElementById(this.tabs[index].iframeId);
+      if (iframe) iframe.remove();
+      
+      this.tabs.splice(index, 1);
+      
+      if (this.activeTabId === tabId) {
+        if (this.tabs.length === 0) {
+          this.createNewTab();
         } else {
-          mainFrame.style.display = "none";
-          homeScreen.style.display = "block";
-          centerContent.style.display = "block";
+          this.activeTabId = this.tabs[Math.max(0, index - 1)].id;
         }
       }
-
-      updateActiveTab(url) {
-        const tab = this.getActiveTab();
-        if (tab) {
-          tab.url = url;
-          tab.title = url;
-          this.renderTabs();
-        }
-      }
-
-      getActiveTab() {
-        return this.tabs.find(tab => tab.id === this.activeTabId);
-      }
-
-      renderTabs() {
-        const container = document.querySelector('.tabs-container');
-        container.innerHTML = this.tabs.map(tab => `
-          <div class="tab ${tab.id === this.activeTabId ? 'active' : ''}" data-tab-id="${tab.id}">
-            <span class="tab-title">${tab.title}</span>
-            <span class="tab-close"><i class="fas fa-times"></i></span>
-          </div>
-        `).join('') + `
-          <div class="new-tab-btn">
-            <i class="fas fa-plus"></i>
-          </div>
-        `;
-      }
-
-      setupEventListeners() {
-        document.addEventListener('click', (e) => {
-          if (e.target.closest('.new-tab-btn')) {
-            this.createNewTab();
-          }
-          
-          const tabEl = e.target.closest('.tab');
-          if (tabEl) {
-            const closeBtn = e.target.closest('.tab-close');
-            if (closeBtn) {
-              this.closeTab(tabEl.dataset.tabId);
-            } else {
-              this.setActiveTab(tabEl.dataset.tabId);
-            }
-          }
-        });
-      }
+      
+      this.renderTabs();
+      this.updateActiveView();
     }
+  }
+
+  setActiveTab(tabId) {
+    this.activeTabId = tabId;
+    this.renderTabs();
+    this.updateActiveView();
+  }
+
+  updateActiveView() {
+    const tab = this.getActiveTab();
+    if (!tab) return;
+
+    // Hide all iframes
+    this.tabs.forEach(t => {
+      const iframe = document.getElementById(t.iframeId);
+      if (iframe) iframe.style.display = 'none';
+    });
+
+    if (tab.url) {
+      // Show the active tab's iframe
+      const iframe = document.getElementById(tab.iframeId);
+      if (iframe) {
+        iframe.style.display = 'block';
+        homeScreen.style.display = "none";
+        centerContent.style.display = "none";
+      }
+      urlBar.value = tab.url;
+    } else {
+      this.showHomeScreen();
+      urlBar.value = '';
+    }
+  }
+
+  updateActiveTab(url) {
+    const tab = this.getActiveTab();
+    if (tab) {
+      tab.url = url;
+      tab.title = url;
+      
+      // Update the iframe source
+      const iframe = document.getElementById(tab.iframeId);
+      if (iframe) {
+        const cleanedUrl = url.replace(/^https?:\/\//, '');
+        const proxiedUrl = "https://newunblockzone.github.io/active/iframe.html#https://" + cleanedUrl;
+        iframe.src = proxiedUrl;
+        iframe.style.display = 'block';
+      }
+      
+      homeScreen.style.display = "none";
+      centerContent.style.display = "none";
+      
+      this.renderTabs();
+    }
+  }
+
+  getActiveTab() {
+    return this.tabs.find(tab => tab.id === this.activeTabId);
+  }
+
+  renderTabs() {
+    const container = document.querySelector('.tabs-container');
+    container.innerHTML = this.tabs.map(tab => `
+      <div class="tab ${tab.id === this.activeTabId ? 'active' : ''}" data-tab-id="${tab.id}">
+        <span class="tab-title">${tab.title}</span>
+        <span class="tab-close"><i class="fas fa-times"></i></span>
+      </div>
+    `).join('') + `
+      <div class="new-tab-btn">
+        <i class="fas fa-plus"></i>
+      </div>
+    `;
+  }
+
+  setupEventListeners() {
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.new-tab-btn')) {
+        this.createNewTab();
+      }
+      
+      const tabEl = e.target.closest('.tab');
+      if (tabEl) {
+        const closeBtn = e.target.closest('.tab-close');
+        if (closeBtn) {
+          this.closeTab(tabEl.dataset.tabId);
+        } else {
+          this.setActiveTab(tabEl.dataset.tabId);
+        }
+      }
+    });
+  }
+}
+
 
     const tabManager = new TabManager();
 
-    function updateIframe(originalUrl) {
-      const cleanedUrl = originalUrl.replace(/^https?:\/\//, '');
-      const proxiedUrl = "https://newunblockzone.github.io/active/iframe.html#https://" + cleanedUrl;
+function updateIframe(originalUrl) {
+  const cleanedUrl = originalUrl.replace(/^https?:\/\//, '');
+  const proxiedUrl = "https://newunblockzone.github.io/active/iframe.html#https://" + cleanedUrl;
 
-      mainFrame.src = proxiedUrl;
-      mainFrame.style.display = "block";
-      homeScreen.style.display = "none";
-      centerContent.style.display = "none";
-
-      urlBar.value = originalUrl;
-      currentUrl = originalUrl;
-      
-      tabManager.updateActiveTab(originalUrl);
-
-      embedCodeText.textContent = "https://newunblockzone.github.io/active/iframe.html#https://" + cleanedUrl;
-      bookmarkIcon.classList.toggle('bookmarked', bookmarks.some(bookmark => bookmark.url === currentUrl));
+  const activeTab = tabManager.getActiveTab();
+  if (activeTab) {
+    const iframe = document.getElementById(activeTab.iframeId);
+    if (iframe) {
+      iframe.src = proxiedUrl;
+      iframe.style.display = "block";
     }
+  }
+
+  homeScreen.style.display = "none";
+  centerContent.style.display = "none";
+
+  urlBar.value = originalUrl;
+  currentUrl = originalUrl;
+  
+  tabManager.updateActiveTab(originalUrl);
+
+  embedCodeText.textContent = "https://newunblockzone.github.io/active/iframe.html#https://" + cleanedUrl;
+  bookmarkIcon.classList.toggle('bookmarked', bookmarks.some(bookmark => bookmark.url === currentUrl));
+}
+
   </script>
 </body>
 </html>
