@@ -8,8 +8,9 @@ const themes = {
     header: '#343a40',
     tabBg: '#343a40',
     tabActiveBg: '#495057',
-    background: 'https://images.unsplash.com/photo-1707924962886-12ad20367315'
+    background: 'https://img.freepik.com/free-photo/abstract-luxury-blur-dark-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63473.jpg?semt=ais_hybrid&w=740'
   },
+
   black: {
     sidebar: '#000000',
     header: '#000000',
