@@ -1,6 +1,3 @@
-
-
-
 // ========== Theme Configuration ==========
 const themes = {
   default: {
