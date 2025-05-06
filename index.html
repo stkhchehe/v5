@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +30,7 @@
       align-items: center;
       position: relative;
       animation: bodyAnim 1s ease-in-out;
-      background: url('https://images.unsplash.com/photo-1707924962886-12ad20367315?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+      background: url('https://img.freepik.com/free-photo/abstract-luxury-blur-dark-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63473.jpg?semt=ais_hybrid&w=740') no-repeat center center fixed;
       background-size: cover;
     }
     
@@ -402,6 +403,44 @@
   transition: opacity 1.5s ease;
 }
 
+#particles-js {
+  position: fixed; /* Change from absolute to fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Change from -1 to 1 */
+  pointer-events: none;
+}
+
+body {
+  /* ... other properties ... */
+  z-index: 0;
+  background: url('https://img.freepik.com/free-photo/abstract-luxury-blur-dark-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63473.jpg?semt=ais_hybrid&w=740') no-repeat center center fixed;
+  background-size: cover;
+}
+
+body::before {
+  /* ... other properties ... */
+  z-index: 0; /* Change from -2 to 0 */
+}
+
+.welcome {
+  /* ... other properties ... */
+  z-index: 2; /* Ensure it's above particles */
+}
+
+.sidebar {
+  /* ... other properties ... */
+  z-index: 999; /* Already correct, keep it high */
+}
+
+.popup {
+  /* ... other properties ... */
+  z-index: 1000; /* Already correct, keep it highest */
+}
+
+
 </style>
 </head>
 <body>
@@ -685,41 +724,67 @@ document.getElementById('password-input').addEventListener('keypress', (e) => {
    
   <script>
 
-    // Initialize particles
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 20, "density": { "enable": false } },
-        "color": { "value": theme.particleColor || "#ffffff" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.7, "random": true },
-        "size": { "value": 3, "random": true },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": theme.particleLinks || "#ffffff",
-          "opacity": 0.6,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 2,
-          "direction": "none",
-          "random": true,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false
-        }
+particlesJS("particles-js", {
+  "particles": {
+    "number": {
+      "value": 40,          // Reduced number for better separation
+      "density": {
+        "enable": true,
+        "value_area": 2000  // Increased area for more separation
+      }
+    },
+    "color": {
+      "value": "#ffffff"    // White particles
+    },
+    "shape": {
+      "type": "circle"
+    },
+    "opacity": {
+      "value": 0.5,        // Increased opacity
+      "random": false,     // Consistent opacity
+      "anim": {
+        "enable": false
+      }
+    },
+    "size": {
+      "value": 4,          // Larger particle size
+      "random": true,
+      "anim": {
+        "enable": false
+      }
+    },
+    "line_linked": {
+      "enable": false      // No connecting lines
+    },
+    "move": {
+      "enable": true,
+      "speed": 1.5,       // Moderate speed
+      "direction": "right",
+      "random": false,
+      "straight": true,    // Straight movement
+      "out_mode": "wrap", // Loop back when reaching edge
+      "bounce": false,
+      "attract": {
+        "enable": false
+      }
+    }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {
+        "enable": false
       },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": { "enable": false },
-          "onclick": { "enable": false },
-          "resize": true
-        }
+      "onclick": {
+        "enable": false
       },
-      "retina_detect": false
-    });
+      "resize": true
+    }
+  },
+  "retina_detect": true
+});
+
+
   </script>
 </body>
 </html>
