@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>unblockzone template</title>
+  <title>unblockzone - template</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -156,81 +157,6 @@ body::before {
   margin-left: 4.5vw;
   width: calc(100% - 4.5vw);
   transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
-}
-
-.browser-header {
-  height: 70px;
-  background-color: #343a40;
-  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 8px 16px;
-  position: relative;
-  transform: translateZ(0);
-  margin-left: -1px;
-  gap: 10px;
-}
-
-.browser-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
-  opacity: 0.3;
-}
-
-.url-bar-container {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.browser-actions {
-  display: flex;
-  order: -1;
-  margin-left: 20px;
-}
-
-.action-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ced4da;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 16px;
-  margin-right: 4px;
-}
-
-.action-btn:hover {
-  background-color: #495057;
-}
-
-.url-bar-wrapper {
-  display: flex;
-  align-items: center;
-  background-color: #2b3035;
-  border-radius: 25px;
-  padding: 0 15px;
-  height: 40px;
-  flex-grow: 1;
-}
-
-.url-bar {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #e9ecef;
-  font-size: 16px;
-  padding-left: 20px;
 }
 
 .content-area {
@@ -399,23 +325,6 @@ body.light-mode .url-bar-icons i {
     <script src="settings.js" defer></script>
   
     <div class="main-content">
-      <div class="browser-header">
-        <div class="browser-actions">
-          <div class="action-btn" id="back-btn"><i class="fa-solid fa-arrow-left"></i></div>
-          <div class="action-btn" id="forward-btn"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="action-btn" id="reload-btn"><i class="fa-solid fa-rotate-right"></i></div>
-        </div>
-        <div class="url-bar-container">
-          <div class="url-bar-wrapper">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="url-bar" id="url-bar" placeholder="enter search or web address" />
-            <div class="url-bar-icons">
-                <i class="fa-solid fa-bookmark bookmark-header-icon" id="bookmark-icon" onclick="bookmarkCurrentPage()"></i>
-                <i class="fa-solid fa-puzzle-piece" onclick="togglePopup('extension-popup')"></i>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="content-area">
         <div class="home-screen" id="home-screen">
         </div>
