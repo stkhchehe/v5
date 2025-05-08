@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +26,7 @@ html, body {
   margin: 0;
   padding: 0;
 }
-    
+
 body {
   color: #f8f9fa;
   height: 100vh;
@@ -36,7 +37,8 @@ body {
   align-items: center;
   position: relative;
   z-index: 1;
-  background: #000; /* Dark fallback */
+  background: url('https://images.unsplash.com/photo-1707924962886-12ad20367315?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+  background-size: cover;
 }
 
 body::before {
@@ -1640,6 +1642,24 @@ body.white-theme .theme-circle:hover {
             </div>
           </a>
         </li>
+        <li>
+          <a href="/partners.html" class="partners-link">
+            <div class="nav-container">
+              <div class="icon"><i class="fa-solid fa-handshake"></i></div>
+              <div class="text">partners</div>
+            </div>
+          </a>
+        </li>
+        <!-- Add these to your sidebar ul in both HTML files -->
+<li>
+    <a href="#" class="notifications-link">
+        <div class="nav-container">
+            <div class="icon"><i class="fa-solid fa-bell"></i></div>
+            <div class="text">updates</div>
+            <span class="notification-badge">3</span>
+        </div>
+    </a>
+</li>
    </ul>
     </div>
     
