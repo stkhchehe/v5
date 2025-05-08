@@ -1,7 +1,5 @@
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,81 +158,6 @@ body::before {
   margin-left: 4.5vw;
   width: calc(100% - 4.5vw);
   transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
-}
-
-.browser-header {
-  height: 70px;
-  background-color: #343a40;
-  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 8px 16px;
-  position: relative;
-  transform: translateZ(0);
-  margin-left: -1px;
-  gap: 10px;
-}
-
-.browser-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
-  opacity: 0.3;
-}
-
-.url-bar-container {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.browser-actions {
-  display: flex;
-  order: -1;
-  margin-left: 20px;
-}
-
-.action-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ced4da;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 16px;
-  margin-right: 4px;
-}
-
-.action-btn:hover {
-  background-color: #495057;
-}
-
-.url-bar-wrapper {
-  display: flex;
-  align-items: center;
-  background-color: #2b3035;
-  border-radius: 25px;
-  padding: 0 15px;
-  height: 40px;
-  flex-grow: 1;
-}
-
-.url-bar {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #e9ecef;
-  font-size: 16px;
-  padding-left: 20px;
 }
 
 .content-area {
@@ -850,7 +773,7 @@ body {
 /* Update the games container positioning */
 .games-container {
   position: absolute;
-  top: 75%;
+  top: 100%;
   left: 55%; /* Moved from 60% to 55% (a medium tad left) */
   transform: translate(-50%, -50%);
   display: flex;
@@ -925,6 +848,7 @@ body {
           </a>
         </li>
         <li>
+          <li class="highlighted">
           <a href="/a.html" class="apps-link">
             <div class="nav-container">
               <div class="icon"><i class="fa-solid fa-mobile"></i></div>
@@ -932,7 +856,6 @@ body {
             </div>
           </a>
         </li>
-        <li class="highlighted">
           <a href="/p.html" class="proxy-link">
             <div class="nav-container">
               <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
@@ -958,27 +881,8 @@ body {
         </li>
       </ul>
     </div>
-
-    <script src="settings.js" defer></script>
   
     <div class="main-content">
-      <div class="browser-header">
-        <div class="browser-actions">
-          <div class="action-btn" id="back-btn"><i class="fa-solid fa-arrow-left"></i></div>
-          <div class="action-btn" id="forward-btn"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="action-btn" id="reload-btn"><i class="fa-solid fa-rotate-right"></i></div>
-        </div>
-        <div class="url-bar-container">
-          <div class="url-bar-wrapper">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="url-bar" id="url-bar" placeholder="enter search or web address" />
-            <div class="url-bar-icons">
-                <i class="fa-solid fa-bookmark bookmark-header-icon" id="bookmark-icon" onclick="bookmarkCurrentPage()"></i>
-                <i class="fa-solid fa-puzzle-piece" onclick="togglePopup('extension-popup')"></i>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="content-area">
         <div class="home-screen" id="home-screen">
         </div>
@@ -987,46 +891,87 @@ body {
     </div>
   </div>
 
-  
-<h1 class="games-title">apps</h1>
 <div class="games-container">
+
+    <div class="flip-container">
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeHSK159TiaLNBMHMlFGLcA07-aj0Fl6i15WXFtlLss4SnG0Q/viewform" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2021/08/How-to-Get-Google-Forms-Responses-in-Email-lede.png" alt="Game 1">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2021/08/How-to-Get-Google-Forms-Responses-in-Email-lede.png" class="flip-card-back-image" alt="Game 1 Background">
+          <div class="flip-card-title">request a game!</div>
+          <div class="flip-card-description">request a game to unblockzons! (it might take a week for us to add the game)</div>
+          <div class="flip-card-play">visit site</div>
+        </div>
+      </div>
+    </a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScAjuO9s-lwojOfEMwf-_jtQOjWCzkrkz4NKGPCIpbED3k2rA/viewform" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2021/08/How-to-Get-Google-Forms-Responses-in-Email-lede.png" alt="Game 2">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2021/08/How-to-Get-Google-Forms-Responses-in-Email-lede.png" class="flip-card-back-image" alt="Game 2 Background">
+          <div class="flip-card-title">contact us!</div>
+          <div class="flip-card-description">contact the unblockzone crew! let us know if a game is broken or if you have a page suggestion!</div>
+          <div class="flip-card-play">visit site</div>
+        </div>
+      </div>
+    </a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSe4xupoMkYMtCjNIoQREBu6wzS8uOzPKkYQN5k_F0UVuhpUrg/viewform" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2021/08/How-to-Get-Google-Forms-Responses-in-Email-lede.png" alt="Game 3">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2021/08/How-to-Get-Google-Forms-Responses-in-Email-lede.png" class="flip-card-back-image" alt="Game 3 Background">
+          <div class="flip-card-title">request an app!</div>
+          <div class="flip-card-description">request an app to the unblockzone crew! (snapchat, youtube and roblox might not work, they take a long time to load tho.</div>
+          <div class="flip-card-play">visit site</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  
   <!-- Flip Cards -->
   <div class="flip-container">
-    <a href="https://example1.com" class="flip-card">
+    <a href="/g/1v1-lol.html" class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-front">
-          <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" alt="Game 1">
+          <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs2/200042732/original/024f8a22e06d58c1eed316a539687253e49625c1/ill-edit-your-1v1-lol-videos-and-give-you-thumbnails.jpg" alt="Game 1">
         </div>
         <div class="flip-card-back">
-          <img src="https://cdn.logojoy.com/wp-content/uploads/20231208133956/11-30-23_Minecraft-Logo-Evolution_HEADER.webp" class="flip-card-back-image" alt="Game 1 Background">
-          <div class="flip-card-title">minecraft</div>
-          <div class="flip-card-description">Build and explore infinite worlds in this creative sandbox game.</div>
+          <img src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs2/200042732/original/024f8a22e06d58c1eed316a539687253e49625c1/ill-edit-your-1v1-lol-videos-and-give-you-thumbnails.jpg" class="flip-card-back-image" alt="Game 1 Background">
+          <div class="flip-card-title">1v1 lol</div>
+          <div class="flip-card-description">experience intense solo battles in this fast-paced shooting game.</div>
           <div class="flip-card-play">Play Now</div>
         </div>
       </div>
     </a>
-    <a href="https://example2.com" class="flip-card">
+    <a href="/g/10-minutes-till-dawn.html" class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-front">
-          <img src="https://www.morningbrew.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fbl383u0v%2Fproduction%2F983c91154758b4963f933dd6af4f6454a7fba59b-2069x1164.jpg%3Frect%3D1%2C0%2C2067%2C1164%26w%3D412%26h%3D232%26q%3D80%26fit%3Dmax%26auto%3Dformat%26dpr%3D2.625&w=828&q=75" alt="Game 2">
+          <img src="https://i.ytimg.com/vi/McTRpfgP3CU/maxresdefault.jpg" alt="Game 2">
         </div>
         <div class="flip-card-back">
-          <img src="https://www.morningbrew.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fbl383u0v%2Fproduction%2F983c91154758b4963f933dd6af4f6454a7fba59b-2069x1164.jpg%3Frect%3D1%2C0%2C2067%2C1164%26w%3D412%26h%3D232%26q%3D80%26fit%3Dmax%26auto%3Dformat%26dpr%3D2.625&w=828&q=75" class="flip-card-back-image" alt="Game 2 Background">
-          <div class="flip-card-title">roblox</div>
-          <div class="flip-card-description">Join millions of players in this ultimate gaming platform.</div>
+          <img src="https://i.ytimg.com/vi/McTRpfgP3CU/maxresdefault.jpg" class="flip-card-back-image" alt="Game 2 Background">
+          <div class="flip-card-title">10 minutes till dawn</div>
+          <div class="flip-card-description">survive waves of horrors, unlock upgrades, and hold out until dawn in this intense roguelike shooter.</div>
           <div class="flip-card-play">Play Now</div>
         </div>
       </div>
     </a>
-    <a href="https://example3.com" class="flip-card">
+    <a href="/g/2048.html" class="flip-card">
       <div class="flip-card-inner">
         <div class="flip-card-front">
-          <img src="https://images.ctfassets.net/w5r1fvmogo3f/1Z1YaSuHeVxl3TmOIXDHQU/43900d53ebcd67174a218c8347ce146f/fortnite-main-banner_bc195a6e28dc43f7b6a2f149e73c7908.jpg?fm=webp&q=90&fit=scale&w=1920" alt="Game 3">
+          <img src="https://i.ytimg.com/vi/RD6Td28rtss/maxresdefault.jpg" alt="Game 3">
         </div>
         <div class="flip-card-back">
-          <img src="https://images.ctfassets.net/w5r1fvmogo3f/1Z1YaSuHeVxl3TmOIXDHQU/43900d53ebcd67174a218c8347ce146f/fortnite-main-banner_bc195a6e28dc43f7b6a2f149e73c7908.jpg?fm=webp&q=90&fit=scale&w=1920" class="flip-card-back-image" alt="Game 3 Background">
-          <div class="flip-card-title">fortnite</div>
-          <div class="flip-card-description">Battle royale action with unique building mechanics.</div>
+          <img src="https://i.ytimg.com/vi/RD6Td28rtss/maxresdefault.jpg" class="flip-card-back-image" alt="Game 3 Background">
+          <div class="flip-card-title">2048</div>
+          <div class="flip-card-description">2048 is a number puzzle game where you combine tiles to reach 2048. Keep merging and strategizing to win!</div>
           <div class="flip-card-play">Play Now</div>
         </div>
       </div>
@@ -1035,48 +980,91 @@ body {
 
 <!-- Replace the zoom-container with this -->
 <div class="flip-container">
-  <a href="https://example4.com" class="flip-card">
+  <a href="/g/2048-cupcakes.html" class="flip-card">
     <div class="flip-card-inner">
       <div class="flip-card-front">
-        <img src="https://wallpapers.com/images/featured/among-us-cb21ldue3llceiua.jpg" alt="Game 4">
+        <img src="https://i.ytimg.com/vi/cDg1KyPOzKA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBGTCcwYtlnHWM6rmKLusdx8K-YpQ" alt="Game 4">
       </div>
       <div class="flip-card-back">
-        <img src="https://wallpapers.com/images/featured/among-us-cb21ldue3llceiua.jpg" class="flip-card-back-image" alt="Game 4 Background">
+        <img src="https://i.ytimg.com/vi/cDg1KyPOzKA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBGTCcwYtlnHWM6rmKLusdx8K-YpQ" class="flip-card-back-image" alt="Game 4 Background">
+        <div class="flip-card-title">2048 cupcakes</div>
+        <div class="flip-card-description">Combine matching cupcakes to reach the ultimate treat. Merge and strategize your way to sweet victory!</div>
+        <div class="flip-card-play">Play Now</div>
+      </div>
+    </div>
+  </a>
+  <a href="/g/among-us.html" class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="https://media.wired.com/photos/620581d7c228dc232641feaa/master/pass/Games-Innersloth-Among-Us-Key-Art.jpg" alt="Game 5">
+      </div>
+      <div class="flip-card-back">
+        <img src="https://media.wired.com/photos/620581d7c228dc232641feaa/master/pass/Games-Innersloth-Among-Us-Key-Art.jpg" class="flip-card-back-image" alt="Game 5 Background">
         <div class="flip-card-title">among us</div>
-        <div class="flip-card-description">Work together or deceive others in this multiplayer party game.</div>
+        <div class="flip-card-description">multiplayer party game where crewmates work together to complete tasks on a spaceship, while impostors secretly sabotage them.</div>
         <div class="flip-card-play">Play Now</div>
       </div>
     </div>
   </a>
-  <a href="https://example5.com" class="flip-card">
+  <a href="/g/baldis-basics.html" class="flip-card">
     <div class="flip-card-inner">
       <div class="flip-card-front">
-        <img src="https://i.ytimg.com/vi/_EgqV3ECxjs/hq720.jpg" alt="Game 5">
+        <img src="https://i.ytimg.com/vi/ueBsKb4267c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLClRHDUgnOS8X9Xc7HvG2VUI6Mb1Q" alt="Game 6">
       </div>
       <div class="flip-card-back">
-        <img src="https://i.ytimg.com/vi/_EgqV3ECxjs/hq720.jpg" class="flip-card-back-image" alt="Game 5 Background">
-        <div class="flip-card-title">geometry dash</div>
-        <div class="flip-card-description">Test your reflexes in this rhythm-based platformer.</div>
-        <div class="flip-card-play">Play Now</div>
-      </div>
-    </div>
-  </a>
-  <a href="https://example6.com" class="flip-card">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img src="https://9to5mac.com/wp-content/uploads/sites/6/2023/03/subway-surfers-4-billion-downloads.jpg" alt="Game 6">
-      </div>
-      <div class="flip-card-back">
-        <img src="https://9to5mac.com/wp-content/uploads/sites/6/2023/03/subway-surfers-4-billion-downloads.jpg" class="flip-card-back-image" alt="Game 6 Background">
-        <div class="flip-card-title">subway surfers</div>
-        <div class="flip-card-description">Endless running action in this classic mobile game.</div>
+        <img src="https://i.ytimg.com/vi/ueBsKb4267c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLClRHDUgnOS8X9Xc7HvG2VUI6Mb1Q" class="flip-card-back-image" alt="Game 6 Background">
+        <div class="flip-card-title">baldis basics</div>
+        <div class="flip-card-description">A creepy educational game where you solve math problems to escape Baldi's school while avoiding his punishment.</div>
         <div class="flip-card-play">Play Now</div>
       </div>
     </div>
   </a>
 </div>
 
-
+    <div class="flip-container">
+    <a href="/g/basket-random.html" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ytimg.com/vi/OXnKLZMSEVs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD89YC-aikalr2DsaVh7WmBSN_3Fg" alt="Game 1">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://i.ytimg.com/vi/OXnKLZMSEVs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLD89YC-aikalr2DsaVh7WmBSN_3Fg" class="flip-card-back-image" alt="Game 1 Background">
+          <div class="flip-card-title">basket random</div>
+          <div class="flip-card-description">a fun and chaotic basketball game where you and a friend compete in random, wacky arenas with unpredictable physics!</div>
+          <div class="flip-card-play">Play Now</div>
+        </div>
+      </div>
+    </a>
+    <a href="/g/basketball-stars.html" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ytimg.com/vi/Z-WCqxV4RF0/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCQrOiLErWSaJwaByqdeLf-jAXSxA" alt="Game 2">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://i.ytimg.com/vi/Z-WCqxV4RF0/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCQrOiLErWSaJwaByqdeLf-jAXSxA" class="flip-card-back-image" alt="Game 2 Background">
+          <div class="flip-card-title">basketball stars</div>
+          <div class="flip-card-description">a competitive basketball game where you can show off your skills in one-on-one matches, performing dunks, tricks, and shooting for the win!</div>
+          <div class="flip-card-play">Play Now</div>
+        </div>
+      </div>
+    </a>
+    <a href="/g/block-blast.html" class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://i.ytimg.com/vi/tjbh3cNpI9g/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAiqvFMC73NVGm456su_MIggQcRkA" alt="Game 3">
+        </div>
+        <div class="flip-card-back">
+          <img src="https://i.ytimg.com/vi/tjbh3cNpI9g/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAiqvFMC73NVGm456su_MIggQcRkA" class="flip-card-back-image" alt="Game 3 Background">
+          <div class="flip-card-title">block blast</div>
+          <div class="flip-card-description">a colorful puzzle game where you drag and drop blocks to fill rows and clear the board. Simple, fun, and addictive!</div>
+          <div class="flip-card-play">Play Now</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  
+<script src="settings.js" defer></script>
+  
   <div id="particles-js"></div>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -1283,40 +1271,71 @@ body {
     const theme = window.theme || {};
 
     particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 20, "density": { "enable": false } },
-        "color": { "value": theme.particleColor || "#ffffff" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.7, "random": true },
-        "size": { "value": 3, "random": true },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": theme.particleLinks || "#ffffff",
-          "opacity": 0.6,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 2,
-          "direction": "none",
-          "random": true,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false
-        }
+  "particles": {
+    "number": {
+      "value": 30,          // Reduced number for better separation
+      "density": {
+        "enable": true,
+        "value_area": 2500  // Increased area for more separation
+      }
+    },
+    "color": {
+      "value": "#ffffff"    // White particles
+    },
+    "shape": {
+      "type": "circle"
+    },
+    "opacity": {
+      "value": 0.6,        // Medium opacity
+      "random": false,     // Consistent opacity
+      "anim": {
+        "enable": true,
+        "speed": 0.5,
+        "opacity_min": 0.3,
+        "sync": false
+      }
+    },
+    "size": {
+      "value": 5,          // Larger particle size
+      "random": true,
+      "anim": {
+        "enable": true,
+        "speed": 1,
+        "size_min": 3,
+        "sync": false
+      }
+    },
+    "line_linked": {
+      "enable": false      // No connecting lines
+    },
+    "move": {
+      "enable": true,
+      "speed": 2,         // Moderate speed
+      "direction": "right",
+      "random": false,
+      "straight": true,    // Straight movement
+      "out_mode": "wrap", // Loop back when reaching edge
+      "bounce": false,
+      "attract": {
+        "enable": false
+      }
+    }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {
+        "enable": false
       },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": { "enable": false },
-          "onclick": { "enable": false },
-          "resize": true
-        }
+      "onclick": {
+        "enable": false
       },
-      "retina_detect": false
-    });
-  });
+      "resize": true
+    }
+  },
+  "retina_detect": true
+});
+
   
 document.querySelectorAll('.zoom-card').forEach(card => {
   let rafId;
