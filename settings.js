@@ -294,3 +294,91 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// Fog effect configuration
+let vantaEffect = null;
+
+function initFog(color) {
+  if (vantaEffect) {
+    vantaEffect.destroy();
+  }
+
+  vantaEffect = VANTA.FOG({
+    el: "body",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    highlightColor: color.highlight || 0x7c81a2,
+    midtoneColor: color.midtone || 0x0,
+    lowlightColor: color.lowlight || 0x6363c5,
+    baseColor: color.base || 0x0,
+    speed: 1.60,
+    zoom: 0.70
+  });
+}
+
+// Modify the applyTheme function to update fog colors
+function applyTheme(themeName) {
+  const theme = themes[themeName] || customThemes[themeName];
+  if (!theme) return;
+
+  // Convert theme colors to fog colors
+  const themeColor = theme.sidebar;
+  const fogColors = {
+    highlight: convertToHex(lightenColor(themeColor, 20)),
+    midtone: convertToHex(themeColor),
+    lowlight: convertToHex(darkenColor(themeColor, 20)),
+    base: convertToHex(darkenColor(themeColor, 40))
+  };
+
+  // Update fog effect
+  initFog(fogColors);
+
+  // Rest of your existing theme application code...
+  // (but remove any background-image settings)
+}
+
+// Color utility functions
+function convertToHex(color) {
+  if (color.startsWith('#')) {
+    return parseInt(color.replace('#', '0x'));
+  }
+  if (color.startsWith('rgb')) {
+    const [r, g, b] = color.match(/\d+/g);
+    return (r << 16) + (g << 8) + parseInt(b);
+  }
+  return 0x000000;
+}
+
+function lightenColor(color, amount) {
+  const rgb = getRGB(color);
+  return `rgb(${rgb.map(c => Math.min(255, c + amount)).join(',')})`;
+}
+
+function darkenColor(color, amount) {
+  const rgb = getRGB(color);
+  return `rgb(${rgb.map(c => Math.max(0, c - amount)).join(',')})`;
+}
+
+function getRGB(color) {
+  if (color.startsWith('#')) {
+    const hex = color.replace('#', '');
+    return [
+      parseInt(hex.substr(0, 2), 16),
+      parseInt(hex.substr(2, 2), 16),
+      parseInt(hex.substr(4, 2), 16)
+    ];
+  }
+  if (color.startsWith('rgb')) {
+    return color.match(/\d+/g).map(Number);
+  }
+  return [0, 0, 0];
+}
+
+// Initialize fog effect on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('currentTheme') || 'default';
+  applyTheme(savedTheme);
+});
