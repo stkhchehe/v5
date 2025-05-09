@@ -882,6 +882,277 @@ body::before {
   height: 200%;
 }
 
+/* Update sidebar styles */
+.sidebar {
+  /* ... existing properties ... */
+  padding: 1rem 0;
+}
+
+.sidebar ul {
+  gap: 1rem; /* Reduced gap between items */
+  padding-top: 1rem;
+}
+
+.sidebar li {
+  transform: translateX(0);
+  transition: all 0.3s ease;
+}
+
+/* Make icons smaller and centered */
+.icon {
+  width: 1.8rem; /* Smaller icon size */
+  height: 1.8rem;
+  font-size: 1.1rem; /* Smaller icon font size */
+  transition: all 0.4s ease;
+}
+
+.text {
+  font-size: 1.1rem; /* Match text size to icon */
+}
+
+/* Center icons when sidebar is closed */
+.nav-container {
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+
+/* Adjust spacing when sidebar opens */
+.sidebar:hover .nav-container {
+  justify-content: flex-start;
+  padding-left: 1.5rem;
+}
+
+.sidebar:hover li {
+  transform: translateX(5px);
+}
+
+/* Fun animations for icons when sidebar opens */
+.sidebar:hover .icon {
+  animation: popAndSlide 0.4s ease forwards;
+}
+
+@keyframes popAndSlide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1) translateX(5px);
+  }
+}
+
+/* Remove box shine effect from welcome text */
+.welcomeone h1::after {
+  display: none;
+}
+
+/* Add new page animations */
+.welcome {
+  animation: slideUpFade 1s ease-out;
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add stagger effect to sidebar items */
+.sidebar li:nth-child(1) { transition-delay: 0.1s; }
+.sidebar li:nth-child(2) { transition-delay: 0.2s; }
+.sidebar li:nth-child(3) { transition-delay: 0.3s; }
+.sidebar li:nth-child(4) { transition-delay: 0.4s; }
+.sidebar li:nth-child(5) { transition-delay: 0.5s; }
+
+/* Add subtle hover effect for welcome text */
+.welcomeone h1 {
+  transition: all 0.3s ease;
+}
+
+.welcomeone h1:hover {
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  transform: scale(1.02);
+}
+
+/* Add page transition effects */
+.content-visible {
+  animation: pageEnter 0.8s ease-out;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Update sidebar styles for better alignment and spacing */
+.sidebar {
+  width: 4vw; /* Slightly narrower when closed */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0; /* More padding top/bottom */
+}
+
+.sidebar:hover {
+  width: 15vw; /* Wider when expanded */
+}
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  gap: 1.2rem; /* Consistent spacing between items */
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  align-items: center;
+}
+
+.sidebar li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem;
+  justify-content: center; /* Center when closed */
+}
+
+/* Make icons smaller and consistent */
+.icon {
+  width: 1.6rem; /* Smaller icon size */
+  height: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem; /* Smaller icon font */
+}
+
+.text {
+  font-size: 0.9rem; /* Smaller text size */
+  margin-left: 1rem;
+  opacity: 0;
+  width: 0;
+  transition: all 0.3s ease;
+}
+
+/* Adjust hover states */
+.sidebar:hover .nav-container {
+  justify-content: flex-start;
+  padding-left: 2rem;
+}
+
+.sidebar:hover .text {
+  opacity: 1;
+  width: auto;
+  transform: translateX(0);
+}
+
+/* Ensure consistent alignment */
+.sidebar a {
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Add a line to separate icons if desired */
+.sidebar li:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+/* Adjust highlighted state */
+.sidebar .highlighted a {
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+/* Update hover effects to be more subtle */
+.sidebar {
+  width: 4vw;
+}
+
+.sidebar:hover {
+  width: 12vw; /* Reduced from 15vw to 12vw */
+}
+
+/* Make the hover transition smoother */
+.sidebar, .sidebar:hover {
+  transition: width 0.2s ease-in-out; /* Faster, smoother transition */
+}
+
+/* Reduce scale effect on hover */
+.sidebar a:hover {
+  transform: scale(1.02); /* Reduced from 1.05 */
+  background: rgba(73, 80, 87, 0.3); /* More subtle background change */
+  box-shadow: 0 0 8px rgba(100, 149, 237, 0.2); /* Reduced shadow */
+}
+
+/* Reduce icon animations */
+.sidebar a:hover .icon {
+  transform: scale(1.1); /* Reduced from 1.2 */
+  animation: none; /* Remove pulse animation */
+}
+
+/* Update icon hover effects */
+.icon {
+  transition: transform 0.2s ease; /* Faster transition */
+}
+
+/* Reduce text slide-in effect */
+.text {
+  transform: translateX(-5px); /* Reduced from -10px */
+}
+
+.sidebar:hover .text {
+  transform: translateX(0);
+}
+
+/* Make highlighted state more subtle */
+.sidebar .highlighted a {
+  background: rgba(255, 255, 255, 0.05); /* More subtle highlight */
+}
+
+/* Reduce padding and margins */
+.nav-container {
+  padding: 0.4rem; /* Slightly reduced padding */
+}
+
+.sidebar:hover .nav-container {
+  padding-left: 1.5rem; /* Reduced left padding when expanded */
+}
+
+/* Remove or reduce some of the more dramatic animations */
+@keyframes iconPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); } /* Reduced from 1.4 */
+  100% { transform: scale(1); }
+}
+
+/* Update shine effect to be more subtle */
+.sidebar .highlighted a::after {
+  opacity: 0.1; /* Reduced opacity */
+}
 
 
 </style>
