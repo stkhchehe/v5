@@ -2,10 +2,10 @@
 // ========== Theme Configuration ==========
 const themes = {
   default: {
-    sidebar: '#343a40',
-    header: '#343a40',
-    tabBg: '#343a40',
-    tabActiveBg: '#495057',
+    sidebar: '#3d4060',
+    header: '#3d4060',
+    tabBg: '#3c4464',
+    tabActiveBg: '#3c4464',
     background: 'https://img.freepik.com/free-photo/abstract-luxury-blur-dark-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63473.jpg?semt=ais_hybrid&w=740'
   },
 
