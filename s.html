@@ -1,11 +1,13 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>unblockzone - settings</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+
+  <title>unblockzone - template</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,31 +39,77 @@ body {
   align-items: center;
   position: relative;
   z-index: 1;
-  background: url('https://images.unsplash.com/photo-1707924962886-12ad20367315?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
-  background-size: cover;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
+/* Add these styles */
+body {
+  background: #000;
+  min-height: 100vh;
   width: 100%;
-  height: 100%;
-  background-size: cover;
-  z-index: -2;
-  filter: brightness(0.7) blur(3px);
 }
 
-#particles-js {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
+/* Mobile styles */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: 60px;
+    bottom: 0;
+    top: auto;
+  }
+
+  .sidebar:hover {
+    width: 100%;
+  }
+
+  .sidebar ul {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0;
+    height: 100%;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .text {
+    font-size: 0.8rem;
+    opacity: 1;
+    transform: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    padding-bottom: 60px;
+  }
+
+  .games-container {
+    padding: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .flip-card {
+    width: 100%;
+  }
 }
+
+// Remove the particlesJS initialization and add:
+VANTA.FOG({
+  el: "body",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  highlightColor: 0x7c81a2,
+  midtoneColor: 0x0,
+  lowlightColor: 0x6363c5,
+  speed: 1.60,
+  zoom: 0.70
+});
+
 
 .container {
   position: relative;
@@ -158,81 +206,6 @@ body::before {
   margin-left: 4.5vw;
   width: calc(100% - 4.5vw);
   transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
-}
-
-.browser-header {
-  height: 70px;
-  background-color: #343a40;
-  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 8px 16px;
-  position: relative;
-  transform: translateZ(0);
-  margin-left: -1px;
-  gap: 10px;
-}
-
-.browser-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
-  opacity: 0.3;
-}
-
-.url-bar-container {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.browser-actions {
-  display: flex;
-  order: -1;
-  margin-left: 20px;
-}
-
-.action-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ced4da;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 16px;
-  margin-right: 4px;
-}
-
-.action-btn:hover {
-  background-color: #495057;
-}
-
-.url-bar-wrapper {
-  display: flex;
-  align-items: center;
-  background-color: #2b3035;
-  border-radius: 25px;
-  padding: 0 15px;
-  height: 40px;
-  flex-grow: 1;
-}
-
-.url-bar {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #e9ecef;
-  font-size: 16px;
-  padding-left: 20px;
 }
 
 .content-area {
@@ -341,1258 +314,90 @@ body.light-mode .url-bar-icons i {
   color: #333333 !important;
 }
 
-.theme-container {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #343a40;
-  border: 2px solid #ffffff;
-  border-radius: 25px;
-  padding: 30px;
-  width: 60%;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  z-index: 10;
-}
-
-.theme-title {
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
-  color: #ffffff;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-  margin-bottom: 15px;
-}
-
-.theme-divider {
-  width: 100%;
-  height: 2px;
-  background: #ffffff;
-  margin: 15px 0 25px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-}
-
-.theme-options {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.theme-circle {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 2px solid #ffffff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.theme-circle:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-}
-
-.theme-container, .tab-cloaker-container {
-  position: absolute;
-  background: #343a40;
-  border: 2px solid #ffffff;
-  border-radius: 25px;
-  padding: 40px;
-  width: 70%;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  z-index: 10;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.5s ease forwards;
-}
-
-.theme-container {
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.tab-cloaker-container {
-  top: 55%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.theme-title, .cloaker-title {
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
-  color: #ffffff;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-}
-
-.theme-divider, .cloaker-divider {
-  width: 100%;
-  height: 2px;
-  background: #ffffff;
-  margin: 15px 0 25px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-}
-
-.theme-options, .cloaker-options {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 20px;
-  justify-items: center;
-}
-
-.cloaker-options {
-  grid-template-rows: repeat(2, 1fr);
-}
-
-.theme-circle, .cloaker-circle {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 2px solid #ffffff;
-  cursor: pointer;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.theme-circle:hover, .cloaker-circle:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 20px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-.theme-container {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #343a40;
-  border: 2px solid #ffffff;
-  border-radius: 25px;
-  padding: 30px;
-  width: 80%;
-  max-width: 800px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-  z-index: 10;
-}
-
-.theme-options {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px;
-}
-
-.theme-circle {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: 2px solid #fff;
-  flex-shrink: 0;
-}
-
-.theme-circle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-}
-
-.theme-title {
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
-  color: #ffffff;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-  margin-bottom: 15px;
-}
-
-.theme-divider {
-  width: 100%;
-  height: 2px;
-  background: #ffffff;
-  margin: 15px 0 25px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-}
-
-/* White theme specific styles */
-body.white-theme {
-  color: #000 !important;
-}
-
-body.white-theme .sidebar a,
-body.white-theme .url-bar,
-body.white-theme .browser-header,
-body.white-theme .action-btn,
-body.white-theme .url-bar-icons i {
-  color: #000 !important;
-}
-
-.particles-container {
-    top: 95%;
-}
-
-.particle-options {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-}
-
-.particle-option {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.particle-option:hover {
-    transform: scale(1.1);
-}
-
-.particle-preview {
-    width: 100px;
-    height: 60px;
-    border-radius: 10px;
-    border: 2px solid #fff;
-    margin-bottom: 10px;
-    background: #343a40;
-    position: relative;
-    overflow: hidden;
-}
-
-.particle-label {
-    color: #fff;
-    font-size: 14px;
-}
-
-.particle-option.active .particle-preview {
-    border-color: #3498db;
-}
-
-.blank-launcher {
-    top: 125%;
-}
-
-.blank-button {
-    background: #4a4a4a;
-    border: 2px solid #ffffff;
-    border-radius: 25px;
-    color: #ffffff;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: block;
-    margin: 0 auto;
-    text-transform: lowercase;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-}
-
-.blank-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
-}
-
-/* Make containers scrollable */
-body {
-    overflow-y: auto !important;
-    padding-bottom: 150px;
-}
-
-.container {
-    height: auto !important;
-}
-
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
-}
-
-.tab-cloaker {
-    top: 155%;
-}
-
-.cloaker-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.cloaker-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-}
-
-.cloaker-circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #ffffff;
-}
-
-.cloaker-circle:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-}
-
-.cloaker-circle img {
-    width: 70%;
-    height: 70%;
-    object-fit: contain;
-}
-
-/* Adjust spacing for all containers */
-.theme-container {
-    margin-bottom: 30px;
-}
-
-.blank-launcher {
-    margin-bottom: 30px;
-}
-
-/* Add to your existing CSS */
-@keyframes slideInFromLeft {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
+                    #vanta-bg {
+            width: 100%;
+            height: 100%;
     }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes pulseGlow {
-    0% {
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    }
-    100% {
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-    }
-}
-
-/* Enhanced sidebar animations */
-.sidebar {
-    animation: slideInFromLeft 0.5s ease-out;
-}
-
-.sidebar a {
-    position: relative;
-    overflow: hidden;
-}
-
-.sidebar a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: currentColor;
-    transition: width 0.3s ease;
-}
-
-.sidebar a:hover::after {
-    width: 100%;
-}
-
-/* Theme container animations */
-.theme-container {
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-}
-
-.theme-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-/* Theme circle animations */
-.theme-circle {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                background-color 0.3s ease;
-}
-
-.theme-circle:hover {
-    transform: scale(1.2) rotate(5deg);
-}
-
-/* Particle option animations */
-.particle-option {
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.particle-option:hover {
-    transform: translateY(-5px);
-}
-
-/* Notification badge */
-.notification-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #ff4757;
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Hover effects for sidebar icons */
-.sidebar .icon i {
-    transition: transform 0.3s ease;
-}
-
-.sidebar a:hover .icon i {
-    transform: scale(1.2);
-}
-
-/* Active indicator */
-.sidebar a.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 70%;
-    background: #007bff;
-    border-radius: 0 2px 2px 0;
-}
-
-/* Tooltip */
-.sidebar a {
-    position: relative;
-}
-
-.sidebar a::before {
-    content: attr(data-tooltip);
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    margin-left: 10px;
-}
-
-.sidebar a:hover::before {
-    opacity: 1;
-}
-
-/* Add to your existing CSS */
-@keyframes slideInFromLeft {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes pulseGlow {
-    0% {
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    }
-    100% {
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-    }
-}
-
-/* Enhanced sidebar animations */
-.sidebar {
-    animation: slideInFromLeft 0.5s ease-out;
-}
-
-.sidebar a {
-    position: relative;
-    overflow: hidden;
-}
-
-.sidebar a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: currentColor;
-    transition: width 0.3s ease;
-}
-
-.sidebar a:hover::after {
-    width: 100%;
-}
-
-/* Theme container animations */
-.theme-container {
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-}
-
-.theme-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-/* Theme circle animations */
-.theme-circle {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                background-color 0.3s ease;
-}
-
-.theme-circle:hover {
-    transform: scale(1.2) rotate(5deg);
-}
-
-/* Particle option animations */
-.particle-option {
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.particle-option:hover {
-    transform: translateY(-5px);
-}
-
-/* Notification badge */
-.notification-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #ff4757;
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Hover effects for sidebar icons */
-.sidebar .icon i {
-    transition: transform 0.3s ease;
-}
-
-.sidebar a:hover .icon i {
-    transform: scale(1.2);
-}
-
-/* Active indicator */
-.sidebar a.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 70%;
-    background: #007bff;
-    border-radius: 0 2px 2px 0;
-}
-
-/* Tooltip */
-.sidebar a {
-    position: relative;
-}
-
-.sidebar a::before {
-    content: attr(data-tooltip);
-    position: absolute;
-    left: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    margin-left: 10px;
-}
-
-.sidebar a:hover::before {
-    opacity: 1;
-}
-
-/* Sidebar Bottom Buttons */
-.sidebar-bottom-buttons {
+    
+    #vanta-bg {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 6vw;
-    background: inherit;
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    transition: width 0.3s ease;
-}
-
-.sidebar:hover .sidebar-bottom-buttons {
-    width: 15vw;
-}
-
-.sidebar-btn {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.sidebar-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-.sidebar-btn i {
-    font-size: 1.2rem;
-    color: #fff;
-    transition: transform 0.3s ease;
-}
-
-.sidebar-btn:hover i {
-    transform: scale(1.1);
-}
-
-/* Quick Panels */
-.quick-search-panel,
-.quick-tools-panel,
-.quick-settings-panel,
-.quick-actions-panel {
-    position: absolute;
-    left: calc(100% + 10px);
-    bottom: 0;
-    width: 250px;
-    background: #343a40;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(-10px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.sidebar-btn:hover > div {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
-}
-
-/* Quick Search Panel */
-.quick-search-panel input {
-    width: 100%;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    margin-bottom: 10px;
-}
-
-.search-engines {
-    display: flex;
-    justify-content: space-around;
-    gap: 10px;
-}
-
-.search-engines button {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.search-engines button:hover {
-    transform: scale(1.1);
-}
-
-/* Quick Tools Panel */
-.tool-btn {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border-radius: 5px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.2s ease;
-}
-
-.tool-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateX(5px);
-}
-
-/* Quick Settings Panel */
-.setting-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: .4s;
-    border-radius: 20px;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 2px;
-    bottom: 2px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-}
-
-input:checked + .slider {
-    background-color: #2196F3;
-}
-
-input:checked + .slider:before {
-    transform: translateX(20px);
-}
-
-/* Quick Actions Panel */
-.action-btn {
     width: 100%;
-    padding: 10px;
-    border: none;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    border-radius: 5px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.2s ease;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
 }
 
-.action-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateX(5px);
-}
-
-/* Tooltips */
-[data-tooltip]:before {
-    content: attr(data-tooltip);
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    transform: translateY(-50%);
-    padding: 5px 10px;
-    background: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    border-radius: 5px;
-    font-size: 12px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    margin-left: 10px;
-}
-
-[data-tooltip]:hover:before {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Tab animations */
-@keyframes slideInRight {
-  from {
-    transform: translateX(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideOutLeft {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(-20px);
-    opacity: 0;
-  }
-}
-
-/* URL bar focus animation */
-@keyframes expandWidth {
-  from {
-    width: 95%;
-  }
-  to {
-    width: 98%;
-  }
-}
-
-/* Sidebar hover animation */
-@keyframes glowPulse {
-  0% {
-    box-shadow: 0 0 5px rgba(255,255,255,0.1);
-  }
-  50% {
-    box-shadow: 0 0 15px rgba(255,255,255,0.2);
-  }
-  100% {
-    box-shadow: 0 0 5px rgba(255,255,255,0.1);
-  }
-}
-
-/* Tab container separator animation */
-@keyframes separatorGlow {
-  0% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 0.3;
-  }
-}
-
-/* Apply animations */
-.tab {
-  animation: slideInRight 0.3s ease-out;
-}
-
-.tab.closing {
-  animation: slideOutLeft 0.3s ease-out;
-}
-
-.url-bar-wrapper:focus-within {
-  animation: expandWidth 0.3s forwards;
+    .sidebar {
+  position: fixed;
+  width: 6vw;
+  background: #3d4060;
+  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+  height: 100vh;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  transform: translateZ(0);
+  margin-right: -1px;
 }
 
 .sidebar a:hover {
-  animation: glowPulse 2s infinite;
+  background: #2d3048; /* Darker version of #3d4060 */
+  transform: scale(1.05);
 }
-
-/* Add tab container separator */
-.tabs-container::after {
-  content: '';
+    
+    .theme-changer {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: rgba(255,255,255,0.5);
-  animation: separatorGlow 4s infinite;
+  top: 80px;
+  left: calc(6vw + 40px);
+  background: rgba(61, 64, 96, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  width: 400px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  z-index: 1000;
 }
 
-/* Dark theme adjustments */
-body.dark-mode .tabs-container::after {
-  background: rgba(0,0,0,0.5);
+.theme-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 15px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-.tab,
-.url-bar-wrapper,
-.sidebar a {
-  transition: all 0.3s ease;
+.theme-divider {
+  height: 3px;
+  background: white;
+  margin: 15px 0;
+  border-radius: 2px;
 }
 
-.tabs-container::after {
-  transition: background-color 0.3s ease;
+.theme-circles {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  margin-top: 15px;
 }
 
-.tabs-container {
-  position: absolute;
-  top: 0;
-  left: 6vw;
+.theme-circle {
+  width: 40px;
   height: 40px;
-  background: #2b3035;
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  z-index: 998;
-  width: calc(100% - 6vw);
-  transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.sidebar:hover ~ .main-content .tabs-container {
-  left: 15vw;
-  width: calc(100% - 15vw);
-}
-
-.tab {
-  display: flex;
-  align-items: center;
-  background: #343a40;
-  border-radius: 8px;
-  padding: 8px 35px 8px 20px;
-  margin-right: 5px;
-  cursor: pointer;
-  position: relative;
-  max-width: 200px;
-  min-width: 120px;
-  height: 35px;
-  transition: all 0.2s ease;
-  overflow: hidden;
-}
-
-.tab.active {
-  background: #495057;
-}
-
-.tab:hover {
-  background: #444b52;
-}
-
-.tab-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.9rem;
-  color: #ced4da;
-  flex-grow: 1;
-}
-
-.tab-close {
-  position: absolute;
-  right: 8px;
-  width: 16px;
-  height: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 50%;
-  opacity: 0.7;
-  transition: all 0.2s ease;
-}
-
-.tab-close:hover {
-  opacity: 1;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.new-tab-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: transparent;
+  border: 2px solid white;
   cursor: pointer;
-  transition: background 0.2s ease;
-  color: #ced4da;
-}
-
-.new-tab-btn:hover {
-  background: #495057;
-}
-
-/* Adjust browser header position */
-.browser-header {
-  margin-top: 40px;
-}
-
-/* Light mode adjustments */
-body.light-mode .tabs-container {
-  background: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
-}
-
-body.light-mode .tab {
-  background: #e9ecef;
-}
-
-body.light-mode .tab.active {
-  background: #dee2e6;
-}
-
-body.light-mode .tab:hover {
-  background: #dee2e6;
-}
-
-body.light-mode .tab-title {
-  color: #495057;
-}
-
-body.light-mode .new-tab-btn {
-  color: #495057;
-}
-
-body.light-mode .new-tab-btn:hover {
-  background: #e9ecef;
-}
-
-/* Tab animations */
-.tab {
-  animation: slideInRight 0.3s ease-out;
-}
-
-.tab.closing {
-  animation: slideOutLeft 0.3s ease-out;
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideOutLeft {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(-20px);
-    opacity: 0;
-  }
-}
-
-.tab:hover::after {
-  width: 100%;
-}
-
-/* Active tab indicator */
-.tab.active::after {
-  width: 100%;
-  background: #007bff;
-}
-
-/* Tab close button hover effect */
-.tab-close i {
-  transition: transform 0.2s ease;
-}
-
-.tab-close:hover i {
-  transform: scale(1.2);
-}
-
-/* New tab button hover effect */
-.new-tab-btn i {
-  transition: transform 0.2s ease;
-}
-
-.new-tab-btn:hover i {
-  transform: rotate(90deg);
-}
-
-/* Enhanced animations */
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes slideInTop {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes glowPulse {
-  0% {
-    box-shadow: 0 0 5px rgba(255,255,255,0.2);
-  }
-  50% {
-    box-shadow: 0 0 15px rgba(255,255,255,0.4);
-  }
-  100% {
-    box-shadow: 0 0 5px rgba(255,255,255,0.2);
-  }
-}
-
-/* Apply animations to elements */
-.browser-header {
-  animation: slideInTop 0.5s ease-out;
-}
-
-/* White theme specific styles */
-body.white-theme .theme-container {
-  border-color: #000000;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-body.white-theme .theme-divider {
-  background: #000000;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-}
-
-body.white-theme .tabs-container {
-  background: #000000;
-  border-bottom: 1px solid #000000;
-}
-
-body.white-theme .tab {
-  background: #333333;
-}
-
-body.white-theme .tab.active {
-  background: #444444;
-}
-
-body.white-theme .tab-title {
-  color: #ffffff;
-}
-
-body.white-theme .theme-circle {
-  border-color: #000000;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-}
-
-body.white-theme .theme-circle:hover {
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
-}
-
-.theme-container:hover {
-  transform: translateY(-5px);
   transition: transform 0.3s ease;
 }
 
-.tab {
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.tab:hover {
-  transform: translateY(-2px);
-}
-
-.new-tab-btn {
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.new-tab-btn:hover {
-  transform: scale(1.1);
+.theme-circle:hover {
+  transform: scale(1.2);
 }
 
   </style>
@@ -1642,142 +447,12 @@ body.white-theme .theme-circle:hover {
             </div>
           </a>
         </li>
-        <li>
-          <a href="/partners.html" class="partners-link">
-            <div class="nav-container">
-              <div class="icon"><i class="fa-solid fa-handshake"></i></div>
-              <div class="text">partners</div>
-            </div>
-          </a>
-        </li>
-        <!-- Add these to your sidebar ul in both HTML files -->
-<li>
-    <a href="#" class="notifications-link">
-        <div class="nav-container">
-            <div class="icon"><i class="fa-solid fa-bell"></i></div>
-            <div class="text">updates</div>
-            <span class="notification-badge">3</span>
-        </div>
-    </a>
-</li>
-   </ul>
+      </ul>
     </div>
-    
-    <!-- Add this to the bottom of your sidebar, before closing </div> -->
-<div class="sidebar-bottom-buttons">
-    <div class="sidebar-btn" data-tooltip="Quick Search">
-        <i class="fas fa-search-plus"></i>
-        <div class="quick-search-panel">
-            <input type="text" placeholder="Quick search...">
-            <div class="search-engines">
-                <button data-engine="google"><img src="google-icon.png" alt="Google"></button>
-                <button data-engine="ddg"><img src="ddg-icon.png" alt="DuckDuckGo"></button>
-                <button data-engine="brave"><img src="brave-icon.png" alt="Brave"></button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="sidebar-btn" data-tooltip="Quick Tools">
-        <i class="fas fa-toolbox"></i>
-        <div class="quick-tools-panel">
-            <button class="tool-btn" data-tool="calculator">
-                <i class="fas fa-calculator"></i>
-                <span>Calculator</span>
-            </button>
-            <button class="tool-btn" data-tool="notepad">
-                <i class="fas fa-sticky-note"></i>
-                <span>Quick Note</span>
-            </button>
-            <button class="tool-btn" data-tool="screenshot">
-                <i class="fas fa-camera"></i>
-                <span>Screenshot</span>
-            </button>
-            <button class="tool-btn" data-tool="translate">
-                <i class="fas fa-language"></i>
-                <span>Translate</span>
-            </button>
-        </div>
-    </div>
-    
-    <div class="sidebar-btn" data-tooltip="Quick Settings">
-        <i class="fas fa-sliders-h"></i>
-        <div class="quick-settings-panel">
-            <div class="setting-item">
-                <span>Dark Mode</span>
-                <label class="switch">
-                    <input type="checkbox" id="darkMode">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="setting-item">
-                <span>Focus Mode</span>
-                <label class="switch">
-                    <input type="checkbox" id="focusMode">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="setting-item">
-                <span>Speed Dial</span>
-                <label class="switch">
-                    <input type="checkbox" id="speedDial">
-                    <span class="slider"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    
-    <div class="sidebar-btn" data-tooltip="Quick Actions">
-        <i class="fas fa-bolt"></i>
-        <div class="quick-actions-panel">
-            <button class="action-btn" data-action="tab-cloak">
-                <i class="fas fa-mask"></i>
-                <span>Tab Cloak</span>
-            </button>
-            <button class="action-btn" data-action="proxy">
-                <i class="fas fa-globe"></i>
-                <span>Proxy Toggle</span>
-            </button>
-            <button class="action-btn" data-action="panic">
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>Panic Button</span>
-            </button>
-            <button class="action-btn" data-action="history">
-                <i class="fas fa-history"></i>
-                <span>Clear History</span>
-            </button>
-        </div>
-    </div>
-</div>
 
-<div class="main-content">
-<div class="tabs-container">
-  <div class="tab active" data-tab-id="tab1">
-    <span class="tab-title">New Tab</span>
-    <span class="tab-close"><i class="fas fa-times"></i></span>
-  </div>
-  <div class="new-tab-btn">
-    <i class="fas fa-plus"></i>
-  </div>
-</div>
-
+    <script src="settings.js" defer></script>
   
-      <div class="browser-header">
-        <div class="browser-actions">
-          <div class="action-btn" id="back-btn"><i class="fa-solid fa-arrow-left"></i></div>
-          <div class="action-btn" id="forward-btn"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="action-btn" id="reload-btn"><i class="fa-solid fa-rotate-right"></i></div>
-        </div>
-        <div class="url-bar-container">
-          <div class="url-bar-wrapper">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" class="url-bar" id="url-bar" placeholder="enter search or web address" />
-            <div class="url-bar-icons">
-                <i class="fa-solid fa-bookmark bookmark-header-icon" id="bookmark-icon" onclick="bookmarkCurrentPage()"></i>
-                <i class="fa-solid fa-puzzle-piece" onclick="togglePopup('extension-popup')"></i>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="main-content">
       <div class="content-area">
         <div class="home-screen" id="home-screen">
         </div>
@@ -1786,132 +461,54 @@ body.white-theme .theme-circle:hover {
     </div>
   </div>
 
-    <script src="settings.js" defer></script>
-  
-<div class="theme-container">
-  <h2 class="theme-title">Theme Changer</h2>
+    <!-- Wrap your existing content in a div -->
+<div id="main-content" class="content-hidden">
+  <!-- Your existing content goes here -->
+</div>
+
+   <div id="vanta-bg"></div>
+
+<div class="theme-changer">
+  <div class="theme-title">Theme Changer</div>
   <div class="theme-divider"></div>
-  <div class="theme-options">
-    <div class="theme-circle" data-theme="default" style="background: #343a40" title="Default"></div>
-    <div class="theme-circle" data-theme="black" style="background: #000000" title="Black"></div>
-    <div class="theme-circle" data-theme="white" style="background: #ffffff" title="White"></div>
-    <div class="theme-circle" data-theme="orange" style="background: #ff5722" title="Orange"></div>
-    <div class="theme-circle" data-theme="tan" style="background: #d2b48c" title="Tan"></div>
-    <div class="theme-circle" data-theme="light-purple" style="background: #b39ddb" title="Light Purple"></div>
-    <div class="theme-circle" data-theme="brown" style="background: #795548" title="Brown"></div>
-    <div class="theme-circle" data-theme="light-green" style="background: #81c784" title="Light Green"></div>
-    <div class="theme-circle" data-theme="pink" style="background: #f48fb1" title="Pink"></div>
-    <div class="theme-circle" data-theme="light-blue" style="background: #81d4fa" title="Light Blue"></div>
+  <div class="theme-circles">
+    <!-- First row -->
+    <div class="theme-circle" data-theme="default" style="background: #3d4060"></div>
+    <div class="theme-circle" data-theme="black" style="background: #000000"></div>
+    <div class="theme-circle" data-theme="white" style="background: #ffffff"></div>
+    <div class="theme-circle" data-theme="orange" style="background: #ffcf7b"></div>
+    <div class="theme-circle" data-theme="tan" style="background: #d2b48c"></div>
+    <!-- Second row -->
+    <div class="theme-circle" data-theme="light-purple" style="background: #b39ddb"></div>
+    <div class="theme-circle" data-theme="brown" style="background: #795548"></div>
+    <div class="theme-circle" data-theme="light-green" style="background: #3d704f"></div>
+    <div class="theme-circle" data-theme="pink" style="background: #f48fb1"></div>
+    <div class="theme-circle" data-theme="light-blue" style="background: #81d4fa"></div>
   </div>
 </div>
 
-<div class="theme-container particles-container">
-    <h2 class="theme-title">Particle Effects</h2>
-    <div class="theme-divider"></div>
-    <div class="particle-options">
-        <div class="particle-option" data-particle="default">
-            <span class="particle-preview default"></span>
-            <span class="particle-label">Default</span>
-        </div>
-        <div class="particle-option" data-particle="floating">
-            <span class="particle-preview floating"></span>
-            <span class="particle-label">Floating Dots</span>
-        </div>
-        <div class="particle-option" data-particle="none">
-            <span class="particle-preview none"></span>
-            <span class="particle-label">No Particles</span>
-        </div>
-    </div>
-</div>
+    <script src="settings.js" defer></script>
 
-<div class="theme-container blank-launcher">
-    <h2 class="theme-title">Launch about:blank</h2>
-    <div class="theme-divider"></div>
-    <button class="blank-button" onclick="launchBlank()">
-        open about:blank
-    </button>
-</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
 
-<div class="theme-container tab-cloaker">
-    <h2 class="theme-title">Tab Cloaker</h2>
-    <div class="theme-divider"></div>
-    <div class="cloaker-grid">
-        <div class="cloaker-row">
-            <div class="cloaker-circle" data-name="Google Classroom" data-icon="https://upload.wikimedia.org/wikipedia/commons/5/59/Google_Classroom_Logo.png">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Google_Classroom_Logo.png" alt="classroom">
-            </div>
-            <div class="cloaker-circle" data-name="Google Docs" data-icon="https://upload.wikimedia.org/wikipedia/commons/0/01/Google_Docs_logo_%282014-2020%29.svg">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Google_Docs_logo_%282014-2020%29.svg" alt="docs">
-            </div>
-            <div class="cloaker-circle" data-name="Canvas" data-icon="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Canvas_by_Instructure_logo.svg/1200px-Canvas_by_Instructure_logo.svg.png">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Canvas_by_Instructure_logo.svg/1200px-Canvas_by_Instructure_logo.svg.png" alt="canvas">
-            </div>
-            <div class="cloaker-circle" data-name="Khan Academy" data-icon="https://cdn.kastatic.org/images/favicon.ico">
-                <img src="https://cdn.kastatic.org/images/favicon.ico" alt="khan">
-            </div>
-            <div class="cloaker-circle" data-name="Desmos Calculator" data-icon="https://www.desmos.com/assets/img/favicon.ico">
-                <img src="https://www.desmos.com/assets/img/favicon.ico" alt="desmos">
-            </div>
-            <div class="cloaker-circle" data-name="IXL Learning" data-icon="https://www.ixl.com/favicon.ico">
-                <img src="https://www.ixl.com/favicon.ico" alt="ixl">
-            </div>
-            <div class="cloaker-circle" data-name="Quizlet" data-icon="https://assets.quizlet.com/a/j/dist/app/i/logo/2021/q-twilight.389092a385cb51d.png">
-                <img src="https://assets.quizlet.com/a/j/dist/app/i/logo/2021/q-twilight.389092a385cb51d.png" alt="quizlet">
-            </div>
-            <div class="cloaker-circle" data-name="Kahoot!" data-icon="https://kahoot.com/favicon.ico">
-                <img src="https://kahoot.com/favicon.ico" alt="kahoot">
-            </div>
-            <div class="cloaker-circle" data-name="Microsoft Teams" data-icon="https://teams.microsoft.com/_favicon/favicon.ico">
-                <img src="https://teams.microsoft.com/_favicon/favicon.ico" alt="teams">
-            </div>
-            <div class="cloaker-circle" data-name="PowerSchool" data-icon="https://www.powerschool.com/favicon.ico">
-                <img src="https://www.powerschool.com/favicon.ico" alt="powerschool">
-            </div>
-        </div>
-        <div class="cloaker-row">
-            <div class="cloaker-circle" data-name="Britannica" data-icon="https://cdn.britannica.com/favicon.ico">
-                <img src="https://cdn.britannica.com/favicon.ico" alt="britannica">
-            </div>
-            <div class="cloaker-circle" data-name="Dictionary" data-icon="https://www.dictionary.com/favicon.ico">
-                <img src="https://www.dictionary.com/favicon.ico" alt="dictionary">
-            </div>
-            <div class="cloaker-circle" data-name="Duolingo" data-icon="https://d35aaqx5ub95lt.cloudfront.net/favicon.ico">
-                <img src="https://d35aaqx5ub95lt.cloudfront.net/favicon.ico" alt="duolingo">
-            </div>
-            <div class="cloaker-circle" data-name="Mathway" data-icon="https://www.mathway.com/favicon.ico">
-                <img src="https://www.mathway.com/favicon.ico" alt="mathway">
-            </div>
-            <div class="cloaker-circle" data-name="Google Drive" data-icon="https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png">
-                <img src="https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png" alt="drive">
-            </div>
-            <div class="cloaker-circle" data-name="Google Slides" data-icon="https://ssl.gstatic.com/docs/presentations/images/favicon5.ico">
-                <img src="https://ssl.gstatic.com/docs/presentations/images/favicon5.ico" alt="slides">
-            </div>
-            <div class="cloaker-circle" data-name="Google Forms" data-icon="https://ssl.gstatic.com/docs/forms/device_home/favicon_v2014_x128.png">
-                <img src="https://ssl.gstatic.com/docs/forms/device_home/favicon_v2014_x128.png" alt="forms">
-            </div>
-            <div class="cloaker-circle" data-name="Google Meet" data-icon="https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v1/web-96dp/logo_meet_2020q4_color_2x_web_96dp.png">
-                <img src="https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v1/web-96dp/logo_meet_2020q4_color_2x_web_96dp.png" alt="meet">
-            </div>
-            <div class="cloaker-circle" data-name="Clever" data-icon="https://clever.com/favicon.ico">
-                <img src="https://clever.com/favicon.ico" alt="clever">
-            </div>
-            <div class="cloaker-circle" data-name="Schoology" data-icon="https://app.schoology.com/favicon.ico">
-                <img src="https://app.schoology.com/favicon.ico" alt="schoology">
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="settings.js" defer></script>
-
-
-
-  <div id="particles-js"></div>
-
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-  <div class="particles-container" id="particles-container"></div>
+<script>
+VANTA.FOG({
+  el: "#vanta-bg",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  highlightColor: 0x3b4057,
+  midtoneColor: 0x4d5389,
+  lowlightColor: 0x5b5b7f,
+  baseColor: 0x353555,
+  blurFactor: 0.52,
+  speed: 1.60,
+  zoom: 0.90
+})
+</script>
 
 <script>
   const urlBar = document.getElementById('url-bar');
@@ -2112,678 +709,75 @@ body.white-theme .theme-circle:hover {
 
     const theme = window.theme || {};
 
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 20, "density": { "enable": false } },
-        "color": { "value": theme.particleColor || "#ffffff" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.7, "random": true },
-        "size": { "value": 3, "random": true },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": theme.particleLinks || "#ffffff",
-          "opacity": 0.6,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 2,
-          "direction": "none",
-          "random": true,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false
-        }
-      },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": { "enable": false },
-          "onclick": { "enable": false },
-          "resize": true
-        }
-      },
-      "retina_detect": false
+document.addEventListener('DOMContentLoaded', () => {
+  const themes = {
+    default: {
+      sidebar: '#3d4060',
+      vanta: {
+        highlightColor: 0x3b4057,
+        midtoneColor: 0x4d5389,
+        lowlightColor: 0x5b5b7f,
+        baseColor: 0x353555
+      }
+    },
+    // Add other theme configurations here
+  };
+
+  let vantaEffect = null;
+
+  function initVanta(theme) {
+    if (vantaEffect) vantaEffect.destroy();
+    vantaEffect = VANTA.FOG({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      ...theme.vanta,
+      blurFactor: 0.52,
+      speed: 1.60,
+      zoom: 0.90
     });
-  });
-  
-  // Add this to your existing JavaScript
-const themeCircles = document.querySelectorAll('.theme-circle');
-const root = document.documentElement;
-
-// Theme configuration with optimized settings
-const themes = {
-  default: {
-    sidebar: '#343a40',
-    header: '#343a40',
-    tabBg: '#343a40',
-    tabActiveBg: '#495057',
-    background: 'https://img.freepik.com/free-photo/abstract-luxury-blur-dark-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63473.jpg?semt=ais_hybrid&w=740'
-  },
-  black: {
-    sidebar: '#000000',
-    header: '#000000',
-    background: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUs55nkjiEFR-2RL9nfedkXcYZCAcWNlfLpg&s'
-  },
-  white: {
-    sidebar: '#ffffff',
-    header: '#ffffff',
-    background: 'https://img.freepik.com/free-vector/white-gray-abstract-gradient-background_69286-550.jpg?semt=ais_hybrid&w=740'
-  },
-  orange: {
-    sidebar: '#ffcf7b',
-    header: '#ffcf7b',
-    background: 'https://img.freepik.com/free-photo/background-gradient-lights_23-2149304997.jpg'
-  },
-  tan: {
-    sidebar: '#d2b48c',
-    header: '#d2b48c',
-    background: 'https://t3.ftcdn.net/jpg/09/14/74/04/360_F_914740449_kGiQ9SryhURbePRwE53Nvh4DK6R3WS40.jpg'
-  },
-  'light-purple': {
-    sidebar: '#b39ddb',
-    header: '#b39ddb',
-    background: 'https://images.unsplash.com/photo-1617957689233-207e3cd3c610?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHVycGxlJTIwZ3JhZGllbnR8ZW58MHx8MHx8fDA%3D'
-  },
-  brown: {
-    sidebar: '#795548',
-    header: '#795548',
-    background: 'https://img.freepik.com/free-photo/abstract-smooth-brown-wall-background-layout-design-studio-room-web-template-business-report-with-smooth-circle-gradient-color_1258-55653.jpg?semt=ais_hybrid&w=740'
-  },
-  'light-green': {
-    sidebar: '#3d704f',
-    header: '#3d704f',
-    background: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d'
-  },
-  pink: {
-    sidebar: '#f48fb1',
-    header: '#f48fb1',
-    background: 'https://img.freepik.com/premium-vector/pink-gradient-color-background-illustration-pink-radial-gradient-background-wallpapers_1199668-67.jpg?w=360'
-  },
-  'light-blue': {
-    sidebar: '#81d4fa',
-    header: '#81d4fa',
-    background: 'https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3773.jpg?t=st=1745442430~exp=1745446030~hmac=0b0c8cd4f69822a7a4fc582a51994afe0ffb278f6ccdd5069e5f90ddf647e146'
   }
-};
-
-function applyTheme(themeName) {
-  const theme = themes[themeName];
-  if (!theme) return;
-
-  const sidebar = document.querySelector('.sidebar');
-  const header = document.querySelector('.browser-header');
-
-  requestAnimationFrame(() => {
-    sidebar.style.backgroundColor = theme.sidebar;
-    header.style.backgroundColor = theme.header;
-    
-    // Only update background if it's different
-    const currentBg = document.body.style.backgroundImage;
-    const newBg = `url(${theme.background})`;
-    if (currentBg !== newBg) {
-      document.body.style.backgroundImage = newBg;
-    }
-  });
-
-  localStorage.setItem('currentTheme', themeName);
-}
-
-// Add click handlers to theme circles
-document.querySelectorAll('.theme-circle').forEach(circle => {
-  circle.addEventListener('click', () => {
-    applyTheme(circle.dataset.theme);
-  });
-});
-
-// Load saved theme on page load
-document.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('currentTheme');
-  if (savedTheme && themes[savedTheme]) {
-    applyTheme(savedTheme);
-  }
-});
-
-
-// Initialize themes
-document.addEventListener('DOMContentLoaded', () => {
-  createThemeCircles();
-  loadSavedTheme();
-});
-
-// Add to your existing themes object
-const customThemes = {
-  custom1: {
-    sidebar: '#4a148c',
-    header: '#4a148c',
-    background: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809'
-  },
-  // Add similar entries for custom2 through custom8
-};
-
-// Handle custom theme upload
-document.querySelector('.custom-upload').addEventListener('click', () => {
-  document.getElementById('theme-upload').click();
-});
-
-document.getElementById('theme-upload').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const img = new Image();
-      img.onload = function() {
-        // Get dominant color from image
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = 1;
-        canvas.height = 1;
-        ctx.drawImage(img, 0, 0, 1, 1);
-        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
-        const dominantColor = `rgb(${r},${g},${b})`;
-
-        // Save custom theme
-        const customTheme = {
-          sidebar: dominantColor,
-          header: dominantColor,
-          background: e.target.result
-        };
-        
-        localStorage.setItem('userCustomTheme', JSON.stringify(customTheme));
-        
-        // Update last custom theme circle
-        const lastCustomCircle = document.querySelector('.last-custom');
-        lastCustomCircle.style.backgroundImage = `url(${e.target.result})`;
-        lastCustomCircle.innerHTML = '';
-        
-        // Apply theme
-        applyTheme('user-custom');
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-});
-
-// Modify applyTheme function to handle custom themes
-function applyTheme(themeName) {
-  let theme;
-  if (themeName === 'user-custom') {
-    theme = JSON.parse(localStorage.getItem('userCustomTheme'));
-  } else {
-    theme = themes[themeName] || customThemes[themeName];
-  }
-  if (!theme) return;
-
-  // Apply theme colors
-  document.body.className = ''; // Reset classes
-  if (themeName === 'white') {
-    document.body.classList.add('white-theme');
-  }
-  
-  // Rest of your existing applyTheme code...
-}
-
-// Load saved custom theme on page load
-document.addEventListener('DOMContentLoaded', () => {
-  const savedCustomTheme = localStorage.getItem('userCustomTheme');
-  if (savedCustomTheme) {
-    const lastCustomCircle = document.querySelector('.last-custom');
-    const theme = JSON.parse(savedCustomTheme);
-    lastCustomCircle.style.backgroundImage = `url(${theme.background})`;
-    lastCustomCircle.innerHTML = '';
-  }
-});
-
-// Preloader
-document.addEventListener('DOMContentLoaded', () => {
-    const preloader = document.getElementById('preloader');
-    const savedTheme = localStorage.getItem('currentTheme');
-    const savedBg = savedTheme ? themes[savedTheme]?.background : themes.default.background;
-    
-    preloader.style.backgroundImage = `url(${savedBg})`;
-
-     // Load essential resources first
-    Promise.all([
-        loadParticlesJS(),
-        loadThemeAssets()
-    ]).then(() => {
-        setTimeout(() => {
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.style.display = 'none';
-                initializePage();
-            }, 500);
-        }, 1000);
-    });
-});
-
-// Optimized theme handling
-function applyTheme(themeName, customBg = null) {
-    requestAnimationFrame(() => {
-        const theme = themes[themeName] || customThemes[themeName];
-        if (!theme && !customBg) return;
-
-        const sidebar = document.querySelector('.sidebar');
-        const header = document.querySelector('.browser-header');
-        
-        if (customBg) {
-            document.body.style.backgroundImage = `url(${customBg})`;
-            sidebar.style.backgroundColor = theme?.sidebar || '#343a40';
-            header.style.backgroundColor = theme?.header || '#343a40';
-        } else {
-            document.body.style.backgroundImage = `url(${theme.background})`;
-            sidebar.style.backgroundColor = theme.sidebar;
-            header.style.backgroundColor = theme.header;
-        }
-
-        document.body.className = themeName === 'white' ? 'white-theme' : '';
-        localStorage.setItem('currentTheme', themeName);
-    });
-}
 
   function applyTheme(themeName) {
-  const theme = themes[themeName];
-  if (!theme) return;
-
-  const sidebar = document.querySelector('.sidebar');
-  const header = document.querySelector('.browser-header');
-  const themeContainers = document.querySelectorAll('.theme-container'); // Add this line
-
-  requestAnimationFrame(() => {
-    sidebar.style.backgroundColor = theme.sidebar;
-    header.style.backgroundColor = theme.header;
-    
-    // Apply theme color to all theme containers
-    themeContainers.forEach(container => {
-      container.style.backgroundColor = theme.sidebar;
-    });
-
-    const currentBg = document.body.style.backgroundImage;
-    const newBg = `url(${theme.background})`;
-    if (currentBg !== newBg) {
-      document.body.style.backgroundImage = newBg;
-    }
-  });
-
-  // Handle text color for white theme
-  if (themeName === 'white') {
-    document.body.classList.add('white-theme');
-    document.querySelectorAll('.theme-title, .particle-label, .blank-button').forEach(element => {
-      element.style.color = '#000000';
-    });
-  } else {
-    document.body.classList.remove('white-theme');
-    document.querySelectorAll('.theme-title, .particle-label, .blank-button').forEach(element => {
-      element.style.color = '#ffffff';
-    });
+    const theme = themes[themeName];
+    document.querySelector('.sidebar').style.background = theme.sidebar;
+    initVanta(theme);
+    localStorage.setItem('selectedTheme', themeName);
   }
 
-  localStorage.setItem('currentTheme', themeName);
-}
-
-
-// Optimized custom theme upload
-document.querySelector('.custom-upload').addEventListener('click', () => {
-    const input = document.getElementById('theme-upload');
-    input.click();
-    
-    input.onchange = function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const customBg = e.target.result;
-            localStorage.setItem('userCustomTheme', customBg);
-            applyTheme('custom', customBg);
-            
-            const lastCustomCircle = document.querySelector('.last-custom');
-            lastCustomCircle.style.backgroundImage = `url(${customBg})`;
-            lastCustomCircle.innerHTML = '';
-        };
-        reader.readAsDataURL(file);
-    };
-});
-
-// Particle effects
-const particleConfigs = {
-    default: {
-        particles: {
-            number: { value: 20, density: { enable: false } },
-            color: { value: "#ffffff" },
-            size: { value: 3 },
-            line_linked: { enable: true },
-            move: { speed: 2 }
-        }
-    },
-    floating: {
-        particles: {
-            number: { value: 50 },
-            color: { value: "#ffffff" },
-            size: { value: 2 },
-            line_linked: { enable: false },
-            move: {
-                direction: "top",
-                speed: 1,
-                random: true
-            }
-        }
-    },
-    none: {
-        particles: {
-            number: { value: 0 }
-        }
-    }
-};
-
-// Initialize particle effects
-function initParticles(type) {
-    const config = particleConfigs[type];
-    if (type === 'none') {
-        const particlesContainer = document.getElementById('particles-js');
-        particlesContainer.innerHTML = '';
-        return;
-    }
-    
-    particlesJS('particles-js', config);
-    localStorage.setItem('particlePreference', type);
-}
-
-// Particle option selection
-document.querySelectorAll('.particle-option').forEach(option => {
-    option.addEventListener('click', () => {
-        document.querySelectorAll('.particle-option').forEach(opt => opt.classList.remove('active'));
-        option.classList.add('active');
-        initParticles(option.dataset.particle);
-    });
-});
-
-// Load saved particle preference
-const savedParticleType = localStorage.getItem('particlePreference') || 'default';
-document.querySelector(`[data-particle="${savedParticleType}"]`).classList.add('active');
-initParticles(savedParticleType);
-
-function launchBlank() {
-    const win = window.open('about:blank', '_blank');
-    win.document.write(`
-        <html>
-            <head>
-                <title>about:blank</title>
-            </head>
-            <body>
-                <iframe src="${window.location.href}" style="position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;">
-                </iframe>
-            </body>
-        </html>
-    `);
-}
-
-// Tab Cloaking functionality
-document.querySelectorAll('.cloaker-circle').forEach(circle => {
+  document.querySelectorAll('.theme-circle').forEach(circle => {
     circle.addEventListener('click', () => {
-        const name = circle.dataset.name;
-        const icon = circle.dataset.icon;
-        
-        // Change tab title
-        document.title = name;
-        
-        // Change favicon
-        let favicon = document.querySelector('link[rel="icon"]');
-        if (!favicon) {
-            favicon = document.createElement('link');
-            favicon.rel = 'icon';
-            document.head.appendChild(favicon);
-        }
-        favicon.href = icon;
-        
-        // Save preferences
-        localStorage.setItem('tabCloak', JSON.stringify({
-            name: name,
-            icon: icon
-        }));
+      const themeName = circle.dataset.theme;
+      applyTheme(themeName);
     });
-});
-
-// Load saved tab cloak settings
-document.addEventListener('DOMContentLoaded', () => {
-    const savedCloak = localStorage.getItem('tabCloak');
-    if (savedCloak) {
-        const {name, icon} = JSON.parse(savedCloak);
-        document.title = name;
-        
-        let favicon = document.querySelector('link[rel="icon"]');
-        if (!favicon) {
-            favicon = document.createElement('link');
-            favicon.rel = 'icon';
-            document.head.appendChild(favicon);
-        }
-        favicon.href = icon;
-    }
-});
-
-class TabManager {
-  constructor() {
-    this.tabs = [];
-    this.activeTabId = null;
-    this.tabCounter = 1;
-    this.init();
-  }
-
-  init() {
-    this.createNewTab();
-    this.setupEventListeners();
-  }
-
-  createNewTab() {
-    const tabId = `tab${this.tabCounter++}`;
-    const tab = {
-      id: tabId,
-      title: 'New Tab',
-      url: '',
-      history: [],
-      currentIndex: -1
-    };
-
-    this.tabs.push(tab);
-    this.activeTabId = tabId;
-    this.renderTabs();
-    return tab;
-  }
-
-  closeTab(tabId) {
-    const index = this.tabs.findIndex(tab => tab.id === tabId);
-    if (index !== -1) {
-      // Store the iframe state before closing
-      const tab = this.tabs[index];
-      if (tab.url) {
-        localStorage.setItem(`tab_${tab.id}`, JSON.stringify({
-          url: tab.url,
-          history: tab.history,
-          currentIndex: tab.currentIndex
-        }));
-      }
-
-      this.tabs.splice(index, 1);
-      
-      if (this.activeTabId === tabId) {
-        if (this.tabs.length === 0) {
-          this.createNewTab();
-        } else {
-          this.activeTabId = this.tabs[Math.max(0, index - 1)].id;
-        }
-      }
-      
-      this.renderTabs();
-      this.updateActiveTabContent();
-    }
-  }
-
-  setActiveTab(tabId) {
-    if (this.activeTabId !== tabId) {
-      this.activeTabId = tabId;
-      this.renderTabs();
-      this.updateActiveTabContent();
-    }
-  }
-
-  updateActiveTabContent() {
-    const tab = this.getActiveTab();
-    const mainFrame = document.getElementById('main-frame');
-    const homeScreen = document.getElementById('home-screen');
-    const centerContent = document.getElementById('center-content');
-    const urlBar = document.getElementById('url-bar');
-
-    if (tab && tab.url) {
-      mainFrame.style.display = "block";
-      homeScreen.style.display = "none";
-      centerContent.style.display = "none";
-      urlBar.value = tab.url;
-      updateIframe(tab.url);
-    } else {
-      mainFrame.style.display = "none";
-      homeScreen.style.display = "block";
-      centerContent.style.display = "block";
-      urlBar.value = '';
-    }
-  }
-
-  updateActiveTab(url, title = url) {
-    const tab = this.getActiveTab();
-    if (tab) {
-      tab.url = url;
-      tab.title = title || 'New Tab';
-      tab.history.push(url);
-      tab.currentIndex = tab.history.length - 1;
-      this.renderTabs();
-    }
-  }
-
-  getActiveTab() {
-    return this.tabs.find(tab => tab.id === this.activeTabId);
-  }
-
-  renderTabs() {
-    const container = document.querySelector('.tabs-container');
-    container.innerHTML = this.tabs.map(tab => `
-      <div class="tab ${tab.id === this.activeTabId ? 'active' : ''}" data-tab-id="${tab.id}">
-        <span class="tab-title">${tab.title}</span>
-        <span class="tab-close"><i class="fas fa-times"></i></span>
-      </div>
-    `).join('') + `
-      <div class="new-tab-btn">
-        <i class="fas fa-plus"></i>
-      </div>
-    `;
-  }
-
-  setupEventListeners() {
-    document.addEventListener('click', (e) => {
-      if (e.target.closest('.new-tab-btn')) {
-        this.createNewTab();
-      }
-      
-      const tabEl = e.target.closest('.tab');
-      if (tabEl) {
-        const closeBtn = e.target.closest('.tab-close');
-        if (closeBtn) {
-          this.closeTab(tabEl.dataset.tabId);
-        } else {
-          this.setActiveTab(tabEl.dataset.tabId);
-        }
-      }
-    });
-  }
-}
-
-function updateIframe(originalUrl) {
-  const cleanedUrl = originalUrl.replace(/^https?:\/\//, '');
-  const proxiedUrl = "https://blockzone.github.io/active/iframe.html#https://" + cleanedUrl;
-
-  mainFrame.src = proxiedUrl;
-  mainFrame.style.display = "block";
-  homeScreen.style.display = "none";
-  centerContent.style.display = "none";
-
-  urlBar.value = originalUrl;
-  currentUrl = originalUrl;
-  
-  // Update the active tab with the new URL
-  tabManager.updateActiveTab(originalUrl);
-
-  embedCodeText.textContent = "https://blockzone.github.io/active/iframe.html#https://" + cleanedUrl;
-  bookmarkIcon.classList.toggle('bookmarked', bookmarks.some(bookmark => bookmark.url === currentUrl));
-}
-
-// Add this after your existing variable declarations
-const tabManager = new TabManager();
-
-document.addEventListener('DOMContentLoaded', () => {
-  const tabsContainer = document.querySelector('.tabs-container');
-  let tabCount = 1;
-
-  // Handle new tab button click
-  tabsContainer.addEventListener('click', (e) => {
-    if (e.target.closest('.new-tab-btn')) {
-      const newTab = document.createElement('div');
-      newTab.className = 'tab';
-      newTab.dataset.tabId = `tab${++tabCount}`;
-      newTab.innerHTML = `
-        <span class="tab-title">New Tab</span>
-        <span class="tab-close"><i class="fas fa-times"></i></span>
-      `;
-      
-      // Insert before the new tab button
-      tabsContainer.insertBefore(newTab, tabsContainer.lastElementChild);
-      
-      // Activate the new tab
-      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-      newTab.classList.add('active');
-      
-      // Reset the iframe and show home screen
-      const mainFrame = document.getElementById('main-frame');
-      const homeScreen = document.getElementById('home-screen');
-      const centerContent = document.getElementById('center-content');
-      
-      mainFrame.style.display = "none";
-      homeScreen.style.display = "block";
-      centerContent.style.display = "block";
-      document.getElementById('url-bar').value = '';
-    }
-    
-    // Handle tab close button click
-    if (e.target.closest('.tab-close')) {
-      const tab = e.target.closest('.tab');
-      tab.classList.add('closing');
-      
-      setTimeout(() => {
-        tab.remove();
-        
-        // If no tabs left, create a new one
-        if (!document.querySelector('.tab')) {
-          const newTab = document.createElement('div');
-          newTab.className = 'tab active';
-          newTab.dataset.tabId = `tab${++tabCount}`;
-          newTab.innerHTML = `
-            <span class="tab-title">New Tab</span>
-            <span class="tab-close"><i class="fas fa-times"></i></span>
-          `;
-          tabsContainer.insertBefore(newTab, tabsContainer.lastElementChild);
-        }
-      }, 300);
-    }
-    
-    // Handle tab activation
-    if (e.target.closest('.tab') && !e.target.closest('.tab-close')) {
-      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-      e.target.closest('.tab').classList.add('active');
-    }
   });
+
+  // Apply saved theme or default
+  const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+  applyTheme(savedTheme);
 });
 
 
-</script>
-
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      VANTA.FOG({
+        el: "vanta-fog",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        highlightColor: 0x7c81a2,
+        midtoneColor: 0x0,
+        lowlightColor: 0x6363c5,
+        speed: 1.60,
+        zoom: 0.70
+      });
+    });
+  </script>
+  
 </body>
 </html>
