@@ -1,297 +1,252 @@
+// settings.js
 
-// ========== Theme Configuration ==========
 const themes = {
   default: {
     sidebar: '#3d4060',
-    header: '#3d4060',
-    tabBg: '#3c4464',
-    tabActiveBg: '#3c4464',
-    background: 'https://img.freepik.com/free-photo/abstract-luxury-blur-dark-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63473.jpg?semt=ais_hybrid&w=740'
+    vanta: {
+      highlightColor: 0x4d5080,
+      midtoneColor: 0x3d4060,
+      lowlightColor: 0x2d3040,
+      baseColor: 0x353555
+    }
   },
-
   black: {
     sidebar: '#000000',
-    header: '#000000',
-    tabBg: '#000000',
-    tabActiveBg: '#212121',
-    background: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUs55nkjiEFR-2RL9nfedkXcYZCAcWNlfLpg&s'
+    vanta: {
+      highlightColor: 0x222222,
+      midtoneColor: 0x000000,
+      lowlightColor: 0x111111,
+      baseColor: 0x0a0a0a
+    }
   },
   white: {
     sidebar: '#ffffff',
-    header: '#ffffff',
-    tabBg: '#ffffff',
-    tabActiveBg: '#f0f0f0',
-    background: 'https://img.freepik.com/free-vector/white-gray-abstract-gradient-background_69286-550.jpg'
+    vanta: {
+      highlightColor: 0xffffff,
+      midtoneColor: 0xf0f0f0,
+      lowlightColor: 0xe0e0e0,
+      baseColor: 0xf5f5f5
+    }
   },
   orange: {
     sidebar: '#ffcf7b',
-    header: '#ffcf7b',
-    tabBg: '#ffcf7b',
-    tabActiveBg: '#ffd54f',
-    background: 'https://img.freepik.com/free-photo/background-gradient-lights_23-2149304997.jpg'
+    vanta: {
+      highlightColor: 0xffd54f,
+      midtoneColor: 0xffcf7b,
+      lowlightColor: 0xffc107,
+      baseColor: 0xffa000
+    }
   },
   tan: {
     sidebar: '#d2b48c',
-    header: '#d2b48c',
-    tabBg: '#d2b48c',
-    tabActiveBg: '#c49e6c',
-    background: 'https://t3.ftcdn.net/jpg/09/14/74/04/360_F_914740449_kGiQ9SryhURbePRwE53Nvh4DK6R3WS40.jpg'
+    vanta: {
+      highlightColor: 0xe6c9a8,
+      midtoneColor: 0xd2b48c,
+      lowlightColor: 0xbc9d70,
+      baseColor: 0xc49e6c
+    }
   },
   'light-purple': {
     sidebar: '#b39ddb',
-    header: '#b39ddb',
-    tabBg: '#b39ddb',
-    tabActiveBg: '#9575cd',
-    background: 'https://images.unsplash.com/photo-1617957689233-207e3cd3c610?fm=jpg&q=60&w=3000'
+    vanta: {
+      highlightColor: 0xc5b3e6,
+      midtoneColor: 0xb39ddb,
+      lowlightColor: 0x9575cd,
+      baseColor: 0xa087d0
+    }
   },
   brown: {
     sidebar: '#795548',
-    header: '#795548',
-    tabBg: '#795548',
-    tabActiveBg: '#6d4c41',
-    background: 'https://img.freepik.com/free-photo/abstract-smooth-brown-wall-background-layout-design-studio-room-web-template-business-report-with-smooth-circle-gradient-color_1258-55653.jpg?semt=ais_hybrid&w=740'
+    vanta: {
+      highlightColor: 0x8d6e63,
+      midtoneColor: 0x795548,
+      lowlightColor: 0x5d4037,
+      baseColor: 0x6d4c41
+    }
   },
   'light-green': {
     sidebar: '#3d704f',
-    header: '#3d704f',
-    tabBg: '#3d704f',
-    tabActiveBg: '#2c6e3b',
-    background: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d'
+    vanta: {
+      highlightColor: 0x4d8b62,
+      midtoneColor: 0x3d704f,
+      lowlightColor: 0x2d553c,
+      baseColor: 0x356946
+    }
   },
   pink: {
     sidebar: '#f48fb1',
-    header: '#f48fb1',
-    tabBg: '#f48fb1',
-    tabActiveBg: '#f06292',
-    background: 'https://img.freepik.com/premium-vector/pink-gradient-color-background-illustration-pink-radial-gradient-background-wallpapers_1199668-67.jpg'
+    vanta: {
+      highlightColor: 0xf6a5c0,
+      midtoneColor: 0xf48fb1,
+      lowlightColor: 0xf06292,
+      baseColor: 0xf279a1
+    }
   },
   'light-blue': {
     sidebar: '#81d4fa',
-    header: '#81d4fa',
-    tabBg: '#81d4fa',
-    tabActiveBg: '#4fc3f7',
-    background: 'https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-3773.jpg'
+    vanta: {
+      highlightColor: 0x9ee1ff,
+      midtoneColor: 0x81d4fa,
+      lowlightColor: 0x4fc3f7,
+      baseColor: 0x67cef8
+    }
+  },
+  // Add more themes here with similar structure
+  galaxy: {
+    sidebar: '#2c3e50',
+    vanta: {
+      highlightColor: 0x3498db,
+      midtoneColor: 0x2c3e50,
+      lowlightColor: 0x8e44ad,
+      baseColor: 0x2c3e50
+    }
+  },
+  hacker: {
+    sidebar: '#1b1b1b',
+    vanta: {
+      highlightColor: 0x00ff00,
+      midtoneColor: 0x1b1b1b,
+      lowlightColor: 0x003300,
+      baseColor: 0x0a0a0a
+    }
+  },
+  sunset: {
+    sidebar: '#ff7e5f',
+    vanta: {
+      highlightColor: 0xff7e5f,
+      midtoneColor: 0xfeb47b,
+      lowlightColor: 0xff5e3a,
+      baseColor: 0xff6b4a
+    }
   }
+  // Add more themes as needed
 };
 
-const customThemes = {
-  custom1: {
-    sidebar: '#4a148c',
-    header: '#4a148c',
-    tabBg: '#4a148c',
-    tabActiveBg: '#6a1b9a',
-    background: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809'
+// Add this CSS to your existing styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+  .theme-changer {
+    position: fixed;
+    top: 80px;
+    right: 40px;
+    background: rgba(61, 64, 96, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    width: 800px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3),
+                0 0 40px rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    transition: transform 0.3s ease;
   }
-};
 
-// ========== Theme Management ==========
+  .theme-changer:hover {
+    transform: scale(1.02);
+  }
+
+  .theme-circles {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .theme-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .theme-circle:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  }
+
+  .theme-circle.active {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+  }
+`;
+document.head.appendChild(styleSheet);
+
+// Theme management functions
+let vantaEffect = null;
+
+function initVanta(theme) {
+  if (vantaEffect) vantaEffect.destroy();
+  vantaEffect = VANTA.FOG({
+    el: "#vanta-bg",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    ...theme.vanta,
+    blurFactor: 0.52,
+    speed: 1.60,
+    zoom: 0.90
+  });
+}
+
 function applyTheme(themeName) {
-  const theme = themes[themeName] || customThemes[themeName];
+  const theme = themes[themeName];
   if (!theme) return;
 
-  const sidebar = document.querySelector('.sidebar');
-  const header = document.querySelector('.browser-header');
-  const tabsContainer = document.querySelector('.tabs-container');
-  const updatesPopup = document.querySelector('.updates-popup');
-  const themeContainers = document.querySelectorAll('.theme-container');
+  // Update sidebar color
+  document.querySelector('.sidebar').style.background = theme.sidebar;
+  
+  // Update Vanta background
+  initVanta(theme);
+  
+  // Update active circle
+  document.querySelectorAll('.theme-circle').forEach(circle => {
+    circle.classList.remove('active');
+    if (circle.dataset.theme === themeName) {
+      circle.classList.add('active');
+    }
+  });
 
-  const darkerShade = getDarkerShade(theme.sidebar);
-  const evenDarkerShade = getDarkerShade(theme.sidebar, 60);
+  // Save theme preference
+  localStorage.setItem('selectedTheme', themeName);
+}
 
-  // Particle color
-  if (window.pJSDom && window.pJSDom[0]) {
-    const particleColor = themeName === 'white' ? '#000000' : '#ffffff';
-    window.pJSDom[0].pJS.particles.color.value = particleColor;
-    window.pJSDom[0].pJS.particles.line_linked.color = particleColor;
-    window.pJSDom[0].pJS.fn.particlesRefresh();
-  }
-
-  // Apply theme colors
-  document.documentElement.style.setProperty('--theme-color', theme.sidebar);
-  document.documentElement.style.setProperty('--theme-darker', darkerShade);
-  document.documentElement.style.setProperty('--theme-darkest', evenDarkerShade);
-  document.documentElement.style.setProperty('--tab-bg', theme.tabBg);
-  document.documentElement.style.setProperty('--tab-active-bg', theme.tabActiveBg);
-  document.documentElement.style.setProperty('--header-bg', theme.header);
-
-  // Add dynamic styles
-  const oldStyle = document.getElementById('dynamic-theme-style');
-  if (oldStyle) oldStyle.remove();
-
-  const style = document.createElement('style');
-  style.id = 'dynamic-theme-style';
-  style.textContent = `
-    .tab { background: var(--theme-darker); }
-    .tab.active { background: var(--theme-darkest); }
-    .tab:hover { background: var(--theme-darkest); }
-    .sidebar a:hover { background: var(--theme-darker) !important; }
-    .action-btn:hover { background: var(--theme-darker); }
-    .new-tab-btn:hover { background: var(--theme-darker); }
-    .url-bar-wrapper { background: var(--theme-darker); }
+// Create and append theme changer HTML
+document.addEventListener('DOMContentLoaded', () => {
+  const themeChanger = document.createElement('div');
+  themeChanger.className = 'theme-changer';
+  
+  let html = `
+    <div class="theme-title">theme changer</div>
+    <div class="theme-divider"></div>
+    <div class="theme-circles">
   `;
 
-  if (themeName === 'white') {
-    document.body.classList.add('white-theme');
-    style.textContent += `
-      .tab { color: #000000; }
-      .tab:hover { background: #e9ecef; }
-      .sidebar a:hover { background: #e9ecef !important; }
-      .action-btn:hover { background: #e9ecef; }
-      .new-tab-btn:hover { background: #e9ecef; }
-      .url-bar-wrapper { background: #ffffff; }
-    `;
-  } else {
-    document.body.classList.remove('white-theme');
-  }
-
-  document.head.appendChild(style);
-
-  requestAnimationFrame(() => {
-    if (sidebar) sidebar.style.backgroundColor = theme.sidebar;
-    if (header) header.style.backgroundColor = theme.sidebar;
-    if (tabsContainer) tabsContainer.style.backgroundColor = theme.sidebar;
-    if (updatesPopup) updatesPopup.style.backgroundColor = theme.sidebar;
-
-    themeContainers.forEach(container => {
-      container.style.backgroundColor = theme.sidebar;
-    });
-
-    const textColor = themeName === 'white' ? '#000000' : '#ffffff';
-    document.querySelectorAll('.theme-title, .particle-label, .blank-button, .updates-popup, .tab-title').forEach(element => {
-      element.style.color = textColor;
-    });
-
-    document.body.style.backgroundImage = `url(${theme.background})`;
+  // First row
+  Object.keys(themes).slice(0, 10).forEach(themeName => {
+    html += `<div class="theme-circle" data-theme="${themeName}" style="background: ${themes[themeName].sidebar}"></div>`;
   });
 
-  localStorage.setItem('currentTheme', themeName);
-}
-
-// ========== Utilities ==========
-function getDarkerShade(color, amount = 30) {
-  if (color.startsWith('#')) {
-    color = hexToRgb(color);
-  }
-  const rgb = color.match(/\d+/g);
-  if (!rgb) return color;
-  const darker = rgb.map(c => Math.max(0, parseInt(c) - amount));
-  return `rgb(${darker.join(',')})`;
-}
-
-function hexToRgb(hex) {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? `rgb(${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)})` : null;
-}
-
-// ========== Tab Cloaking ==========
-function applyTabCloak(name, icon) {
-  document.title = name;
-  let favicon = document.querySelector('link[rel="icon"]');
-  if (!favicon) {
-    favicon = document.createElement('link');
-    favicon.rel = 'icon';
-    document.head.appendChild(favicon);
-  }
-  favicon.href = icon;
-  localStorage.setItem('tabCloak', JSON.stringify({ name, icon }));
-}
-
-function initializeTabCloaking() {
-  const savedCloak = localStorage.getItem('tabCloak');
-  if (savedCloak) {
-    const { name, icon } = JSON.parse(savedCloak);
-    applyTabCloak(name, icon);
-  }
-}
-
-// ========== Custom Theme Upload ==========
-document.querySelector('.custom-upload')?.addEventListener('click', () => {
-  document.getElementById('theme-upload').click();
-});
-
-document.getElementById('theme-upload')?.addEventListener('change', function (e) {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      const img = new Image();
-      img.onload = function () {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = 1;
-        canvas.height = 1;
-        ctx.drawImage(img, 0, 0, 1, 1);
-        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
-        const dominantColor = `rgb(${r},${g},${b})`;
-
-        const customTheme = {
-          sidebar: dominantColor,
-          header: dominantColor,
-          tabBg: dominantColor,
-          tabActiveBg: getDarkerShade(dominantColor),
-          background: event.target.result
-        };
-
-        localStorage.setItem('userCustomTheme', JSON.stringify(customTheme));
-
-        const lastCustomCircle = document.querySelector('.last-custom');
-        if (lastCustomCircle) {
-          lastCustomCircle.style.backgroundImage = `url(${event.target.result})`;
-          lastCustomCircle.innerHTML = '';
-        }
-
-        themes['user-custom'] = customTheme;
-        applyTheme('user-custom');
-      };
-      img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-});
-
-// ========== Updates Popup ==========
-function showUpdatesPopup() {
-  const popup = document.getElementById('updates-popup');
-  popup.classList.add('show');
-
-  const badge = document.querySelector('.notification-badge');
-  if (badge) {
-    badge.style.animation = 'fadeOut 0.3s forwards';
-    setTimeout(() => badge.remove(), 300);
-  }
-
-  const items = document.querySelectorAll('.update-item');
-  items.forEach((item, index) => {
-    setTimeout(() => {
-      item.style.animation = 'slideInUp 0.3s ease forwards';
-    }, index * 100);
+  // Second row
+  Object.keys(themes).slice(10, 20).forEach(themeName => {
+    html += `<div class="theme-circle" data-theme="${themeName}" style="background: ${themes[themeName].sidebar}"></div>`;
   });
-}
 
-function closeUpdatesPopup() {
-  const popup = document.getElementById('updates-popup');
-  popup.classList.remove('show');
-}
+  html += `</div>`;
+  themeChanger.innerHTML = html;
+  document.body.appendChild(themeChanger);
 
-// ========== Initialization ==========
-document.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('currentTheme');
-  if (savedTheme) {
-    applyTheme(savedTheme);
-  }
-  initializeTabCloaking();
-
+  // Add click handlers
   document.querySelectorAll('.theme-circle').forEach(circle => {
     circle.addEventListener('click', () => {
-      applyTheme(circle.dataset.theme);
+      const themeName = circle.dataset.theme;
+      applyTheme(themeName);
     });
   });
 
-  document.querySelectorAll('.cloaker-circle').forEach(circle => {
-    circle.addEventListener('click', () => {
-      const name = circle.dataset.name;
-      const icon = circle.dataset.icon;
-      applyTabCloak(name, icon);
-    });
-  });
+  // Apply saved theme or default
+  const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+  applyTheme(savedTheme);
 });
