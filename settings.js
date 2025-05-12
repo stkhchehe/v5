@@ -18,15 +18,18 @@ const themes = {
   galaxy: {
     name: "Galaxy",
     sidebar: '#2c3e50',
-    vantaEffect: {
-      effect: 'net',
-      options: {
-        color: 0x3498db,
-        backgroundColor: 0x2c3e50,
-        points: 10,
-        maxDistance: 20,
-        spacing: 20
-      }
+VANTA.FOG({
+  el: "#vanta-bg",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  highlightColor: 0x572161,
+  midtoneColor: 0xa417c3,
+  lowlightColor: 0x5417c3,
+  baseColor: 0x2f2727
+})
     }
   },
   hacker: {
