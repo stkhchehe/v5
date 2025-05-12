@@ -1,3 +1,6 @@
+
+let vantaEffect = null;
+
 const themes = {
     default: {
         fogConfig: {
@@ -307,3 +310,85 @@ const themes = {
         }
     }
 };
+
+function initVantaEffect(themeName) {
+    if (vantaEffect) {
+        vantaEffect.destroy();
+    }
+
+    const theme = themes[themeName];
+    if (!theme) return;
+
+    try {
+        vantaEffect = VANTA[theme.effect]({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            ...theme.config
+        });
+
+        // Save the selected theme to localStorage
+        localStorage.setItem('selectedTheme', themeName);
+        
+        // Update sidebar color if applicable
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar) {
+            sidebar.style.backgroundColor = `#${theme.config.backgroundColor?.toString(16) || '3d4060'}`;
+        }
+    } catch (error) {
+        console.error(`Failed to initialize theme: ${themeName}`, error);
+        // Fallback to default theme if there's an error
+        if (themeName !== 'default') {
+            initVantaEffect('default');
+        }
+    }
+}
+
+// Add click event listeners to theme circles
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize theme from localStorage or use default
+    const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+    initVantaEffect(savedTheme);
+
+    // Add click handlers to theme circles
+    document.querySelectorAll('.theme-circle').forEach(circle => {
+        circle.addEventListener('click', () => {
+            const themeName = circle.dataset.theme;
+            initVantaEffect(themeName);
+        });
+    });
+});
+
+// Handle page visibility changes
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+        const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+        initVantaEffect(savedTheme);
+    }
+});
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    if (vantaEffect) {
+        vantaEffect.resize();
+    }
+});
+
+// Optional: Add theme preview on hover
+document.querySelectorAll('.theme-circle').forEach(circle => {
+    let originalTheme;
+    
+    circle.addEventListener('mouseenter', () => {
+        originalTheme = localStorage.getItem('selectedTheme');
+        initVantaEffect(circle.dataset.theme);
+    });
+
+    circle.addEventListener('mouseleave', () => {
+        if (originalTheme) {
+            initVantaEffect(originalTheme);
+        }
+    });
+});
