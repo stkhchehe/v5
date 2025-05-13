@@ -795,6 +795,86 @@
     height: 35px; /* Increased from 30px */
 }
 
+        .sidebar {
+  position: fixed;
+  width: 6vw;
+  background: #3d4060;
+  box-shadow: 0 0 5px rgba(100, 149, 237, 0.3);
+  height: 100vh;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  transform: translateZ(0);
+  margin-right: -1px;
+}
+
+.sidebar a:hover {
+  background: #2d3048; /* Darker version of #3d4060 */
+  transform: scale(1.05);
+}
+
+    
+                #vanta-bg {
+            width: 100%;
+            height: 100%;
+    }
+    
+    #vanta-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+    /* Update these CSS rules */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: #000; /* Dark background as fallback */
+  color: #f8f9fa;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.sidebar {
+  position: fixed;
+  width: 6vw;
+  background: rgba(61, 64, 96, 0.9); /* Semi-transparent background */
+  box-shadow: 0 0 15px rgba(100, 149, 237, 0.3);
+  height: 100vh;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(5px);
+}
+
+/* Add this new style */
+.vanta-canvas {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -1;
+}
+
+/* Update container z-index */
+.container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
 
   </style>
 </head>
@@ -844,6 +924,13 @@
           </a>
         </li>
       </ul>
+
+      <!-- Wrap your existing content in a div -->
+<div id="main-content" class="content-hidden">
+  <!-- Your existing content goes here -->
+</div>
+
+   <div id="vanta-bg"></div>
 
       <div class="sidebar-bottom-buttons">
         <div class="sidebar-bottom-button" onclick="togglePopup('bookmarks-popup')">
@@ -962,6 +1049,32 @@
     <ul id="history-list"></ul>
     <button class="clear-history-button" onclick="clearHistory()">clear history</button>
   </div>
+
+<!-- Remove the duplicate Vanta script tags and keep only one set at the bottom of the body -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  VANTA.FOG({
+    el: "body",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    highlightColor: 0x3b4057,
+    midtoneColor: 0x4d5389,
+    lowlightColor: 0x5b5b7f,
+    baseColor: 0x353555,
+    blurFactor: 0.64,
+    speed: 1.60,
+    zoom: 0.90
+  });
+});
+</script>
+
+
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
@@ -1255,54 +1368,6 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       loadSavedExtensionStates();
-
-particlesJS("particles-js", {
-  "particles": {
-    "number": { 
-      "value": 20, 
-      "density": { "enable": false } 
-    },
-    "color": { 
-      "value": "#ffffff" 
-    },
-    "shape": { 
-      "type": "circle" 
-    },
-    "opacity": { 
-      "value": 0.7, 
-      "random": true 
-    },
-    "size": { 
-      "value": 3, 
-      "random": true 
-    },
-    "line_linked": {
-      "enable": true,
-      "distance": 150,
-      "color": "#ffffff",
-      "opacity": 0.6,
-      "width": 1
-    },
-    "move": {
-      "enable": true,
-      "speed": 2,
-      "direction": "none",
-      "random": true,
-      "straight": false,
-      "out_mode": "out",
-      "bounce": false
-    }
-  },
-  "interactivity": {
-    "detect_on": "canvas",
-    "events": {
-      "onhover": { "enable": false },
-      "onclick": { "enable": false },
-      "resize": true
-    }
-  },
-  "retina_detect": false
-});
 
 
       updateBookmarksList();
