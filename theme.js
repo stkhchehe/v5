@@ -172,13 +172,13 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0x1e90ff,
-                    midtoneColor: 0x0000cd,
-                    lowlightColor: 0x4169e1,
-                    baseColor: 0x0000ff,
-                    blurFactor: 0.55,
-                    speed: 1.70,
-                    zoom: 0.85
+                highlightColor: 0x1855af,
+                midtoneColor: 0x6176be,
+                lowlightColor: 0x5417c3,
+                baseColor: 0x2f2727,
+                blurFactor: 0.57,
+                speed: 1.90,
+                zoom: 1.30
                 }
             }
         },
@@ -187,13 +187,13 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0xff69b4,
-                    midtoneColor: 0xff1493,
-                    lowlightColor: 0xffc0cb,
-                    baseColor: 0xff69b4,
-                    blurFactor: 0.45,
-                    speed: 1.80,
-                    zoom: 0.95
+                highlightColor: 0xca8ee6,
+                midtoneColor: 0xd37ee8,
+                lowlightColor: 0xe887d6,
+                baseColor: 0x623f6b,
+                blurFactor: 0.57,
+                speed: 1.90,
+                zoom: 1.30
                 }
             }
         },
@@ -202,13 +202,13 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0x800080,
-                    midtoneColor: 0x4b0082,
-                    lowlightColor: 0x8b008b,
-                    baseColor: 0x800080,
-                    blurFactor: 0.50,
-                    speed: 1.65,
-                    zoom: 0.88
+                highlightColor: 0xca8ee6,
+                midtoneColor: 0xbc7ee8,
+                lowlightColor: 0x630ea0,
+                baseColor: 0x1c141e,
+                blurFactor: 0.57,
+                speed: 1.90,
+                zoom: 1.30
                 }
             }
         },
@@ -217,13 +217,13 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0xff0000,
-                    midtoneColor: 0xdc143c,
-                    lowlightColor: 0xff4500,
-                    baseColor: 0xff0000,
-                    blurFactor: 0.48,
-                    speed: 1.75,
-                    zoom: 0.92
+                highlightColor: 0xbe2f46,
+                midtoneColor: 0xe61925,
+                lowlightColor: 0xeb3841,
+                baseColor: 0x1c141e,
+                blurFactor: 0.57,
+                speed: 1.90,
+                zoom: 1.30
                 }
             }
         },
@@ -232,13 +232,13 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0x008000,
-                    midtoneColor: 0x006400,
-                    lowlightColor: 0x228b22,
-                    baseColor: 0x008000,
-                    blurFactor: 0.54,
-                    speed: 1.62,
-                    zoom: 0.87
+                highlightColor: 0x2fbe50,
+                midtoneColor: 0x19e63d,
+                lowlightColor: 0x38eb38,
+                baseColor: 0x1c141e,
+                blurFactor: 0.57,
+                speed: 1.90,
+                zoom: 1.30
                 }
             }
         },
@@ -247,13 +247,13 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0xffd700,
-                    midtoneColor: 0xffa500,
-                    lowlightColor: 0xffff00,
-                    baseColor: 0xffd700,
-                    blurFactor: 0.46,
-                    speed: 1.58,
-                    zoom: 0.93
+                highlightColor: 0xb5be2f,
+                midtoneColor: 0xe6e519,
+                lowlightColor: 0xcbeb38,
+                baseColor: 0x1c141e,
+                blurFactor: 0.57,
+                speed: 1.90,
+                zoom: 1.30
                 }
             }
         },
@@ -262,13 +262,13 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0xff8c00,
-                    midtoneColor: 0xff4500,
-                    lowlightColor: 0xffa500,
-                    baseColor: 0xff8c00,
-                    blurFactor: 0.51,
-                    speed: 1.72,
-                    zoom: 0.86
+                highlightColor: 0xfc9d34,
+                midtoneColor: 0xe69119,
+                lowlightColor: 0xeb6c38,
+                baseColor: 0x1c141e,
+                blurFactor: 0.57,
+                speed: 1.90,
+                zoom: 1.30
                 }
             }
         },
@@ -277,28 +277,27 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0x8b4513,
-                    midtoneColor: 0xa0522d,
-                    lowlightColor: 0xd2691e,
-                    baseColor: 0x8b4513,
-                    blurFactor: 0.57,
-                    speed: 1.55,
-                    zoom: 0.89
+                highlightColor: 0x7f4f24,
+                midtoneColor: 0x8c522b,
+                lowlightColor: 0x612e1a,
+                baseColor: 0x1c141e,
+                blurFactor: 0.57,
+                speed: 1.90,
+                zoom: 0.90
                 }
             }
         },
         sunset: {
             sidebar: '#ff7e5f',
             vanta: {
-                effect: VANTA.FOG,
+                effect: VANTA.CLOUDS,
                 options: {
-                    highlightColor: 0xff7e5f,
-                    midtoneColor: 0xff5f40,
-                    lowlightColor: 0xfeb47b,
-                    baseColor: 0xff7e5f,
-                    blurFactor: 0.49,
-                    speed: 1.68,
-                    zoom: 0.91
+                minHeight: 200.00,
+                minWidth: 200.00,
+                skyColor: 0xd78868,
+                cloudColor: 0xd8adde,
+                cloudShadowColor: 0xb63bd4
+
                 }
             }
         },
@@ -307,13 +306,12 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0x00ff00,
-                    midtoneColor: 0x008000,
-                    lowlightColor: 0x32cd32,
-                    baseColor: 0x000000,
-                    blurFactor: 0.53,
-                    speed: 1.90,
-                    zoom: 0.84
+                highlightColor: 0x1eff0f,
+                midtoneColor: 0x0,
+                lowlightColor: 0x54c83d,
+                baseColor: 0x0,
+                speed: 2.40,
+                zoom: 1.10
                 }
             }
         },
@@ -322,13 +320,12 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0x00bfff,
-                    midtoneColor: 0x0000ff,
-                    lowlightColor: 0x87ceeb,
-                    baseColor: 0x00bfff,
-                    blurFactor: 0.44,
-                    speed: 1.65,
-                    zoom: 0.94
+                highlightColor: 0x7a7bb6,
+                midtoneColor: 0x3e8dc5,
+                lowlightColor: 0x407dd7,
+                baseColor: 0x0,
+                speed: 2.40,
+                zoom: 1.10
                 }
             }
         },
@@ -337,13 +334,12 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0xb18f6a,
-                    midtoneColor: 0x967259,
-                    lowlightColor: 0xc4a484,
-                    baseColor: 0xb18f6a,
-                    blurFactor: 0.56,
-                    speed: 1.52,
-                    zoom: 0.88
+                highlightColor: 0xe3daa3,
+                midtoneColor: 0xe3c794,
+                lowlightColor: 0xe6c9b0,
+                baseColor: 0xbe9747,
+                speed: 2.40,
+                zoom: 1.10
                 }
             }
         },
@@ -352,13 +348,12 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0x191970,
-                    midtoneColor: 0x000080,
-                    lowlightColor: 0x483d8b,
-                    baseColor: 0x191970,
-                    blurFactor: 0.58,
-                    speed: 1.45,
-                    zoom: 0.83
+                highlightColor: 0x10041b,
+                midtoneColor: 0x6a0993,
+                lowlightColor: 0x590d51,
+                baseColor: 0x0,
+                speed: 2.40,
+                zoom: 1.10
                 }
             }
         },
@@ -367,13 +362,12 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0x4b0082,
-                    midtoneColor: 0x800080,
-                    lowlightColor: 0x9400d3,
-                    baseColor: 0x4b0082,
-                    blurFactor: 0.55,
-                    speed: 1.85,
-                    zoom: 0.87
+                highlightColor: 0x7a2cc3,
+                midtoneColor: 0x6a0993,
+                lowlightColor: 0x590d51,
+                baseColor: 0x0,
+                speed: 2.40,
+                zoom: 1.10
                 }
             }
         },
@@ -382,13 +376,12 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0x228b22,
-                    midtoneColor: 0x006400,
-                    lowlightColor: 0x32cd32,
-                    baseColor: 0x228b22,
-                    blurFactor: 0.47,
-                    speed: 1.70,
-                    zoom: 0.92
+                highlightColor: 0xb4c37d,
+                midtoneColor: 0x25b34d,
+                lowlightColor: 0x3d9b52,
+                baseColor: 0x335c3d,
+                speed: 2.40,
+                zoom: 1.10
                 }
             }
         },
@@ -397,13 +390,12 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0xff1493,
-                    midtoneColor: 0xff69b4,
-                    lowlightColor: 0xffc0cb,
-                    baseColor: 0xff1493,
-                    blurFactor: 0.43,
-                    speed: 1.95,
-                    zoom: 0.96
+                highlightColor: 0x7a4e8e,
+                midtoneColor: 0x382b9d,
+                lowlightColor: 0xe85c9c,
+                baseColor: 0x4daa60,
+                speed: 2.40,
+                zoom: 1.10
                 }
             }
         },
@@ -412,13 +404,12 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0xff69b4,
-                    midtoneColor: 0xff1493,
-                    lowlightColor: 0xffc0cb,
-                    baseColor: 0xff69b4,
-                    blurFactor: 0.45,
-                    speed: 1.75,
-                    zoom: 0.93
+                highlightColor: 0x5a69d9,
+                midtoneColor: 0x6a61f2,
+                lowlightColor: 0xd75ce8,
+                baseColor: 0xd08ae6,
+                speed: 2.40,
+                zoom: 1.10
                 }
             }
         },
@@ -427,13 +418,12 @@ document.addEventListener('DOMContentLoaded', () => {
             vanta: {
                 effect: VANTA.FOG,
                 options: {
-                    highlightColor: 0xff0000,
-                    midtoneColor: 0x008000,
-                    lowlightColor: 0xffffff,
-                    baseColor: 0xff0000,
-                    blurFactor: 0.50,
-                    speed: 1.80,
-                    zoom: 0.90
+                highlightColor: 0xe82c37,
+                midtoneColor: 0xe61546,
+                lowlightColor: 0x5ce85c,
+                baseColor: 0x41c058,
+                speed: 2.40,
+                zoom: 1.10
                 }
             }
         }
