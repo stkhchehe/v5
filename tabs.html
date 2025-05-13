@@ -1036,6 +1036,256 @@ body {
   background: var(--primary-dark);
 }
 
+.cursor-options-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary-dark);
+  padding: 15px;
+  border-radius: 10px;
+  z-index: 9999;
+  display: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.cursor-options-popup h3 {
+  margin: 0;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 16px;
+  text-transform: lowercase;
+}
+
+.cursor-options-popup hr {
+  border: none;
+  border-top: 1px solid #fff;
+  margin: 10px 0;
+}
+
+.cursor-colors {
+  display: flex;
+  gap: 15px;
+  padding: 10px 0;
+}
+
+.cursor-color-option {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cursor-color-option:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+.cursor-color-option[data-color="white"] {
+  background: #ffffff;
+}
+
+.cursor-color-option[data-color="blue"] {
+  background: #007bff;
+}
+
+.cursor-color-option[data-color="purple"] {
+  background: #6f42c1;
+}
+
+.cursor-color-option[data-color="default"] {
+  background: #343a40;
+}
+
+#cursor-dot {
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  display: none;
+  transition: transform 0.1s;
+}
+
+/* Update cursor options popup styling */
+.cursor-options-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary-dark);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 9999;
+  display: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  width: 300px;
+}
+
+.cursor-options-popup .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cursor-options-popup h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 16px;
+  text-transform: lowercase;
+}
+
+.cursor-options-popup .close-popup {
+  color: #fff;
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: 5px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.cursor-options-popup .close-popup:hover {
+  opacity: 1;
+}
+
+.cursor-colors {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.cursor-color-option {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cursor-color-option:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+#cursor-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  display: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s;
+}
+
+#cursor-dot.hover {
+  width: 15px;
+  height: 15px;
+}
+
+/* Add these animation keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Update cursor options popup styling */
+.cursor-options-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--primary-dark);
+  padding: 15px;
+  border-radius: 10px;
+  z-index: 9999;
+  display: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  width: 250px;
+  animation: slideUp 0.3s ease-out;
+}
+
+.cursor-options-popup .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cursor-options-popup h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  text-transform: lowercase;
+}
+
+.cursor-options-popup hr {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin: 8px 0;
+}
+
+.cursor-colors {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 15px;
+}
+
+.cursor-color-option {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Add page transition animations */
+.main-content, 
+.sidebar, 
+.browser-header,
+.center-content,
+.home-screen {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.tab {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Update cursor dot styling */
+#cursor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  display: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+#cursor-dot.hover {
+  width: 12px;
+  height: 12px;
+}
+
 
   </style>
 </head>
@@ -1182,12 +1432,12 @@ body {
     <span class="close-button" onclick="closePopup('extension-popup')">×</span>
     <hr>
     <ul>
-      <li>
-        <span>dark mode</span>
-        <span class="extension-toggle" data-extension="dark-mode" onclick="toggleExtension('dark-mode')">
-          <i class="fa-solid fa-toggle-off"></i>
-        </span>
-      </li>
+		<li>
+  		<span>custom cursor</span>
+ 		<span class="extension-toggle" data-extension="custom-cursor" onclick="toggleExtension('custom-cursor')">
+   	<i class="fa-solid fa-toggle-off"></i>
+  </span>
+</li>
       <li>
         <span>incognito mode</span>
         <span class="extension-toggle" data-extension="incognito" onclick="toggleExtension('incognito')">
@@ -1202,6 +1452,25 @@ body {
       </li>
     </ul>
   </div>
+  
+<div class="cursor-options-popup">
+  <div class="header">
+    <h3>cursor options</h3>
+    <button class="close-popup">&times;</button>
+  </div>
+  <hr>
+  <div class="cursor-colors">
+    <div class="cursor-color-option" data-color="white" style="background: #ffffff;"></div>
+    <div class="cursor-color-option" data-color="blue" style="background: #007bff;"></div>
+    <div class="cursor-color-option" data-color="purple" style="background: #6f42c1;"></div>
+    <div class="cursor-color-option" data-color="default" style="background: #343a40;"></div>
+  </div>
+</div>
+
+
+
+<div id="cursor-dot"></div>
+
 
   <div class="popup" id="history-popup">
     <h3>history</h3>
@@ -1733,6 +2002,178 @@ function updateIframe(originalUrl) {
   embedCodeText.textContent = "https://newunblockzone.github.io/active/iframe.html#https://" + cleanedUrl;
   bookmarkIcon.classList.toggle('bookmarked', bookmarks.some(bookmark => bookmark.url === currentUrl));
 }
+
+// Update your navigateToUrl function to handle incognito mode
+function navigateToUrl(input) {
+  if (!input.trim()) return;
+
+  let formattedUrl = input.trim();
+
+  if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
+    if (formattedUrl.includes(".")) {
+      formattedUrl = "https://" + formattedUrl;
+    } else {
+      formattedUrl = "https://duckduckgo.com/?q=" + encodeURIComponent(formattedUrl);
+    }
+  }
+
+  iframeHistory = iframeHistory.slice(0, currentIndex + 1);
+  iframeHistory.push(formattedUrl);
+  currentIndex++;
+  updateIframe(formattedUrl);
+
+  // Only add to history if not in incognito mode
+  if (!extensionStates['incognito']) {
+    addSearchToHistory(formattedUrl);
+  }
+}
+
+
+class CursorManager {
+  constructor() {
+    this.cursorDot = document.getElementById('cursor-dot');
+    this.optionsPopup = document.querySelector('.cursor-options-popup');
+    this.closePopupBtn = document.querySelector('.cursor-options-popup .close-popup');
+    this.isEnabled = localStorage.getItem('cursorEnabled') === 'true';
+    this.currentColor = localStorage.getItem('cursorColor') || 'default';
+    
+    this.init();
+  }
+
+  init() {
+    if (this.isEnabled && this.currentColor !== 'default') {
+      this.enableCursor();
+    }
+
+    document.addEventListener('mousemove', (e) => {
+      if (this.isEnabled && this.currentColor !== 'default') {
+        requestAnimationFrame(() => {
+          this.cursorDot.style.left = e.clientX + 'px';
+          this.cursorDot.style.top = e.clientY + 'px';
+        });
+      }
+    });
+
+    document.addEventListener('mouseover', (e) => {
+      if (this.isEnabled && this.currentColor !== 'default') {
+        if (e.target.matches('a, button, input, .sidebar a, .action-btn, .tab, .new-tab-btn, .cursor-color-option, .extension-toggle, .image-circle, .sidebar-bottom-button, .close-button, .copy-button, .clear-history-button')) {
+          this.cursorDot.classList.add('hover');
+        }
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      if (this.isEnabled && this.currentColor !== 'default') {
+        if (e.target.matches('a, button, input, .sidebar a, .action-btn, .tab, .new-tab-btn, .cursor-color-option, .extension-toggle, .image-circle, .sidebar-bottom-button, .close-button, .copy-button, .clear-history-button')) {
+          this.cursorDot.classList.remove('hover');
+        }
+      }
+    });
+
+    document.querySelectorAll('.cursor-color-option').forEach(option => {
+      option.addEventListener('click', () => {
+        const color = option.dataset.color;
+        this.setColor(color);
+      });
+    });
+
+    this.closePopupBtn.addEventListener('click', () => {
+      this.toggleOptionsPopup(false);
+    });
+  }
+
+  enableCursor() {
+    this.isEnabled = true;
+    if (this.currentColor !== 'default') {
+      this.cursorDot.style.display = 'block';
+      document.body.style.cursor = 'none';
+    } else {
+      this.cursorDot.style.display = 'none';
+      document.body.style.cursor = '';
+    }
+    localStorage.setItem('cursorEnabled', 'true');
+  }
+
+  disableCursor() {
+    this.isEnabled = false;
+    this.cursorDot.style.display = 'none';
+    document.body.style.cursor = '';
+    localStorage.setItem('cursorEnabled', 'false');
+    this.currentColor = 'default';
+    localStorage.setItem('cursorColor', 'default');
+  }
+
+  setColor(color) {
+    this.currentColor = color;
+    localStorage.setItem('cursorColor', color);
+
+    if (color === 'default') {
+      this.cursorDot.style.display = 'none';
+      document.body.style.cursor = '';
+    } else {
+      this.cursorDot.style.display = 'block';
+      document.body.style.cursor = 'none';
+      this.cursorDot.style.background = color;
+    }
+  }
+
+  toggleOptionsPopup(show) {
+    if (show) {
+      this.optionsPopup.style.display = 'block';
+    } else {
+      this.optionsPopup.style.display = 'none';
+    }
+  }
+}
+
+// Initialize cursor manager
+const cursorManager = new CursorManager();
+
+// Update toggleExtension function
+function toggleExtension(extensionName) {
+  extensionStates[extensionName] = !extensionStates[extensionName];
+  const toggleElement = document.querySelector(`.extension-toggle[data-extension="${extensionName}"] i`);
+
+  if (extensionStates[extensionName]) {
+    toggleElement.classList.remove('fa-toggle-off');
+    toggleElement.classList.add('fa-toggle-on');
+
+    if (extensionName === 'custom-cursor') {
+      cursorManager.enableCursor();
+      cursorManager.toggleOptionsPopup(true);
+    }
+  } else {
+    toggleElement.classList.remove('fa-toggle-on');
+    toggleElement.classList.add('fa-toggle-off');
+
+    if (extensionName === 'custom-cursor') {
+      cursorManager.disableCursor();
+      cursorManager.toggleOptionsPopup(false);
+    }
+  }
+
+  localStorage.setItem('extensionStates', JSON.stringify(extensionStates));
+}
+
+// Add page transition handler
+document.addEventListener('DOMContentLoaded', () => {
+  const savedStates = JSON.parse(localStorage.getItem('extensionStates')) || {};
+  if (savedStates['custom-cursor']) {
+    const toggleElement = document.querySelector('.extension-toggle[data-extension="custom-cursor"] i');
+    toggleElement.classList.remove('fa-toggle-off');
+    toggleElement.classList.add('fa-toggle-on');
+    cursorManager.enableCursor();
+  }
+
+  // Add fade-in effect to main content
+  document.body.style.opacity = '0';
+  setTimeout(() => {
+    document.body.style.transition = 'opacity 0.3s ease-in';
+    document.body.style.opacity = '1';
+  }, 0);
+});
+
+
 
   </script>
 </body>
