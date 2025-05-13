@@ -1,3 +1,176 @@
+// Add these color utility functions at the start of your theme.js file
+function getDarkerShade(color, percent = 20) {
+    let r = parseInt(color.slice(1,3), 16),
+        g = parseInt(color.slice(3,5), 16),
+        b = parseInt(color.slice(5,7), 16);
+
+    r = Math.floor(r * (100 - percent) / 100);
+    g = Math.floor(g * (100 - percent) / 100);
+    b = Math.floor(b * (100 - percent) / 100);
+
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function getLighterShade(color, percent = 20) {
+    let r = parseInt(color.slice(1,3), 16),
+        g = parseInt(color.slice(3,5), 16),
+        b = parseInt(color.slice(5,7), 16);
+
+    r = Math.min(255, Math.floor(r * (100 + percent) / 100));
+    g = Math.min(255, Math.floor(g * (100 + percent) / 100));
+    b = Math.min(255, Math.floor(b * (100 + percent) / 100));
+
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+// Update the applyTheme function
+function applyTheme(themeName) {
+    const theme = themes[themeName];
+    if (!theme) return;
+
+    // Generate color variants
+    const sidebarColor = theme.sidebar;
+    const darkerShade = getDarkerShade(sidebarColor, 20);
+    const evenDarker = getDarkerShade(sidebarColor, 30);
+    const slightlyDarker = getDarkerShade(sidebarColor, 10);
+    const muchDarker = getDarkerShade(sidebarColor, 40);
+    const lighterShade = getLighterShade(sidebarColor, 10);
+
+    // Create and apply dynamic styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .sidebar {
+            background: ${sidebarColor};
+            transition: background-color 0.5s ease;
+        }
+
+        .sidebar a:hover {
+            background: ${darkerShade};
+        }
+
+        .url-bar-wrapper,
+        .search-bar-small,
+        .tabs-container {
+            background: ${evenDarker};
+        }
+
+        .popup,
+        .theme-changer,
+        .cursor-options-popup {
+            background: ${darkerShade};
+            border: 1px solid ${slightlyDarker};
+        }
+
+        .tab {
+            background: ${evenDarker};
+        }
+
+        .tab.active {
+            background: ${sidebarColor};
+        }
+
+        .tab:hover,
+        .action-btn:hover,
+        .new-tab-btn:hover {
+            background: ${darkerShade};
+        }
+
+        .welcometwo button {
+            background: ${sidebarColor};
+        }
+
+        .welcometwo button:hover {
+            background: ${darkerShade};
+        }
+
+        .url-bar-icons i:hover,
+        .sidebar-bottom-button:hover,
+        .popup .close-button:hover {
+            background: ${darkerShade};
+        }
+
+        .theme-circle:hover {
+            border-color: ${sidebarColor};
+            box-shadow: 0 0 20px ${sidebarColor}80;
+        }
+
+        .theme-circle.active {
+            border-color: ${lighterShade};
+            box-shadow: 0 0 25px ${sidebarColor}80;
+        }
+
+        .browser-header {
+            background: ${darkerShade};
+        }
+
+        .popup-header {
+            background: ${darkerShade};
+        }
+
+        .popup-content {
+            background: ${evenDarker};
+        }
+
+        .extension-toggle:hover,
+        .bookmark-item:hover,
+        .history-item:hover {
+            background: ${darkerShade};
+        }
+
+        .clear-history-button {
+            background: ${darkerShade};
+        }
+
+        .clear-history-button:hover {
+            background: ${muchDarker};
+        }
+
+        /* Update Vanta colors */
+        #vanta-bg {
+            --highlight-color: ${sidebarColor};
+            --midtone-color: ${darkerShade};
+            --lowlight-color: ${evenDarker};
+            --base-color: ${muchDarker};
+        }
+    `;
+
+    // Remove any previous dynamic styles
+    const previousStyle = document.getElementById('dynamic-theme');
+    if (previousStyle) {
+        previousStyle.remove();
+    }
+
+    // Add ID to new style element and append it
+    style.id = 'dynamic-theme';
+    document.head.appendChild(style);
+
+    // Update Vanta background
+    initVanta({
+        ...theme,
+        vanta: {
+            ...theme.vanta,
+            options: {
+                ...theme.vanta.options,
+                highlightColor: parseInt(sidebarColor.slice(1), 16),
+                midtoneColor: parseInt(darkerShade.slice(1), 16),
+                lowlightColor: parseInt(evenDarker.slice(1), 16),
+                baseColor: parseInt(muchDarker.slice(1), 16)
+            }
+        }
+    });
+
+    // Save theme preference
+    localStorage.setItem('selectedTheme', themeName);
+
+    // Update active state of theme circles
+    document.querySelectorAll('.theme-circle').forEach(circle => {
+        circle.classList.remove('active');
+        if (circle.dataset.theme === themeName) {
+            circle.classList.add('active');
+        }
+    });
+}
+
 // Add this function at the start of your theme.js file
 function getDarkerShade(color, percent = 20) {
     // Convert hex to RGB
