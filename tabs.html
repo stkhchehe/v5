@@ -4,6 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#3d4060">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="responsive.css">
+  <script src="mobile.js" defer></script>
   <title>unblockzone</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1193,97 +1199,245 @@ body {
   height: 15px;
 }
 
-/* Add these animation keyframes */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Add these media queries and responsive styles */
+
+/* Base responsive setup */
+:root {
+  --sidebar-width-desktop: 6vw;
+  --sidebar-width-mobile: 60px;
+  --header-height-mobile: 50px;
 }
 
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+/* General responsive rules */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .browser-header {
+    margin-top: 0;
+    height: var(--header-height-mobile);
+  }
+
+  .url-bar-wrapper {
+    width: calc(100% - 20px);
+    height: 35px;
+  }
+
+  .browser-actions {
+    margin-left: 10px;
+  }
+
+  .action-btn {
+    width: 28px;
+    height: 28px;
+  }
 }
 
-/* Update cursor options popup styling */
-.cursor-options-popup {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: var(--primary-dark);
-  padding: 15px;
-  border-radius: 10px;
-  z-index: 9999;
-  display: none;
-  font-family: 'Inter', sans-serif;
-  font-weight: 800;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  width: 250px;
-  animation: slideUp 0.3s ease-out;
+/* Sidebar responsive styles */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100% !important;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar:hover {
+    width: 100% !important;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .text {
+    font-size: 0.8rem;
+    opacity: 1;
+    transform: none;
+  }
+
+  .sidebar-bottom-buttons {
+    display: none;
+  }
 }
 
-.cursor-options-popup .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+/* Tabs responsive styles */
+@media (max-width: 768px) {
+  .tabs-container {
+    left: 0 !important;
+    width: 100% !important;
+    height: 35px;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab {
+    max-width: 150px;
+    min-width: 80px;
+    height: 30px;
+    padding: 5px 25px 5px 10px;
+  }
+
+  .tab-title {
+    font-size: 0.8rem;
+  }
 }
 
-.cursor-options-popup h3 {
-  margin: 0;
-  color: #fff;
-  font-size: 14px;
-  text-transform: lowercase;
+/* Content area responsive styles */
+@media (max-width: 768px) {
+  .content-area {
+    height: calc(100vh - var(--header-height-mobile) - 60px);
+    margin-bottom: 60px;
+  }
+
+  .center-content {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .center-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .search-bar-small {
+    width: 100%;
+  }
+
+  .image-circles {
+    gap: 10px;
+  }
+
+  .image-circle {
+    width: 45px;
+    height: 45px;
+  }
 }
 
-.cursor-options-popup hr {
-  border: none;
-  border-top: 1px solid rgba(255,255,255,0.2);
-  margin: 8px 0;
+/* Popup responsive styles */
+@media (max-width: 768px) {
+  .popup {
+    width: 90% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    bottom: 70px;
+    right: auto;
+  }
+
+  .cursor-options-popup {
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 70px;
+    right: auto;
+  }
 }
 
-.cursor-colors {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 15px;
+/* iPad specific adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sidebar {
+    width: 70px;
+  }
+
+  .sidebar:hover {
+    width: 200px;
+  }
+
+  .main-content {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+  }
+
+  .tabs-container {
+    left: 70px;
+    width: calc(100% - 70px);
+  }
+
+  .center-content {
+    width: 80%;
+  }
 }
 
-.cursor-color-option {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  transition: transform 0.3s, box-shadow 0.3s;
+/* Landscape mode adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+  .sidebar {
+    height: 50px;
+  }
+
+  .content-area {
+    height: calc(100vh - var(--header-height-mobile) - 50px);
+    margin-bottom: 50px;
+  }
+
+  .center-content {
+    padding: 10px;
+  }
 }
 
-/* Add page transition animations */
-.main-content, 
-.sidebar, 
-.browser-header,
-.center-content,
-.home-screen {
-  animation: fadeIn 0.3s ease-out;
+/* High-resolution screens */
+@media (min-width: 1400px) {
+  .sidebar {
+    width: 84px;
+  }
+
+  .sidebar:hover {
+    width: 250px;
+  }
+
+  .main-content {
+    margin-left: 84px;
+    width: calc(100% - 84px);
+  }
+
+  .tabs-container {
+    left: 84px;
+    width: calc(100% - 84px);
+  }
 }
 
-.tab {
-  animation: slideUp 0.3s ease-out;
+/* Touch device optimizations */
+@media (hover: none) {
+  .sidebar a:hover,
+  .tab:hover,
+  .action-btn:hover {
+    transform: none;
+  }
+
+  .cursor-color-option:hover {
+    transform: none;
+  }
 }
 
-/* Update cursor dot styling */
-#cursor-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 99999;
-  display: none;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background-color 0.2s;
-}
+/* Safe area adjustments for modern mobile devices */
+@supports (padding: max(0px)) {
+  .sidebar {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
 
-#cursor-dot.hover {
-  width: 12px;
-  height: 12px;
+  .popup {
+    bottom: calc(70px + env(safe-area-inset-bottom, 0));
+  }
 }
 
 
@@ -1460,13 +1614,12 @@ body {
   </div>
   <hr>
   <div class="cursor-colors">
-    <div class="cursor-color-option" data-color="white" style="background: #ffffff;"></div>
-    <div class="cursor-color-option" data-color="blue" style="background: #007bff;"></div>
-    <div class="cursor-color-option" data-color="purple" style="background: #6f42c1;"></div>
-    <div class="cursor-color-option" data-color="default" style="background: #343a40;"></div>
+    <div class="cursor-color-option" data-color="white"></div>
+    <div class="cursor-color-option" data-color="blue"></div>
+    <div class="cursor-color-option" data-color="purple"></div>
+    <div class="cursor-color-option" data-color="default"></div>
   </div>
 </div>
-
 
 
 <div id="cursor-dot"></div>
@@ -2028,7 +2181,6 @@ function navigateToUrl(input) {
   }
 }
 
-
 class CursorManager {
   constructor() {
     this.cursorDot = document.getElementById('cursor-dot');
@@ -2041,10 +2193,12 @@ class CursorManager {
   }
 
   init() {
+    // Initialize cursor state
     if (this.isEnabled && this.currentColor !== 'default') {
       this.enableCursor();
     }
 
+    // Mouse move event
     document.addEventListener('mousemove', (e) => {
       if (this.isEnabled && this.currentColor !== 'default') {
         requestAnimationFrame(() => {
@@ -2054,6 +2208,7 @@ class CursorManager {
       }
     });
 
+    // Add hover effect for clickable elements
     document.addEventListener('mouseover', (e) => {
       if (this.isEnabled && this.currentColor !== 'default') {
         if (e.target.matches('a, button, input, .sidebar a, .action-btn, .tab, .new-tab-btn, .cursor-color-option, .extension-toggle, .image-circle, .sidebar-bottom-button, .close-button, .copy-button, .clear-history-button')) {
@@ -2070,6 +2225,7 @@ class CursorManager {
       }
     });
 
+    // Setup color options
     document.querySelectorAll('.cursor-color-option').forEach(option => {
       option.addEventListener('click', () => {
         const color = option.dataset.color;
@@ -2077,6 +2233,7 @@ class CursorManager {
       });
     });
 
+    // Setup close button
     this.closePopupBtn.addEventListener('click', () => {
       this.toggleOptionsPopup(false);
     });
@@ -2084,12 +2241,9 @@ class CursorManager {
 
   enableCursor() {
     this.isEnabled = true;
+    this.cursorDot.style.display = 'block';
     if (this.currentColor !== 'default') {
-      this.cursorDot.style.display = 'block';
       document.body.style.cursor = 'none';
-    } else {
-      this.cursorDot.style.display = 'none';
-      document.body.style.cursor = '';
     }
     localStorage.setItem('cursorEnabled', 'true');
   }
@@ -2099,8 +2253,6 @@ class CursorManager {
     this.cursorDot.style.display = 'none';
     document.body.style.cursor = '';
     localStorage.setItem('cursorEnabled', 'false');
-    this.currentColor = 'default';
-    localStorage.setItem('cursorColor', 'default');
   }
 
   setColor(color) {
@@ -2108,13 +2260,15 @@ class CursorManager {
     localStorage.setItem('cursorColor', color);
 
     if (color === 'default') {
-      this.cursorDot.style.display = 'none';
       document.body.style.cursor = '';
+      this.cursorDot.style.display = 'none';
     } else {
-      this.cursorDot.style.display = 'block';
       document.body.style.cursor = 'none';
+      this.cursorDot.style.display = 'block';
       this.cursorDot.style.background = color;
     }
+
+    this.enableCursor();
   }
 
   toggleOptionsPopup(show) {
@@ -2129,7 +2283,7 @@ class CursorManager {
 // Initialize cursor manager
 const cursorManager = new CursorManager();
 
-// Update toggleExtension function
+// Update your toggleExtension function
 function toggleExtension(extensionName) {
   extensionStates[extensionName] = !extensionStates[extensionName];
   const toggleElement = document.querySelector(`.extension-toggle[data-extension="${extensionName}"] i`);
@@ -2155,7 +2309,7 @@ function toggleExtension(extensionName) {
   localStorage.setItem('extensionStates', JSON.stringify(extensionStates));
 }
 
-// Add page transition handler
+// Load saved state on page load
 document.addEventListener('DOMContentLoaded', () => {
   const savedStates = JSON.parse(localStorage.getItem('extensionStates')) || {};
   if (savedStates['custom-cursor']) {
@@ -2164,13 +2318,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleElement.classList.add('fa-toggle-on');
     cursorManager.enableCursor();
   }
-
-  // Add fade-in effect to main content
-  document.body.style.opacity = '0';
-  setTimeout(() => {
-    document.body.style.transition = 'opacity 0.3s ease-in';
-    document.body.style.opacity = '1';
-  }, 0);
 });
 
 
