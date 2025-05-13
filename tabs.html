@@ -875,6 +875,167 @@ body {
   min-height: 100vh;
 }
 
+/* Update these color variables at the top of your CSS */
+:root {
+  --sidebar-color: #3d4060;
+  --sidebar-darker: #343654;
+  --sidebar-darkest: #2b2d45;
+  --text-color: #f8f9fa;
+  --hover-color: #4a4d7a;
+}
+
+/* Update these component colors */
+.tabs-container {
+  background: var(--sidebar-darker);
+}
+
+.browser-header {
+  background-color: var(--sidebar-color);
+}
+
+.url-bar-wrapper {
+  background-color: var(--sidebar-darkest);
+}
+
+.tab {
+  background: var(--sidebar-darker);
+}
+
+.tab.active {
+  background: var(--sidebar-color);
+}
+
+.tab:hover {
+  background: var(--hover-color);
+}
+
+.search-bar-small {
+  background-color: var(--sidebar-darkest);
+  border: 1px solid var(--hover-color);
+}
+
+/* Update these color variables at the top of your CSS */
+:root {
+  --primary-dark: #3d4060;      /* Main sidebar color */
+  --primary-darker: #343654;    /* Slightly darker shade */
+  --primary-darkest: #2b2d45;   /* Darkest shade for backgrounds */
+  --primary-hover: #4a4d7a;     /* Hover state color */
+  --text-light: #f8f9fa;
+}
+
+/* Update popup styling */
+.popup {
+  background-color: var(--primary-dark) !important;
+  border: 1px solid var(--primary-hover);
+}
+
+/* Update tab styling */
+.tab {
+  background: var(--primary-darker);
+}
+
+.tab.active {
+  background: var(--primary-dark);
+}
+
+.tab:hover {
+  background: var(--primary-hover);
+}
+
+/* Update URL bar and header */
+.browser-header {
+  background-color: var(--primary-dark);
+}
+
+.url-bar-wrapper {
+  background-color: var(--primary-darkest);
+}
+
+/* Update sidebar hover effects */
+.sidebar a:hover {
+  background: var(--primary-hover);
+}
+
+/* Update action buttons */
+.action-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Update extension popup items */
+#extension-popup li:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Update new tab button hover */
+.new-tab-btn:hover {
+  background: var(--primary-hover);
+}
+
+/* Update bookmark and history items */
+#bookmarks-list li:hover,
+#history-list li:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Update sidebar bottom buttons */
+.sidebar-bottom-button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Update search bar */
+.search-bar-small {
+  background-color: var(--primary-darkest);
+  border: 1px solid var(--primary-hover);
+}
+
+/* Update popup close button hover */
+.popup .close-button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Update clear history button */
+.clear-history-button {
+  background-color: var(--primary-dark);
+  border: 1px solid var(--primary-hover);
+}
+
+.clear-history-button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Update copy button */
+.copy-button {
+  background-color: var(--primary-dark);
+  border: 1px solid var(--primary-hover);
+}
+
+.copy-button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Update embed code container */
+.embed-code-container {
+  background-color: var(--primary-darkest);
+  border: 1px solid var(--primary-hover);
+}
+
+/* Update scrollbar colors */
+* {
+  scrollbar-color: var(--primary-hover) var(--primary-darkest);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-darkest);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-hover);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
 
   </style>
 </head>
