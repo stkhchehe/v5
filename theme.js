@@ -1,394 +1,318 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const themeChanger = document.querySelector('.theme-changer');
+    let vantaEffect = null;
 
-let vantaEffect = null;
-
-const themes = {
-    default: {
-        fogConfig: {
-            highlightColor: 0x3b4057,
-            midtoneColor: 0x4d5389,
-            lowlightColor: 0x5b5b7f,
-            baseColor: 0x353555,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
-        },
-        uiColors: {
+    // Complete theme configurations
+    const themes = {
+        default: {
             sidebar: '#3d4060',
-            sidebarHover: '#2d3048',
-            tabsContainer: '#2b3035',
-            searchBar: '#343a40',
-            text: '#ffffff'
-        }
-    },
-    dark: {
-        fogConfig: {
-            highlightColor: 0x222222,
-            midtoneColor: 0x111111,
-            lowlightColor: 0x000000,
-            baseColor: 0x000000,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+            vanta: {
+                highlightColor: 0x3b4057,
+                midtoneColor: 0x4d5389,
+                lowlightColor: 0x5b5b7f,
+                baseColor: 0x353555
+            }
         },
-        uiColors: {
+        black: {
             sidebar: '#000000',
-            sidebarHover: '#1a1a1a',
-            tabsContainer: '#000000',
-            searchBar: '#000000',
-            text: '#ffffff'
-        }
-    },
-    red: {
-        fogConfig: {
-            highlightColor: 0xff0000,
-            midtoneColor: 0xcc0000,
-            lowlightColor: 0x990000,
-            baseColor: 0xff0000,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+            vanta: {
+                highlightColor: 0x000000,
+                midtoneColor: 0x1a1a1a,
+                lowlightColor: 0x333333,
+                baseColor: 0x000000
+            }
         },
-        uiColors: {
-            sidebar: '#ff0000',
-            sidebarHover: '#cc0000',
-            tabsContainer: '#ff0000',
-            searchBar: '#ff0000',
-            text: '#ffffff'
-        }
-    },
-    blue: {
-        fogConfig: {
-            highlightColor: 0x0066cc,
-            midtoneColor: 0x004d99,
-            lowlightColor: 0x003366,
-            baseColor: 0x0066cc,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+        blue: {
+            sidebar: '#1e90ff',
+            vanta: {
+                highlightColor: 0x1e90ff,
+                midtoneColor: 0x0000cd,
+                lowlightColor: 0x4169e1,
+                baseColor: 0x0000ff
+            }
         },
-        uiColors: {
-            sidebar: '#0066cc',
-            sidebarHover: '#004d99',
-            tabsContainer: '#0066cc',
-            searchBar: '#0066cc',
-            text: '#ffffff'
-        }
-    },
-    purple: {
-        fogConfig: {
-            highlightColor: 0x800080,
-            midtoneColor: 0x660066,
-            lowlightColor: 0x400040,
-            baseColor: 0x800080,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+        pink: {
+            sidebar: '#ff69b4',
+            vanta: {
+                highlightColor: 0xff69b4,
+                midtoneColor: 0xff1493,
+                lowlightColor: 0xffc0cb,
+                baseColor: 0xff69b4
+            }
         },
-        uiColors: {
+        purple: {
             sidebar: '#800080',
-            sidebarHover: '#660066',
-            tabsContainer: '#800080',
-            searchBar: '#800080',
-            text: '#ffffff'
-        }
-    },
-    green: {
-        fogConfig: {
-            highlightColor: 0x008000,
-            midtoneColor: 0x006600,
-            lowlightColor: 0x004d00,
-            baseColor: 0x008000,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+            vanta: {
+                highlightColor: 0x800080,
+                midtoneColor: 0x4b0082,
+                lowlightColor: 0x8b008b,
+                baseColor: 0x800080
+            }
         },
-        uiColors: {
+        red: {
+            sidebar: '#ff0000',
+            vanta: {
+                highlightColor: 0xff0000,
+                midtoneColor: 0xdc143c,
+                lowlightColor: 0xff4500,
+                baseColor: 0xff0000
+            }
+        },
+        green: {
             sidebar: '#008000',
-            sidebarHover: '#006600',
-            tabsContainer: '#008000',
-            searchBar: '#008000',
-            text: '#ffffff'
-        }
-    },
-    orange: {
-        fogConfig: {
-            highlightColor: 0xff6600,
-            midtoneColor: 0xcc5200,
-            lowlightColor: 0x993d00,
-            baseColor: 0xff6600,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+            vanta: {
+                highlightColor: 0x008000,
+                midtoneColor: 0x006400,
+                lowlightColor: 0x228b22,
+                baseColor: 0x008000
+            }
         },
-        uiColors: {
-            sidebar: '#ff6600',
-            sidebarHover: '#cc5200',
-            tabsContainer: '#ff6600',
-            searchBar: '#ff6600',
-            text: '#ffffff'
-        }
-    },
-    brown: {
-        fogConfig: {
-            highlightColor: 0x8b4513,
-            midtoneColor: 0x6b3410,
-            lowlightColor: 0x4b240c,
-            baseColor: 0x8b4513,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+        yellow: {
+            sidebar: '#ffd700',
+            vanta: {
+                highlightColor: 0xffd700,
+                midtoneColor: 0xffa500,
+                lowlightColor: 0xffff00,
+                baseColor: 0xffd700
+            }
         },
-        uiColors: {
+        orange: {
+            sidebar: '#ff8c00',
+            vanta: {
+                highlightColor: 0xff8c00,
+                midtoneColor: 0xff4500,
+                lowlightColor: 0xffa500,
+                baseColor: 0xff8c00
+            }
+        },
+        brown: {
             sidebar: '#8b4513',
-            sidebarHover: '#6b3410',
-            tabsContainer: '#8b4513',
-            searchBar: '#8b4513',
-            text: '#ffffff'
-        }
-    },
-    pink: {
-        fogConfig: {
-            highlightColor: 0xff69b4,
-            midtoneColor: 0xff1493,
-            lowlightColor: 0xff1493,
-            baseColor: 0xff69b4,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+            vanta: {
+                highlightColor: 0x8b4513,
+                midtoneColor: 0xa0522d,
+                lowlightColor: 0xd2691e,
+                baseColor: 0x8b4513
+            }
         },
-        uiColors: {
-            sidebar: '#ff69b4',
-            sidebarHover: '#ff1493',
-            tabsContainer: '#ff69b4',
-            searchBar: '#ff69b4',
-            text: '#ffffff'
-        }
-    },
-    white: {
-        fogConfig: {
-            highlightColor: 0xffffff,
-            midtoneColor: 0xf0f0f0,
-            lowlightColor: 0xe0e0e0,
-            baseColor: 0xffffff,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+        sunset: {
+            sidebar: '#ff7e5f',
+            vanta: {
+                highlightColor: 0xff7e5f,
+                midtoneColor: 0xff5f40,
+                lowlightColor: 0xfeb47b,
+                baseColor: 0xff7e5f
+            }
         },
-        uiColors: {
-            sidebar: '#ffffff',
-            sidebarHover: '#f0f0f0',
-            tabsContainer: '#ffffff',
-            searchBar: '#ffffff',
-            text: '#000000'
-        }
-    },
-    sunset: {
-        fogConfig: {
-            highlightColor: 0xff6b6b,
-            midtoneColor: 0xffd93d,
-            lowlightColor: 0xff8c00,
-            baseColor: 0xff6b6b,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+        hacker: {
+            sidebar: '#00ff00',
+            vanta: {
+                highlightColor: 0x00ff00,
+                midtoneColor: 0x008000,
+                lowlightColor: 0x32cd32,
+                baseColor: 0x000000
+            }
         },
-        uiColors: {
-            sidebar: '#ff6b6b',
-            sidebarHover: '#ff5252',
-            tabsContainer: '#ff8c00',
-            searchBar: '#ff8c00',
-            text: '#ffffff'
-        }
-    },
-    hacker: {
-        fogConfig: {
-            highlightColor: 0x00ff00,
-            midtoneColor: 0x008000,
-            lowlightColor: 0x003300,
-            baseColor: 0x000000,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
-        },
-        uiColors: {
-            sidebar: '#000000',
-            sidebarHover: '#003300',
-            tabsContainer: '#000000',
-            searchBar: '#000000',
-            text: '#00ff00'
-        }
-    },
-    bubblegum: {
-        fogConfig: {
-            highlightColor: 0xff69b4,
-            midtoneColor: 0x87ceeb,
-            lowlightColor: 0xff69b4,
-            baseColor: 0xff69b4,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
-        },
-        uiColors: {
-            sidebar: '#ff69b4',
-            sidebarHover: '#ff1493',
-            tabsContainer: '#87ceeb',
-            searchBar: '#ff69b4',
-            text: '#ffffff'
-        }
-    },
-    // Additional themes...
-    galaxy: {
-        fogConfig: {
-            highlightColor: 0x4b0082,
-            midtoneColor: 0x800080,
-            lowlightColor: 0x483d8b,
-            baseColor: 0x2b0245,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
-        },
-        uiColors: {
-            sidebar: '#4b0082',
-            sidebarHover: '#380061',
-            tabsContainer: '#483d8b',
-            searchBar: '#4b0082',
-            text: '#ffffff'
-        }
-    },
-    ocean: {
-        fogConfig: {
-            highlightColor: 0x00bfff,
-            midtoneColor: 0x0099cc,
-            lowlightColor: 0x006699,
-            baseColor: 0x00bfff,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
-        },
-        uiColors: {
+        ocean: {
             sidebar: '#00bfff',
-            sidebarHover: '#0099cc',
-            tabsContainer: '#00bfff',
-            searchBar: '#00bfff',
-            text: '#ffffff'
-        }
-    },
-    forest: {
-        fogConfig: {
-            highlightColor: 0x228b22,
-            midtoneColor: 0x006400,
-            lowlightColor: 0x004d00,
-            baseColor: 0x228b22,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+            vanta: {
+                highlightColor: 0x00bfff,
+                midtoneColor: 0x0000ff,
+                lowlightColor: 0x87ceeb,
+                baseColor: 0x00bfff
+            }
         },
-        uiColors: {
+        "iced coffee": {
+            sidebar: '#b18f6a',
+            vanta: {
+                highlightColor: 0xb18f6a,
+                midtoneColor: 0x967259,
+                lowlightColor: 0xc4a484,
+                baseColor: 0xb18f6a
+            }
+        },
+        "night time": {
+            sidebar: '#191970',
+            vanta: {
+                highlightColor: 0x191970,
+                midtoneColor: 0x000080,
+                lowlightColor: 0x483d8b,
+                baseColor: 0x191970
+            }
+        },
+        galaxy: {
+            sidebar: '#4b0082',
+            vanta: {
+                highlightColor: 0x4b0082,
+                midtoneColor: 0x800080,
+                lowlightColor: 0x9400d3,
+                baseColor: 0x4b0082
+            }
+        },
+        forest: {
             sidebar: '#228b22',
-            sidebarHover: '#006400',
-            tabsContainer: '#228b22',
-            searchBar: '#228b22',
-            text: '#ffffff'
-        }
-    },
-    neon: {
-        fogConfig: {
-            highlightColor: 0xff00ff,
-            midtoneColor: 0xff00cc,
-            lowlightColor: 0xcc00cc,
-            baseColor: 0xff00ff,
-            blurFactor: 0.52,
-            speed: 1.60,
-            zoom: 0.90
+            vanta: {
+                highlightColor: 0x228b22,
+                midtoneColor: 0x006400,
+                lowlightColor: 0x32cd32,
+                baseColor: 0x228b22
+            }
         },
-        uiColors: {
-            sidebar: '#ff00ff',
-            sidebarHover: '#cc00cc',
-            tabsContainer: '#ff00ff',
-            searchBar: '#ff00ff',
-            text: '#ffffff'
+        "retro y2k": {
+            sidebar: '#ff1493',
+            vanta: {
+                highlightColor: 0xff1493,
+                midtoneColor: 0xff69b4,
+                lowlightColor: 0xffc0cb,
+                baseColor: 0xff1493
+            }
+        },
+        bubblegum: {
+            sidebar: '#ff69b4',
+            vanta: {
+                highlightColor: 0xff69b4,
+                midtoneColor: 0xff1493,
+                lowlightColor: 0xffc0cb,
+                baseColor: 0xff69b4
+            }
+        },
+        christmas: {
+            sidebar: '#ff0000',
+            vanta: {
+                highlightColor: 0xff0000,
+                midtoneColor: 0x008000,
+                lowlightColor: 0xffffff,
+                baseColor: 0xff0000
+            }
         }
-    }
-};
+    };
 
-function initVantaEffect(themeName) {
-    if (vantaEffect) {
-        vantaEffect.destroy();
-    }
-
-    const theme = themes[themeName];
-    if (!theme) return;
-
-    try {
-        vantaEffect = VANTA[theme.effect]({
+    // Initialize Vanta effect
+    function initVanta(theme) {
+        if (vantaEffect) vantaEffect.destroy();
+        vantaEffect = VANTA.FOG({
             el: "#vanta-bg",
             mouseControls: true,
             touchControls: true,
             gyroControls: false,
             minHeight: 200.00,
             minWidth: 200.00,
-            ...theme.config
+            ...theme.vanta,
+            blurFactor: 0.52,
+            speed: 1.60,
+            zoom: 0.90
         });
-
-        // Save the selected theme to localStorage
-        localStorage.setItem('selectedTheme', themeName);
-        
-        // Update sidebar color if applicable
-        const sidebar = document.querySelector('.sidebar');
-        if (sidebar) {
-            sidebar.style.backgroundColor = `#${theme.config.backgroundColor?.toString(16) || '3d4060'}`;
-        }
-    } catch (error) {
-        console.error(`Failed to initialize theme: ${themeName}`, error);
-        // Fallback to default theme if there's an error
-        if (themeName !== 'default') {
-            initVantaEffect('default');
-        }
     }
-}
 
-// Add click event listeners to theme circles
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize theme from localStorage or use default
-    const savedTheme = localStorage.getItem('selectedTheme') || 'default';
-    initVantaEffect(savedTheme);
+    // Apply theme function
+    function applyTheme(themeName) {
+        const theme = themes[themeName];
+        if (!theme) return;
+
+        // Update sidebar color with transition
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.transition = 'background-color 0.5s ease';
+        sidebar.style.backgroundColor = theme.sidebar;
+
+        // Update Vanta background
+        initVanta(theme);
+
+        // Save theme preference
+        localStorage.setItem('selectedTheme', themeName);
+
+        // Update active state of theme circles
+        document.querySelectorAll('.theme-circle').forEach(circle => {
+            circle.classList.remove('active');
+            if (circle.dataset.theme === themeName) {
+                circle.classList.add('active');
+            }
+        });
+    }
 
     // Add click handlers to theme circles
     document.querySelectorAll('.theme-circle').forEach(circle => {
         circle.addEventListener('click', () => {
             const themeName = circle.dataset.theme;
-            initVantaEffect(themeName);
+            applyTheme(themeName);
+
+            // Add animation to the clicked circle
+            circle.style.animation = 'pulse 0.5s';
+            setTimeout(() => {
+                circle.style.animation = '';
+            }, 500);
         });
     });
-});
 
-// Handle page visibility changes
-document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-        const savedTheme = localStorage.getItem('selectedTheme') || 'default';
-        initVantaEffect(savedTheme);
-    }
-});
+    // Apply saved theme or default on page load
+    const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+    applyTheme(savedTheme);
 
-// Handle window resize
-window.addEventListener('resize', () => {
-    if (vantaEffect) {
-        vantaEffect.resize();
-    }
-});
-
-// Optional: Add theme preview on hover
-document.querySelectorAll('.theme-circle').forEach(circle => {
-    let originalTheme;
-    
-    circle.addEventListener('mouseenter', () => {
-        originalTheme = localStorage.getItem('selectedTheme');
-        initVantaEffect(circle.dataset.theme);
-    });
-
-    circle.addEventListener('mouseleave', () => {
-        if (originalTheme) {
-            initVantaEffect(originalTheme);
+    // Add CSS for animations and styling
+    const style = document.createElement('style');
+    style.textContent = `
+        .theme-changer {
+            right: 20px;
+            left: auto !important;
+            width: 800px;
+            transform: translateX(100%);
+            animation: slideIn 0.5s forwards;
+            transition: all 0.3s ease;
         }
-    });
+
+        .theme-changer:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .theme-circle {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .theme-circle:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(255,255,255,0.6);
+        }
+
+        .theme-circle.active {
+            border: 3px solid #fff;
+            box-shadow: 0 0 25px rgba(255,255,255,0.8);
+        }
+
+        .theme-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 32px;
+            text-transform: lowercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .theme-divider {
+            height: 3px;
+            background: linear-gradient(to right, transparent, #fff, transparent);
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .theme-circles {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+    `;
+    document.head.appendChild(style);
 });
