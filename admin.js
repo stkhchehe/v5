@@ -1,313 +1,284 @@
 // admin.js
-
 class AdminController {
     constructor() {
-        // Connect to WebSocket server
         this.socket = new WebSocket('wss://your-websocket-server.com');
+        this.isAdmin = false;
+        this.isPanelOpen = false;
+        this.connectedUsers = 0;
         this.setupWebSocket();
-        this.effects = {
-            frozen: false,
-            glitching: false,
-            rickroll: false,
-            matrix: false,
-            shake: false
-        };
-        this.initialize();
+        this.createFloatingButton();
+    }
+
+    createFloatingButton() {
+        const button = document.createElement('div');
+        button.className = 'admin-float-button';
+        button.innerHTML = '<i class="fas fa-shield-alt"></i>';
+        document.body.appendChild(button);
+
+        button.addEventListener('click', () => this.toggleAdminPanel());
     }
 
     setupWebSocket() {
         this.socket.onopen = () => {
             console.log('Connected to admin control server');
+            // Send initial connection message
+            this.socket.send(JSON.stringify({
+                type: 'connect',
+                isAdmin: this.isAdmin
+            }));
         };
 
         this.socket.onmessage = (event) => {
-            const command = JSON.parse(event.data);
-            this.handleCommand(command);
+            const data = JSON.parse(event.data);
+            if (data.type === 'userCount') {
+                this.updateUserCount(data.count);
+            } else {
+                this.handleCommand(data);
+            }
         };
     }
 
-    initialize() {
-        // Add admin panel to DOM
-        const adminPanel = `
-            <div id="admin-panel" class="admin-panel">
-                <div class="admin-controls">
-                    <h3>admin control panel</h3>
-                    <div class="control-buttons">
-                        <button onclick="adminController.toggleFreeze()">freeze users</button>
-                        <button onclick="adminController.toggleRickroll()">rickroll</button>
-                        <button onclick="adminController.toggleGlitch()">glitch effect</button>
-                        <button onclick="adminController.toggleShake()">screen shake</button>
-                        <button onclick="adminController.toggleMatrix()">matrix effect</button>
-                        <button onclick="adminController.nukeScreen()">screen nuke</button>
-                    </div>
-                    <div class="admin-status">
-                        <span>connected users: <span id="user-count">0</span></span>
-                    </div>
-                </div>
+    toggleAdminPanel() {
+        if (!this.isAdmin) return;
+        
+        if (!this.isPanelOpen) {
+            this.showAdminPanel();
+        } else {
+            this.hideAdminPanel();
+        }
+        this.isPanelOpen = !this.isPanelOpen;
+    }
+
+    showAdminPanel() {
+        const panel = document.createElement('div');
+        panel.id = 'admin-panel';
+        panel.className = 'admin-panel panel-hidden';
+        
+        panel.innerHTML = `
+            <div class="admin-header">
+                <h2>admin control panel</h2>
+                <button class="close-panel">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="control-grid">
+                <!-- Control buttons here -->
+                <button class="control-button" data-effect="freeze">
+                    <i class="fas fa-icicles"></i> freeze users
+                </button>
+                <button class="control-button" data-effect="rickroll">
+                    <i class="fas fa-music"></i> rickroll
+                </button>
+                <!-- Add more buttons -->
+            </div>
+            <div class="users-counter">
+                <i class="fas fa-users"></i>
+                <span id="user-count">${this.connectedUsers}</span> users online
             </div>
         `;
-        document.body.insertAdjacentHTML('beforeend', adminPanel);
-    }
 
-    broadcastCommand(command) {
-        this.socket.send(JSON.stringify(command));
-    }
+        document.body.appendChild(panel);
+        
+        // Add close button handler
+        panel.querySelector('.close-panel').addEventListener('click', () => {
+            this.hideAdminPanel();
+        });
 
-    handleCommand(command) {
-        switch(command.type) {
-            case 'freeze':
-                this.executeFreeze(command.state);
-                break;
-            case 'rickroll':
-                this.executeRickroll(command.state);
-                break;
-            case 'glitch':
-                this.executeGlitch(command.state);
-                break;
-            case 'shake':
-                this.executeShake(command.state);
-                break;
-            case 'matrix':
-                this.executeMatrix(command.state);
-                break;
-            case 'nuke':
-                this.executeNuke();
-                break;
-        }
-    }
+        // Add effect button handlers
+        panel.querySelectorAll('.control-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const effect = button.dataset.effect;
+                this.toggleEffect(effect);
+                button.classList.toggle('active');
+            });
+        });
 
-    // Effect Toggle Functions
-    toggleFreeze() {
-        this.effects.frozen = !this.effects.frozen;
-        this.broadcastCommand({
-            type: 'freeze',
-            state: this.effects.frozen
+        // Animate panel in
+        requestAnimationFrame(() => {
+            panel.classList.remove('panel-hidden');
         });
     }
 
-    toggleRickroll() {
-        this.effects.rickroll = !this.effects.rickroll;
-        this.broadcastCommand({
-            type: 'rickroll',
-            state: this.effects.rickroll
-        });
+    hideAdminPanel() {
+        const panel = document.getElementById('admin-panel');
+        if (panel) {
+            panel.classList.add('panel-hidden');
+            setTimeout(() => panel.remove(), 300);
+        }
+        this.isPanelOpen = false;
     }
 
-    toggleGlitch() {
-        this.effects.glitching = !this.effects.glitching;
-        this.broadcastCommand({
-            type: 'glitch',
-            state: this.effects.glitching
-        });
-    }
-
-    toggleShake() {
-        this.effects.shake = !this.effects.shake;
-        this.broadcastCommand({
-            type: 'shake',
-            state: this.effects.shake
-        });
-    }
-
-    toggleMatrix() {
-        this.effects.matrix = !this.effects.matrix;
-        this.broadcastCommand({
-            type: 'matrix',
-            state: this.effects.matrix
-        });
-    }
-
-    nukeScreen() {
-        this.broadcastCommand({
-            type: 'nuke'
-        });
-    }
-
-    // Effect Execution Functions
-    executeFreeze(state) {
-        document.body.classList.toggle('frozen', state);
-        if (state) {
-            document.body.style.pointerEvents = 'none';
-        } else {
-            document.body.style.pointerEvents = 'auto';
+    updateUserCount(count) {
+        this.connectedUsers = count;
+        const countElement = document.getElementById('user-count');
+        if (countElement) {
+            countElement.textContent = count;
         }
     }
 
-    executeRickroll(state) {
-        if (state) {
-            const rickroll = document.createElement('iframe');
-            rickroll.id = 'rickroll';
-            rickroll.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:99999;';
-            rickroll.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1';
-            document.body.appendChild(rickroll);
-        } else {
-            const rickroll = document.getElementById('rickroll');
-            if (rickroll) rickroll.remove();
+    setAdmin(status) {
+        this.isAdmin = status;
+        const floatButton = document.querySelector('.admin-float-button');
+        if (floatButton) {
+            floatButton.style.display = status ? 'flex' : 'none';
         }
     }
 
-    executeGlitch(state) {
-        if (state) {
-            document.body.classList.add('glitch-effect');
-        } else {
-            document.body.classList.remove('glitch-effect');
+    // Add this to your CSS
+    const styles = `
+        .admin-float-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9998;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
         }
-    }
 
-    executeShake(state) {
-        if (state) {
-            document.body.classList.add('shake-effect');
-        } else {
-            document.body.classList.remove('shake-effect');
+        .admin-float-button i {
+            color: #ffffff;
+            font-size: 24px;
         }
-    }
 
-    executeMatrix(state) {
-        if (state) {
-            this.startMatrixEffect();
-        } else {
-            this.stopMatrixEffect();
+        .admin-float-button:hover {
+            transform: scale(1.1);
+            background: #2a2a2a;
         }
-    }
 
-    executeNuke() {
-        const nuke = document.createElement('div');
-        nuke.className = 'screen-nuke';
-        document.body.appendChild(nuke);
-        setTimeout(() => nuke.remove(), 2000);
-    }
-
-    startMatrixEffect() {
-        const canvas = document.createElement('canvas');
-        canvas.id = 'matrix-canvas';
-        canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9998;pointer-events:none;';
-        document.body.appendChild(canvas);
-        this.matrixEffect = new MatrixEffect(canvas);
-    }
-
-    stopMatrixEffect() {
-        const canvas = document.getElementById('matrix-canvas');
-        if (canvas) {
-            canvas.remove();
-            this.matrixEffect = null;
+        .admin-panel {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 400px;
+            background: rgba(26, 26, 26, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
         }
-    }
+
+        .panel-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .close-panel {
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .close-panel:hover {
+            transform: rotate(90deg);
+        }
+
+        .users-counter {
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+        }
+
+        .users-counter i {
+            margin-right: 8px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `;
+
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = styles;
+    document.head.appendChild(styleSheet);
 }
 
-// Matrix Effect Class
-class MatrixEffect {
-    constructor(canvas) {
-        this.canvas = canvas;
-        this.ctx = canvas.getContext('2d');
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        this.chars = '01';
-        this.fontSize = 10;
-        this.columns = this.canvas.width / this.fontSize;
-        this.drops = new Array(Math.floor(this.columns)).fill(1);
-        this.animate();
-    }
+// WebSocket Server (Node.js)
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 8080 });
 
-    animate() {
-        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.fillStyle = '#0F0';
-        this.ctx.font = this.fontSize + 'px monospace';
+const clients = new Map();
+let adminConnections = new Set();
+let regularUsers = new Set();
 
-        for (let i = 0; i < this.drops.length; i++) {
-            const text = this.chars[Math.floor(Math.random() * this.chars.length)];
-            this.ctx.fillText(text, i * this.fontSize, this.drops[i] * this.fontSize);
-            if (this.drops[i] * this.fontSize > this.canvas.height && Math.random() > 0.975) {
-                this.drops[i] = 0;
+wss.on('connection', (ws) => {
+    ws.id = Date.now();
+    clients.set(ws, { isAdmin: false });
+
+    ws.on('message', (message) => {
+        const data = JSON.parse(message);
+        
+        if (data.type === 'connect') {
+            clients.get(ws).isAdmin = data.isAdmin;
+            if (data.isAdmin) {
+                adminConnections.add(ws);
+            } else {
+                regularUsers.add(ws);
             }
-            this.drops[i]++;
+            broadcastUserCount();
+        } else if (data.type === 'effect') {
+            // Broadcast effect to all regular users
+            regularUsers.forEach(client => {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send(JSON.stringify(data));
+                }
+            });
         }
-        requestAnimationFrame(() => this.animate());
-    }
+    });
+
+    ws.on('close', () => {
+        const wasAdmin = clients.get(ws).isAdmin;
+        clients.delete(ws);
+        if (wasAdmin) {
+            adminConnections.delete(ws);
+        } else {
+            regularUsers.delete(ws);
+        }
+        broadcastUserCount();
+    });
+
+    broadcastUserCount();
+});
+
+function broadcastUserCount() {
+    const count = regularUsers.size;
+    const message = JSON.stringify({
+        type: 'userCount',
+        count: count
+    });
+    
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(message);
+        }
+    });
 }
-
-// Add required CSS
-const styles = `
-    .admin-panel {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: rgba(0, 0, 0, 0.8);
-        padding: 20px;
-        border-radius: 10px;
-        z-index: 99999;
-        color: white;
-        font-family: 'Inter', sans-serif;
-    }
-
-    .control-buttons {
-        display: grid;
-        gap: 10px;
-        margin-top: 15px;
-    }
-
-    .control-buttons button {
-        background: #2a2a2a;
-        border: none;
-        padding: 10px;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-        font-family: 'Inter', sans-serif;
-        text-transform: lowercase;
-        transition: background 0.3s;
-    }
-
-    .control-buttons button:hover {
-        background: #3a3a3a;
-    }
-
-    .glitch-effect {
-        animation: glitch 0.3s infinite;
-    }
-
-    .shake-effect {
-        animation: shake 0.5s infinite;
-    }
-
-    .screen-nuke {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: white;
-        z-index: 99999;
-        animation: nuke 2s forwards;
-    }
-
-    @keyframes glitch {
-        0% { transform: translate(0) }
-        20% { transform: translate(-5px, 5px) }
-        40% { transform: translate(5px, -5px) }
-        60% { transform: translate(-5px, -5px) }
-        80% { transform: translate(5px, 5px) }
-        100% { transform: translate(0) }
-    }
-
-    @keyframes shake {
-        0%, 100% { transform: translate(0, 0) }
-        25% { transform: translate(5px, 5px) }
-        50% { transform: translate(-5px, -5px) }
-        75% { transform: translate(-5px, 5px) }
-    }
-
-    @keyframes nuke {
-        0% { opacity: 0 }
-        10% { opacity: 1 }
-        100% { opacity: 0 }
-    }
-`;
-
-// Add styles to document
-const styleSheet = document.createElement('style');
-styleSheet.textContent = styles;
-document.head.appendChild(styleSheet);
-
-// Initialize admin controller
-const adminController = new AdminController();
