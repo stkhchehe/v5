@@ -875,7 +875,48 @@ particlesJS("particles-js", {
   "retina_detect": true
 });
 
+<script>
+  // Add this to your existing scripts
+  window.addEventListener('error', function(e) {
+    if (e.target.tagName.toLowerCase() === 'link' || e.target.tagName.toLowerCase() === 'script') {
+      window.location.href = '/404.html';
+    }
+  }, true);
 
-  </script>
+  // Check if the current page exists
+  fetch(window.location.href)
+    .then(response => {
+      if (!response.ok) {
+        window.location.href = '/404.html';
+      }
+    })
+    .catch(() => {
+      window.location.href = '/404.html';
+    });
+
+  // Handle navigation errors
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && !href.startsWith('http') && !href.startsWith('#')) {
+          e.preventDefault();
+          fetch(href)
+            .then(response => {
+              if (!response.ok) {
+                window.location.href = '/404.html';
+              } else {
+                window.location.href = href;
+              }
+            })
+            .catch(() => {
+              window.location.href = '/404.html';
+            });
+        }
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
