@@ -1,3 +1,136 @@
+// Add this function at the start of your theme.js file
+function getDarkerShade(color, percent = 20) {
+    // Convert hex to RGB
+    let r = parseInt(color.slice(1,3), 16),
+        g = parseInt(color.slice(3,5), 16),
+        b = parseInt(color.slice(5,7), 16);
+
+    // Darken each component
+    r = Math.floor(r * (100 - percent) / 100);
+    g = Math.floor(g * (100 - percent) / 100);
+    b = Math.floor(b * (100 - percent) / 100);
+
+    // Convert back to hex
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+// Update your theme configurations to include hover colors
+const themes = {
+    default: {
+        sidebar: '#3d4060',
+        sidebarHover: '#2d3048', // Darker shade
+        searchBar: '#343654',    // Slightly darker than sidebar
+        popup: '#2d3048',        // Even darker for popups
+        vanta: {
+            effect: VANTA.FOG,
+            options: {
+                highlightColor: 0x3b4057,
+                midtoneColor: 0x4d5389,
+                lowlightColor: 0x5b5b7f,
+                baseColor: 0x353555
+            }
+        }
+    },
+    // ... other themes with similar structure
+};
+
+// Update your applyTheme function
+function applyTheme(themeName) {
+    const theme = themes[themeName];
+    if (!theme) return;
+
+    // Get darker shades
+    const darkerShade = getDarkerShade(theme.sidebar);
+    const evenDarker = getDarkerShade(theme.sidebar, 30);
+
+    // Update CSS variables
+    document.documentElement.style.setProperty('--sidebar-color', theme.sidebar);
+    document.documentElement.style.setProperty('--sidebar-hover', theme.sidebarHover);
+    document.documentElement.style.setProperty('--search-bar-color', theme.searchBar);
+    document.documentElement.style.setProperty('--popup-color', theme.popup);
+
+    // Add this CSS to handle all hover effects and UI elements
+    const style = document.createElement('style');
+    style.textContent = `
+        .sidebar a:hover {
+            background: ${theme.sidebarHover};
+        }
+
+        .url-bar-wrapper,
+        .search-bar-small {
+            background: ${theme.searchBar};
+        }
+
+        .popup,
+        .theme-changer,
+        .cursor-options-popup {
+            background: ${theme.popup};
+        }
+
+        .tab:hover,
+        .action-btn:hover,
+        .new-tab-btn:hover {
+            background: ${theme.sidebarHover};
+        }
+
+        .welcometwo button {
+            background: ${theme.sidebar};
+        }
+
+        .welcometwo button:hover {
+            background: ${theme.sidebarHover};
+        }
+
+        .tabs-container {
+            background: ${theme.searchBar};
+        }
+
+        .tab {
+            background: ${theme.popup};
+        }
+
+        .tab.active {
+            background: ${theme.sidebar};
+        }
+
+        .url-bar-icons i:hover,
+        .sidebar-bottom-button:hover {
+            background: ${theme.sidebarHover};
+        }
+
+        .popup .close-button:hover {
+            background: ${theme.sidebarHover};
+        }
+
+        .theme-circle:hover {
+            border-color: ${theme.sidebar};
+            box-shadow: 0 0 20px ${theme.sidebar}80;
+        }
+
+        .theme-circle.active {
+            border-color: ${theme.sidebar};
+            box-shadow: 0 0 25px ${theme.sidebar}80;
+        }
+    `;
+
+    // Apply the style
+    document.head.appendChild(style);
+
+    // Update Vanta background
+    initVanta(theme);
+
+    // Save theme preference
+    localStorage.setItem('selectedTheme', themeName);
+
+    // Update active state of theme circles
+    document.querySelectorAll('.theme-circle').forEach(circle => {
+        circle.classList.remove('active');
+        if (circle.dataset.theme === themeName) {
+            circle.classList.add('active');
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const themeChanger = document.querySelector('.theme-changer');
     let vantaEffect = null;
