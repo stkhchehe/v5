@@ -528,6 +528,38 @@ body::before {
             </div>
           </a>
         </li>
+<li>
+  <a href="#" class="chat-link" onclick="toggleIframe()">
+    <div class="nav-container">
+      <div class="icon"><i class="fa-solid fa-message"></i></div>
+      <div class="text">chat</div>
+    </div>
+  </a>
+  <div id="iframeContainer" class="iframe-container">
+    <iframe src="c.html"></iframe>
+  </div>
+  <style>
+    .iframe-container {
+      display: none;
+      margin-top: 20px;
+    }
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: 1px solid #ccc;
+    }
+  </style>
+  <script>
+    function toggleIframe() {
+      const container = document.getElementById('iframeContainer');
+      if (container.style.display === 'none' || container.style.display === '') {
+        container.style.display = 'block';
+      } else {
+        container.style.display = 'none';
+      }
+    }
+  </script>
+</li>
         <li>
           <a href="/g.html" class="games-link">
             <div class="nav-container">
